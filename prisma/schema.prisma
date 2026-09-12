@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum BannerType {
+  CHARACTER
+  WEAPON
+}
+
+enum PullResult {
+  WIN
+  LOSE
+}
+
+model BalanceEntry {
+  id        String   @id @default(cuid())
+  date      DateTime @unique
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
+model SpendEntry {
+  id         String     @id @default(cuid())
+  date       DateTime
+  amount     Int
+  category   BannerType
+  bannerName String?
+  note       String?
+  createdAt  DateTime   @default(now())
+}
+
+model PullEntry {
+  id         String     @id @default(cuid())
+  date       DateTime
+  bannerType BannerType
+  bannerName String
+  itemName   String
+  result     PullResult
+  pityAtPull Int
+  createdAt  DateTime   @default(now())
+}
