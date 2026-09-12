@@ -45,3 +45,11 @@ model PullEntry {
   pityAtPull Int
   createdAt  DateTime   @default(now())
 }
+
+// Tracks pulls made since the last logged 5-star, per banner type, so the
+// dashboard can show live pity progress even between 5-star hits.
+model PityCounter {
+  bannerType  BannerType @id
+  currentPity Int        @default(0)
+  updatedAt   DateTime   @updatedAt
+}
