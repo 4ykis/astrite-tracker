@@ -21,9 +21,12 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
    cp .env.example .env
    ```
 
-   - `DATABASE_URL` / `DIRECT_URL` — рядок підключення до Postgres (Vercel
-     Postgres, Supabase, Neon тощо). Якщо провайдер дає лише один URL,
-     використайте однакове значення для обох.
+   - `WUWA_PRISMA_DATABASE_URL` / `WUWA_DATABASE_URL` — рядки підключення
+     до Postgres. Ці назви збігаються з тим, що Vercel Postgres (Neon)
+     автоматично створює при підключенні бази до проєкту з префіксом
+     `WUWA_`. Для локальної розробки вкажіть тут ваш локальний Postgres
+     (однакове значення для обох підійде, якщо немає окремого
+     pooled/direct URL).
    - `APP_PASSCODE` — код доступу до застосунку.
    - `SESSION_SECRET` — випадковий секрет для підпису cookie сесії
      (`openssl rand -base64 32`).
@@ -44,14 +47,14 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
 
 ## Деплой на Vercel
 
-1. Створіть Postgres-базу (Vercel Postgres, Supabase або будь-який інший
-   провайдер) і скопіюйте connection string.
-2. У налаштуваннях проєкту на Vercel додайте env-змінні з `.env.example`
-   (`DATABASE_URL`, `DIRECT_URL`, `APP_PASSCODE`, `SESSION_SECRET`).
+1. У проєкті на Vercel: Storage → Create Database → Postgres, і підключіть
+   її до проєкту. Vercel сам створить `WUWA_PRISMA_DATABASE_URL` і
+   `WUWA_DATABASE_URL` (та кілька інших) — нічого копіювати вручну не треба.
+2. Додайте власні env-змінні: `APP_PASSCODE`, `SESSION_SECRET`.
 3. Задеплойте — команда `npm run build` автоматично виконає
    `prisma generate` (через `postinstall`).
 4. Застосуйте міграції до продакшн-бази один раз (локально з продакшн
-   `DATABASE_URL`/`DIRECT_URL` у `.env`, або через Vercel CLI):
+   `WUWA_PRISMA_DATABASE_URL`/`WUWA_DATABASE_URL` у `.env`, або через Vercel CLI):
 
    ```bash
    npx prisma migrate deploy
