@@ -25,11 +25,11 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
   return { error: undefined };
 }
 
-export async function incrementPity(bannerType: BannerType) {
+export async function incrementPity(bannerType: BannerType, amount = 1) {
   await prisma.pityCounter.upsert({
     where: { bannerType },
-    create: { bannerType, currentPity: 1 },
-    update: { currentPity: { increment: 1 } },
+    create: { bannerType, currentPity: amount },
+    update: { currentPity: { increment: amount } },
   });
 
   revalidatePath("/");

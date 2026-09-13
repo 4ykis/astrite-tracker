@@ -8,9 +8,16 @@ export default function BalanceForm({ currentBalance }: { currentBalance: number
 
   return (
     <form action={formAction} className="flex flex-col gap-3">
-      <label htmlFor="amount" className="text-sm font-medium text-slate-300">
-        Баланс astrite сьогодні
-      </label>
+      <div className="flex items-baseline justify-between">
+        <label htmlFor="amount" className="text-sm font-medium text-slate-300">
+          Баланс astrite сьогодні
+        </label>
+        {currentBalance !== null && (
+          <span className="text-sm text-slate-500">
+            Поточний: <span className="font-semibold text-amber-300">{currentBalance}</span>
+          </span>
+        )}
+      </div>
       <div className="flex gap-2">
         <input
           id="amount"

@@ -48,10 +48,18 @@ export default function PityBlock({ pity }: { pity: PityInfo[] }) {
               <button
                 type="button"
                 disabled={isPending}
-                onClick={() => startTransition(() => incrementPity(p.bannerType))}
+                onClick={() => startTransition(() => incrementPity(p.bannerType, 1))}
                 className="flex-1 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
               >
                 +1 пул
+              </button>
+              <button
+                type="button"
+                disabled={isPending}
+                onClick={() => startTransition(() => incrementPity(p.bannerType, 10))}
+                className="flex-1 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
+              >
+                +10 пулів
               </button>
               <button
                 type="button"
