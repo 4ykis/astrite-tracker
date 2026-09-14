@@ -1,16 +1,18 @@
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
-import { getYesterdayIncome } from "@/lib/income";
+import { getIncomeSummary, getYesterdayIncome } from "@/lib/income";
 import { getPityInfo, getWinRate } from "@/lib/gacha";
 import BalanceForm from "./BalanceForm";
 import PityBlock from "./PityBlock";
+import IncomeStats from "./IncomeStats";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [latestBalance, yesterdayIncome, pity, winRate] = await Promise.all([
+  const [latestBalance, yesterdayIncome, incomeSummary, pity, winRate] = await Promise.all([
     prisma.balanceEntry.findFirst({ orderBy: { date: "desc" } }),
     getYesterdayIncome(),
+    getIncomeSummary(),
     getPityInfo(),
     getWinRate(50),
   ]);
@@ -24,15 +26,11 @@ export default async function DashboardPage() {
       </Card>
 
       <Card>
-        <p className="text-sm text-slate-400">Дохід за вчора</p>
-        <p className="mt-1 text-2xl font-semibold text-amber-300">
-          {yesterdayIncome === null ? "—" : `${yesterdayIncome > 0 ? "+" : ""}${yesterdayIncome} astrite`}
-        </p>
-        {yesterdayIncome === null && (
-          <p className="mt-1 text-xs text-slate-500">
-            Потрібно щонайменше два записи балансу поспіль
-          </p>
-        )}
+        <IncomeStats
+          yesterday={yesterdayIncome}
+          last7Days={incomeSummary.last7Days}
+          allTime={incomeSummary.allTime}
+        />
       </Card>
 
       <Card>

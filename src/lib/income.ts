@@ -8,6 +8,7 @@ import {
   startOfMonth,
   startOfWeek,
   startOfYear,
+  toDayStart,
 } from "@/lib/date";
 
 export type Granularity = "day" | "week" | "month" | "year";
@@ -118,4 +119,51 @@ export async function getYesterdayIncome(): Promise<number | null> {
   });
 
   return latest.amount - previous.amount + (spendSum._sum.amount ?? 0);
+}
+
+export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
+
+function computeRange(
+  balances: { date: Date; amount: number }[],
+  spends: { date: Date; amount: number }[],
+  start: Date,
+  end: Date,
+  days: number
+): IncomeRange {
+  const startBalance = balanceAtOrBefore(balances, start);
+  const endBalance = balanceAtOrBefore(balances, end);
+
+  if (startBalance === null || endBalance === null) {
+    return { income: null, avgPerDay: null, days };
+  }
+
+  const spendSum = spends
+    .filter((s) => s.date >= start && s.date < end)
+    .reduce((sum, s) => sum + s.amount, 0);
+
+  const income = endBalance - startBalance + spendSum;
+  return { income, avgPerDay: days > 0 ? income / days : null, days };
+}
+
+export type IncomeSummary = { last7Days: IncomeRange; allTime: IncomeRange };
+
+/** Income (and average per day) over the last 7 days and over the whole tracked history. */
+export async function getIncomeSummary(): Promise<IncomeSummary> {
+  const [balances, spends] = await Promise.all([
+    prisma.balanceEntry.findMany({ orderBy: { date: "asc" } }),
+    prisma.spendEntry.findMany({ orderBy: { date: "asc" } }),
+  ]);
+
+  const now = toDayStart(new Date());
+  const last7Days = computeRange(balances, spends, addDays(now, -7), now, 7);
+
+  let allTime: IncomeRange = { income: null, avgPerDay: null, days: 0 };
+  if (balances.length >= 2) {
+    const firstDate = balances[0].date;
+    const lastDate = balances[balances.length - 1].date;
+    const days = Math.max(1, Math.round((lastDate.getTime() - firstDate.getTime()) / 86_400_000));
+    allTime = computeRange(balances, spends, firstDate, lastDate, days);
+  }
+
+  return { last7Days, allTime };
 }
