@@ -22,12 +22,42 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
   });
 
   revalidatePath("/");
+  revalidatePath("/history");
+  return { error: undefined };
+}
+
+export async function updateBalanceEntry(
+  id: string,
+  _prevState: { error?: string } | undefined,
+  formData: FormData,
+) {
+  const amount = Number(formData.get("amount"));
+  const dateRaw = String(formData.get("date") ?? "");
+
+  if (!Number.isFinite(amount) || amount < 0) {
+    return { error: "Введіть коректну кількість astrite" };
+  }
+  if (!dateRaw) {
+    return { error: "Введіть дату" };
+  }
+
+  const date = toDayStart(new Date(`${dateRaw}T00:00:00Z`));
+
+  try {
+    await prisma.balanceEntry.update({ where: { id }, data: { date, amount } });
+  } catch {
+    return { error: "Запис на цю дату вже існує" };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/history");
   return { error: undefined };
 }
 
 export async function deleteBalanceEntry(id: string) {
   await prisma.balanceEntry.delete({ where: { id } });
   revalidatePath("/");
+  revalidatePath("/history");
 }
 
 export async function incrementPity(bannerType: BannerType, amount = 1) {
