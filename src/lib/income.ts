@@ -89,7 +89,7 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
     prisma.spendEntry.findMany({ orderBy: { date: "asc" } }),
   ]);
 
-  const buckets = buildBuckets(granularity, new Date());
+  const buckets = buildBuckets(granularity, toDayStart(new Date()));
 
   return buckets.map((bucket) => {
     const startBalance = balanceAtOrBefore(balances, bucket.start);
