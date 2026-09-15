@@ -25,6 +25,11 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
   return { error: undefined };
 }
 
+export async function deleteBalanceEntry(id: string) {
+  await prisma.balanceEntry.delete({ where: { id } });
+  revalidatePath("/");
+}
+
 export async function incrementPity(bannerType: BannerType, amount = 1) {
   await prisma.pityCounter.upsert({
     where: { bannerType },

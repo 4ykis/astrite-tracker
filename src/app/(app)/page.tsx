@@ -3,26 +3,32 @@ import { prisma } from "@/lib/prisma";
 import { getIncomeSummary, getYesterdayIncome } from "@/lib/income";
 import { getPityInfo, getWinRate } from "@/lib/gacha";
 import BalanceForm from "./BalanceForm";
+import BalanceHistory from "./BalanceHistory";
 import PityBlock from "./PityBlock";
 import IncomeStats from "./IncomeStats";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [latestBalance, yesterdayIncome, incomeSummary, pity, winRate] = await Promise.all([
-    prisma.balanceEntry.findFirst({ orderBy: { date: "desc" } }),
-    getYesterdayIncome(),
-    getIncomeSummary(),
-    getPityInfo(),
-    getWinRate(50),
-  ]);
+  const [latestBalance, recentBalances, yesterdayIncome, incomeSummary, pity, winRate] =
+    await Promise.all([
+      prisma.balanceEntry.findFirst({ orderBy: { date: "desc" } }),
+      prisma.balanceEntry.findMany({ orderBy: { date: "desc" }, take: 5 }),
+      getYesterdayIncome(),
+      getIncomeSummary(),
+      getPityInfo(),
+      getWinRate(50),
+    ]);
 
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-lg font-semibold text-slate-100">Дашборд</h1>
 
       <Card>
-        <BalanceForm currentBalance={latestBalance?.amount ?? null} />
+        <div className="flex flex-col gap-4">
+          <BalanceForm currentBalance={latestBalance?.amount ?? null} />
+          <BalanceHistory entries={recentBalances} />
+        </div>
       </Card>
 
       <Card>
