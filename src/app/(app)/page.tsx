@@ -44,6 +44,28 @@ export default async function DashboardPage() {
         </div>
         <PityBlock pity={pity} />
       </Card>
+
+      <Card>
+        <h2 className="mb-3 text-sm font-medium text-slate-300">Корисні посилання</h2>
+        <div className="flex flex-col gap-2">
+          <a
+            href="https://wuthering-waves-map.appsample.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-slate-800 px-4 py-2.5 text-sm text-slate-300 transition hover:border-amber-400 hover:text-amber-300"
+          >
+            Wuthering Waves Interactive Map ↗
+          </a>
+          <a
+            href="https://wuwatracker.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-slate-800 px-4 py-2.5 text-sm text-slate-300 transition hover:border-amber-400 hover:text-amber-300"
+          >
+            WuWa Tracker ↗
+          </a>
+        </div>
+      </Card>
     </div>
   );
 }
