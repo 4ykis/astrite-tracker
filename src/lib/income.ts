@@ -76,12 +76,45 @@ function balanceAtOrBefore(
   return result;
 }
 
+/**
+ * Income for [start, end), falling back to the earliest balance check-in
+ * inside the range when there's none before `start` yet (e.g. tracking only
+ * started partway through the current month/week) — this reports whatever
+ * partial income is computable for the period-so-far instead of nothing.
+ */
+function bucketIncome(
+  balances: { date: Date; amount: number }[],
+  spends: { date: Date; amount: number }[],
+  start: Date,
+  end: Date
+): number | null {
+  let effectiveStart = start;
+  let startBalance = balanceAtOrBefore(balances, start);
+
+  if (startBalance === null) {
+    const firstInRange = balances.find((b) => b.date >= start && b.date < end);
+    if (!firstInRange) return null;
+    startBalance = firstInRange.amount;
+    effectiveStart = firstInRange.date;
+  }
+
+  const endBalance = balanceAtOrBefore(balances, end);
+  if (endBalance === null) return null;
+
+  const spendSum = spends
+    .filter((s) => s.date >= effectiveStart && s.date < end)
+    .reduce((sum, s) => sum + s.amount, 0);
+
+  return endBalance - startBalance + spendSum;
+}
+
 export type IncomePoint = { label: string; income: number | null; spend: number };
 
 /**
  * income(period) = (balance_end - balance_start) + sum(spend in period)
  * balance_start/end are the nearest recorded balance check-ins at the bucket
- * boundaries; income is null when we don't have both boundary balances yet.
+ * boundaries. When tracking only started partway through the bucket, income
+ * falls back to whatever partial period is computable (see bucketIncome).
  */
 export async function getIncomeSeries(granularity: Granularity): Promise<IncomePoint[]> {
   const [balances, spends] = await Promise.all([
@@ -92,18 +125,13 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
   const buckets = buildBuckets(granularity, toDayStart(new Date()));
 
   return buckets.map((bucket) => {
-    const startBalance = balanceAtOrBefore(balances, bucket.start);
-    const endBalance = balanceAtOrBefore(balances, bucket.end);
-
     const spendSum = spends
       .filter((s) => s.date >= bucket.start && s.date < bucket.end)
       .reduce((sum, s) => sum + s.amount, 0);
 
-    if (startBalance === null || endBalance === null) {
-      return { label: bucket.label, income: null, spend: spendSum };
-    }
+    const income = bucketIncome(balances, spends, bucket.start, bucket.end);
 
-    return { label: bucket.label, income: endBalance - startBalance + spendSum, spend: spendSum };
+    return { label: bucket.label, income, spend: spendSum };
   });
 }
 
@@ -130,18 +158,11 @@ function computeRange(
   end: Date,
   days: number
 ): IncomeRange {
-  const startBalance = balanceAtOrBefore(balances, start);
-  const endBalance = balanceAtOrBefore(balances, end);
-
-  if (startBalance === null || endBalance === null) {
+  const income = bucketIncome(balances, spends, start, end);
+  if (income === null) {
     return { income: null, avgPerDay: null, days };
   }
 
-  const spendSum = spends
-    .filter((s) => s.date >= start && s.date < end)
-    .reduce((sum, s) => sum + s.amount, 0);
-
-  const income = endBalance - startBalance + spendSum;
   return { income, avgPerDay: days > 0 ? income / days : null, days };
 }
 
