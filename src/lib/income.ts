@@ -76,7 +76,7 @@ function balanceAtOrBefore(
   return result;
 }
 
-export type IncomePoint = { label: string; income: number | null };
+export type IncomePoint = { label: string; income: number | null; spend: number };
 
 /**
  * income(period) = (balance_end - balance_start) + sum(spend in period)
@@ -95,15 +95,15 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
     const startBalance = balanceAtOrBefore(balances, bucket.start);
     const endBalance = balanceAtOrBefore(balances, bucket.end);
 
-    if (startBalance === null || endBalance === null) {
-      return { label: bucket.label, income: null };
-    }
-
     const spendSum = spends
       .filter((s) => s.date >= bucket.start && s.date < bucket.end)
       .reduce((sum, s) => sum + s.amount, 0);
 
-    return { label: bucket.label, income: endBalance - startBalance + spendSum };
+    if (startBalance === null || endBalance === null) {
+      return { label: bucket.label, income: null, spend: spendSum };
+    }
+
+    return { label: bucket.label, income: endBalance - startBalance + spendSum, spend: spendSum };
   });
 }
 
