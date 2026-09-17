@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { BalanceEntry } from "@prisma/client";
 import { deleteBalanceEntry, updateBalanceEntry } from "./actions";
+import { toPulls } from "@/lib/astrite";
 
 function toDateInputValue(date: Date) {
   return date.toISOString().slice(0, 10);
@@ -77,7 +78,8 @@ export default function BalanceHistory({ entries }: { entries: BalanceEntry[] })
           <li key={entry.id} className="flex items-center justify-between gap-3 py-2">
             <span className="text-sm text-slate-300">
               {entry.date.toLocaleDateString("uk-UA", { timeZone: "UTC" })}{" "}
-              <span className="font-medium text-slate-100">{entry.amount} astrite</span>
+              <span className="font-medium text-slate-100">{entry.amount} astrite</span>{" "}
+              <span className="text-slate-500">({toPulls(entry.amount)} круток)</span>
             </span>
             <span className="flex items-center gap-1">
               <button

@@ -2,8 +2,7 @@
 
 import { useActionState } from "react";
 import { saveTodayBalance } from "./actions";
-
-const PULL_COST = 160;
+import { toPulls } from "@/lib/astrite";
 
 export default function BalanceForm({ currentBalance }: { currentBalance: number | null }) {
   const [state, formAction, isPending] = useActionState(saveTodayBalance, undefined);
@@ -17,9 +16,7 @@ export default function BalanceForm({ currentBalance }: { currentBalance: number
         {currentBalance !== null && (
           <span className="text-sm text-slate-500">
             Поточний: <span className="font-semibold text-amber-300">{currentBalance}</span>{" "}
-            <span className="text-slate-500">
-              ({Math.floor(currentBalance / PULL_COST)} круток)
-            </span>
+            <span className="text-slate-500">({toPulls(currentBalance)} круток)</span>
           </span>
         )}
       </div>

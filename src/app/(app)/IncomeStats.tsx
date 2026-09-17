@@ -1,8 +1,9 @@
 import type { IncomeRange } from "@/lib/income";
+import { toPulls } from "@/lib/astrite";
 
 function formatAstrite(value: number | null) {
   if (value === null) return "—";
-  return `${value > 0 ? "+" : ""}${value} astrite`;
+  return `${value > 0 ? "+" : ""}${value} astrite (${toPulls(Math.abs(value))} круток)`;
 }
 
 function StatBlock({
