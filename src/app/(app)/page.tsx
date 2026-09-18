@@ -64,6 +64,14 @@ export default async function DashboardPage() {
           >
             WuWa Tracker ↗
           </a>
+          <a
+            href="https://wuthering.gg/map"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-slate-800 px-4 py-2.5 text-sm text-slate-300 transition hover:border-amber-400 hover:text-amber-300"
+          >
+            Wuthering.gg Map ↗
+          </a>
         </div>
       </Card>
     </div>
