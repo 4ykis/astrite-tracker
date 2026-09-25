@@ -7,11 +7,11 @@
 const APP_TIMEZONE = "Europe/Kyiv";
 
 /**
- * The tracked "day" resets at 05:00 local time instead of midnight, so a
+ * The tracked "day" resets at 12:00 local time instead of midnight, so a
  * late-night session (e.g. 21:00 -> 02:00) stays on one day instead of
  * splitting across two.
  */
-const DAY_BOUNDARY_HOUR = 5;
+const DAY_BOUNDARY_HOUR = 12;
 
 function getZonedYMD(date: Date, timeZone: string) {
   const parts = new Intl.DateTimeFormat("en-CA", {
@@ -28,7 +28,7 @@ function getZonedYMD(date: Date, timeZone: string) {
 /**
  * Normalizes an instant to the UTC-midnight marker for the tracked day it
  * falls into: its APP_TIMEZONE calendar day, shifted back by
- * DAY_BOUNDARY_HOUR so anything before 05:00 local still counts as the
+ * DAY_BOUNDARY_HOUR so anything before 12:00 local still counts as the
  * previous day.
  */
 export function toDayStart(date: Date): Date {
@@ -40,7 +40,7 @@ export function toDayStart(date: Date): Date {
 /**
  * Parses a plain `YYYY-MM-DD` value (from a `<input type="date">`) into the
  * same day-marker format `toDayStart` produces. Unlike `toDayStart`, this
- * does not apply the 05:00 boundary shift — the input already names the
+ * does not apply the 12:00 boundary shift — the input already names the
  * intended tracked day directly, with no time-of-day to interpret.
  */
 export function parseDateInput(dateRaw: string): Date {
