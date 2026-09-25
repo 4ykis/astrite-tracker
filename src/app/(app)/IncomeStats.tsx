@@ -10,11 +10,13 @@ function StatBlock({
   income,
   avgPerDay,
   hint,
+  extra,
 }: {
   label: string;
   income: number | null;
   avgPerDay?: number | null;
   hint?: string;
+  extra?: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1 rounded-xl bg-slate-950/60 p-4">
@@ -25,6 +27,7 @@ function StatBlock({
           {avgPerDay === null ? "—" : `Ø ${Math.round(avgPerDay)} astrite/день`}
         </p>
       )}
+      {extra}
       {income === null && hint && <p className="text-xs text-slate-500">{hint}</p>}
     </div>
   );
@@ -32,10 +35,12 @@ function StatBlock({
 
 export default function IncomeStats({
   yesterday,
+  today,
   last7Days,
   allTime,
 }: {
   yesterday: number | null;
+  today: number | null;
   last7Days: IncomeRange;
   allTime: IncomeRange;
 }) {
@@ -45,6 +50,11 @@ export default function IncomeStats({
         label="Дохід за вчора"
         income={yesterday}
         hint="Потрібно щонайменше два записи балансу поспіль"
+        extra={
+          <p className="text-xs text-slate-500">
+            Сьогодні: <span className="text-slate-300">{formatAstrite(today)}</span>
+          </p>
+        }
       />
       <StatBlock
         label="Останні 7 днів"

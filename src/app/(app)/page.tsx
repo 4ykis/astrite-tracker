@@ -1,6 +1,6 @@
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
-import { getIncomeSummary, getYesterdayIncome } from "@/lib/income";
+import { getIncomeSummary, getTodayIncome, getYesterdayIncome } from "@/lib/income";
 import { getPityInfo, getWinRate } from "@/lib/gacha";
 import BalanceForm from "./BalanceForm";
 import PityBlock from "./PityBlock";
@@ -9,10 +9,11 @@ import IncomeStats from "./IncomeStats";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [latestBalance, yesterdayIncome, incomeSummary, pity, winRate] =
+  const [latestBalance, yesterdayIncome, todayIncome, incomeSummary, pity, winRate] =
     await Promise.all([
       prisma.balanceEntry.findFirst({ orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
       getYesterdayIncome(),
+      getTodayIncome(),
       getIncomeSummary(),
       getPityInfo(),
       getWinRate(50),
@@ -29,6 +30,7 @@ export default async function DashboardPage() {
       <Card>
         <IncomeStats
           yesterday={yesterdayIncome}
+          today={todayIncome}
           last7Days={incomeSummary.last7Days}
           allTime={incomeSummary.allTime}
         />

@@ -148,6 +148,43 @@ export async function getYesterdayIncome(): Promise<number | null> {
   return bucketIncome(balances, spends, yesterday, today);
 }
 
+/**
+ * Income accrued so far today, or null if not computable. Unlike a closed
+ * day (whose own last check-in doubles as its closing balance), today isn't
+ * over yet, so its own check-ins can't serve as the starting point — this
+ * uses yesterday's closing balance as the baseline instead, falling back to
+ * today's first check-in when there's no balance history before today.
+ */
+export async function getTodayIncome(): Promise<number | null> {
+  const [balances, spends] = await Promise.all([
+    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+  ]);
+
+  const today = toDayStart(new Date());
+  const yesterday = addDays(today, -1);
+  const tomorrow = addDays(today, 1);
+
+  let effectiveStart = today;
+  let startBalance = balanceAtOrBefore(balances, yesterday);
+
+  if (startBalance === null) {
+    const firstToday = balances.find((b) => b.date >= today && b.date < tomorrow);
+    if (!firstToday) return null;
+    startBalance = firstToday.amount;
+    effectiveStart = firstToday.date;
+  }
+
+  const endBalance = balanceAtOrBefore(balances, tomorrow);
+  if (endBalance === null) return null;
+
+  const spendSum = spends
+    .filter((s) => s.date >= effectiveStart && s.date < tomorrow)
+    .reduce((sum, s) => sum + s.amount, 0);
+
+  return endBalance - startBalance + spendSum;
+}
+
 export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
 
 function computeRange(
