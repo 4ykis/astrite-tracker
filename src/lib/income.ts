@@ -206,7 +206,15 @@ export async function getIncomeSummary(): Promise<IncomeSummary> {
     const firstDate = balances[0].date;
     const lastDate = balances[balances.length - 1].date;
     const days = Math.max(1, Math.round((lastDate.getTime() - firstDate.getTime()) / 86_400_000));
-    allTime = computeRange(balances, firstDate, lastDate, days);
+    const range = computeRange(balances, firstDate, lastDate, days);
+
+    // Unlike the day-to-day profit figures, all-time counts the balance you
+    // started tracking with too, instead of treating it as an untracked
+    // baseline that gets subtracted away.
+    if (range.income !== null) {
+      const income = range.income + balances[0].amount;
+      allTime = { income, avgPerDay: days > 0 ? income / days : null, days };
+    }
   }
 
   return { last7Days, allTime };
