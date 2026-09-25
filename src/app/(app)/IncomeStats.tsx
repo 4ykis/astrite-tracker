@@ -24,7 +24,13 @@ function StatBlock({
       <p className="text-xl font-semibold text-amber-300">{formatAstrite(income)}</p>
       {avgPerDay !== undefined && (
         <p className="text-xs text-slate-500">
-          {avgPerDay === null ? "—" : `Ø ${Math.round(avgPerDay)} astrite/день`}
+          {avgPerDay === null ? (
+            "—"
+          ) : (
+            <>
+              Ø <span className="font-medium text-white">{Math.round(avgPerDay)}</span> astrite/день
+            </>
+          )}
         </p>
       )}
       {extra}
@@ -47,12 +53,12 @@ export default function IncomeStats({
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       <StatBlock
-        label="Дохід за вчора"
-        income={yesterday}
-        hint="Потрібно щонайменше два записи балансу поспіль"
+        label="Дохід за сьогодні"
+        income={today}
+        hint="Потрібно записати баланс сьогодні"
         extra={
-          <p className="text-sm text-slate-400">
-            Сьогодні: <span className="text-lg font-semibold text-amber-200">{formatAstrite(today)}</span>
+          <p className="text-xs text-slate-500">
+            Вчора: <span className="font-medium text-white">{formatAstrite(yesterday)}</span>
           </p>
         }
       />
