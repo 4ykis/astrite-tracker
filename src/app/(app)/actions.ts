@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { toDayStart } from "@/lib/date";
+import { parseDateInput, toDayStart } from "@/lib/date";
 import { BannerType } from "@prisma/client";
 
 export async function saveTodayBalance(_prevState: { error?: string } | undefined, formData: FormData) {
@@ -15,11 +15,7 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
 
   const date = toDayStart(new Date());
 
-  await prisma.balanceEntry.upsert({
-    where: { date },
-    create: { date, amount },
-    update: { amount },
-  });
+  await prisma.balanceEntry.create({ data: { date, amount } });
 
   revalidatePath("/");
   revalidatePath("/history");
@@ -41,13 +37,9 @@ export async function updateBalanceEntry(
     return { error: "Введіть дату" };
   }
 
-  const date = toDayStart(new Date(`${dateRaw}T00:00:00Z`));
+  const date = parseDateInput(dateRaw);
 
-  try {
-    await prisma.balanceEntry.update({ where: { id }, data: { date, amount } });
-  } catch {
-    return { error: "Запис на цю дату вже існує" };
-  }
+  await prisma.balanceEntry.update({ where: { id }, data: { date, amount } });
 
   revalidatePath("/");
   revalidatePath("/history");

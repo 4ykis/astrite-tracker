@@ -118,8 +118,8 @@ export type IncomePoint = { label: string; income: number | null; spend: number 
  */
 export async function getIncomeSeries(granularity: Granularity): Promise<IncomePoint[]> {
   const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: { date: "asc" } }),
-    prisma.spendEntry.findMany({ orderBy: { date: "asc" } }),
+    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
   ]);
 
   const buckets = buildBuckets(granularity, toDayStart(new Date()));
@@ -137,16 +137,15 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
 
 /** Income for the single most recent full day (yesterday -> today), or null if not computable. */
 export async function getYesterdayIncome(): Promise<number | null> {
-  const balances = await prisma.balanceEntry.findMany({ orderBy: { date: "desc" }, take: 2 });
-  if (balances.length < 2) return null;
+  const [balances, spends] = await Promise.all([
+    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+  ]);
 
-  const [latest, previous] = balances;
-  const spendSum = await prisma.spendEntry.aggregate({
-    _sum: { amount: true },
-    where: { date: { gte: previous.date, lt: latest.date } },
-  });
+  const today = toDayStart(new Date());
+  const yesterday = addDays(today, -1);
 
-  return latest.amount - previous.amount + (spendSum._sum.amount ?? 0);
+  return bucketIncome(balances, spends, yesterday, today);
 }
 
 export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
@@ -171,8 +170,8 @@ export type IncomeSummary = { last7Days: IncomeRange; allTime: IncomeRange };
 /** Income (and average per day) over the last 7 days and over the whole tracked history. */
 export async function getIncomeSummary(): Promise<IncomeSummary> {
   const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: { date: "asc" } }),
-    prisma.spendEntry.findMany({ orderBy: { date: "asc" } }),
+    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
   ]);
 
   const now = toDayStart(new Date());

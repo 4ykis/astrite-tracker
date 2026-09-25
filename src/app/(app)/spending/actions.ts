@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { toDayStart } from "@/lib/date";
+import { parseDateInput, toDayStart } from "@/lib/date";
 import { BannerType } from "@prisma/client";
 
 export async function addSpendEntry(_prevState: { error?: string } | undefined, formData: FormData) {
@@ -59,7 +59,7 @@ export async function updateSpendEntry(
   await prisma.spendEntry.update({
     where: { id },
     data: {
-      date: toDayStart(new Date(`${dateRaw}T00:00:00Z`)),
+      date: parseDateInput(dateRaw),
       amount,
       category: category as BannerType,
       bannerName: bannerName || null,

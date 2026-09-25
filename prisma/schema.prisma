@@ -20,7 +20,7 @@ enum PullResult {
 
 model BalanceEntry {
   id        String   @id @default(cuid())
-  date      DateTime @unique
+  date      DateTime
   amount    Int
   createdAt DateTime @default(now())
 }

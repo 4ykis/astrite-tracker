@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function HistoryPage() {
   const [balances, spends, pulls] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: { date: "desc" }, take: 20 }),
+    prisma.balanceEntry.findMany({ orderBy: [{ date: "desc" }, { createdAt: "desc" }], take: 20 }),
     prisma.spendEntry.findMany({ orderBy: [{ date: "desc" }, { createdAt: "desc" }], take: 50 }),
     prisma.pullEntry.findMany({ orderBy: [{ date: "desc" }, { createdAt: "desc" }], take: 50 }),
   ]);

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { toDayStart } from "@/lib/date";
+import { parseDateInput, toDayStart } from "@/lib/date";
 import { BannerType, PullResult } from "@prisma/client";
 
 export async function addPullEntry(_prevState: { error?: string } | undefined, formData: FormData) {
@@ -86,7 +86,7 @@ export async function updatePullEntry(
   await prisma.pullEntry.update({
     where: { id },
     data: {
-      date: toDayStart(new Date(`${dateRaw}T00:00:00Z`)),
+      date: parseDateInput(dateRaw),
       bannerType: bannerType as BannerType,
       bannerName,
       itemName,

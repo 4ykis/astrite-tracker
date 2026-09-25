@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const [latestBalance, yesterdayIncome, incomeSummary, pity, winRate] =
     await Promise.all([
-      prisma.balanceEntry.findFirst({ orderBy: { date: "desc" } }),
+      prisma.balanceEntry.findFirst({ orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
       getYesterdayIncome(),
       getIncomeSummary(),
       getPityInfo(),
