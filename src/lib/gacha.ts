@@ -3,6 +3,7 @@ import { BannerType } from "@prisma/client";
 
 export const SOFT_PITY = 66;
 export const HARD_PITY = 80;
+export const PULL_COST = 160;
 
 export type PityInfo = {
   bannerType: BannerType;

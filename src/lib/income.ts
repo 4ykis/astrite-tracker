@@ -77,17 +77,14 @@ function balanceAtOrBefore(
 }
 
 /**
- * Income for a single tracked day: its own closing balance (the latest
+ * Profit for a single tracked day: its own closing balance (the latest
  * check-in dated that day) against the balance carried in from the day
- * before, plus that day's spend. Self-contained — it never looks at the
- * following day's data, so this works the same whether the day is closed
- * (yesterday) or still in progress (today).
+ * before. Self-contained — it never looks at the following day's data, so
+ * this works the same whether the day is closed (yesterday) or still in
+ * progress (today). Spend is tracked separately (see spending.ts); this is
+ * the raw balance change only.
  */
-function dayIncome(
-  balances: { date: Date; amount: number }[],
-  spends: { date: Date; amount: number }[],
-  day: Date
-): number | null {
+function dayIncome(balances: { date: Date; amount: number }[], day: Date): number | null {
   const previousDay = addDays(day, -1);
 
   let startBalance = balanceAtOrBefore(balances, previousDay);
@@ -101,43 +98,33 @@ function dayIncome(
   const endBalance = balanceAtOrBefore(balances, day);
   if (endBalance === null) return null;
 
-  const spendSum = spends
-    .filter((s) => s.date.getTime() === day.getTime())
-    .reduce((sum, s) => sum + s.amount, 0);
-
-  return endBalance - startBalance + spendSum;
+  return endBalance - startBalance;
 }
 
 /**
- * Income for [start, end), falling back to the earliest balance check-in
- * inside the range when there's none before `start` yet (e.g. tracking only
- * started partway through the current month/week) — this reports whatever
- * partial income is computable for the period-so-far instead of nothing.
+ * Profit for [start, end): the raw balance change, falling back to the
+ * earliest balance check-in inside the range when there's none before
+ * `start` yet (e.g. tracking only started partway through the current
+ * month/week) — this reports whatever partial profit is computable for the
+ * period-so-far instead of nothing.
  */
 function bucketIncome(
   balances: { date: Date; amount: number }[],
-  spends: { date: Date; amount: number }[],
   start: Date,
   end: Date
 ): number | null {
-  let effectiveStart = start;
   let startBalance = balanceAtOrBefore(balances, start);
 
   if (startBalance === null) {
     const firstInRange = balances.find((b) => b.date >= start && b.date < end);
     if (!firstInRange) return null;
     startBalance = firstInRange.amount;
-    effectiveStart = firstInRange.date;
   }
 
   const endBalance = balanceAtOrBefore(balances, end);
   if (endBalance === null) return null;
 
-  const spendSum = spends
-    .filter((s) => s.date >= effectiveStart && s.date < end)
-    .reduce((sum, s) => sum + s.amount, 0);
-
-  return endBalance - startBalance + spendSum;
+  return endBalance - startBalance;
 }
 
 export type IncomePoint = { label: string; income: number | null; spend: number };
@@ -161,44 +148,41 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
       .filter((s) => s.date >= bucket.start && s.date < bucket.end)
       .reduce((sum, s) => sum + s.amount, 0);
 
-    const income = bucketIncome(balances, spends, bucket.start, bucket.end);
+    const income = bucketIncome(balances, bucket.start, bucket.end);
 
     return { label: bucket.label, income, spend: spendSum };
   });
 }
 
-/** Income for yesterday (its own business day, 12:00 -> 11:59 next day), or null if not computable. */
+/** Profit for yesterday (its own business day, 12:00 -> 11:59 next day), or null if not computable. */
 export async function getYesterdayIncome(): Promise<number | null> {
-  const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-  ]);
+  const balances = await prisma.balanceEntry.findMany({
+    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+  });
 
   const yesterday = addDays(toDayStart(new Date()), -1);
-  return dayIncome(balances, spends, yesterday);
+  return dayIncome(balances, yesterday);
 }
 
-/** Income accrued so far today (its own business day, so far), or null if not computable. */
+/** Profit accrued so far today (its own business day, so far), or null if not computable. */
 export async function getTodayIncome(): Promise<number | null> {
-  const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-  ]);
+  const balances = await prisma.balanceEntry.findMany({
+    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+  });
 
   const today = toDayStart(new Date());
-  return dayIncome(balances, spends, today);
+  return dayIncome(balances, today);
 }
 
 export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
 
 function computeRange(
   balances: { date: Date; amount: number }[],
-  spends: { date: Date; amount: number }[],
   start: Date,
   end: Date,
   days: number
 ): IncomeRange {
-  const income = bucketIncome(balances, spends, start, end);
+  const income = bucketIncome(balances, start, end);
   if (income === null) {
     return { income: null, avgPerDay: null, days };
   }
@@ -208,29 +192,21 @@ function computeRange(
 
 export type IncomeSummary = { last7Days: IncomeRange; allTime: IncomeRange };
 
-/** Income (and average per day) over the last 7 days and over the whole tracked history. */
+/** Profit (and average per day) over the last 7 days and over the whole tracked history. */
 export async function getIncomeSummary(): Promise<IncomeSummary> {
-  const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-  ]);
+  const balances = await prisma.balanceEntry.findMany({
+    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+  });
 
   const now = toDayStart(new Date());
-  const last7Days = computeRange(balances, spends, addDays(now, -7), now, 7);
+  const last7Days = computeRange(balances, addDays(now, -7), now, 7);
 
   let allTime: IncomeRange = { income: null, avgPerDay: null, days: 0 };
   if (balances.length >= 2) {
     const firstDate = balances[0].date;
     const lastDate = balances[balances.length - 1].date;
     const days = Math.max(1, Math.round((lastDate.getTime() - firstDate.getTime()) / 86_400_000));
-    const range = computeRange(balances, spends, firstDate, lastDate, days);
-
-    // Counts the balance you started tracking with as part of all-time
-    // income too, instead of treating it as an untracked baseline.
-    if (range.income !== null) {
-      const income = range.income + balances[0].amount;
-      allTime = { income, avgPerDay: days > 0 ? income / days : null, days };
-    }
+    allTime = computeRange(balances, firstDate, lastDate, days);
   }
 
   return { last7Days, allTime };

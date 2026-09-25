@@ -1,23 +1,26 @@
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
 import { getIncomeSummary, getTodayIncome, getYesterdayIncome } from "@/lib/income";
-import { getPityInfo, getWinRate } from "@/lib/gacha";
+import { getSpendSummary, getTodaySpend, getYesterdaySpend } from "@/lib/spending";
 import BalanceForm from "./BalanceForm";
-import PityBlock from "./PityBlock";
 import IncomeStats from "./IncomeStats";
+import SpendStats from "./SpendStats";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [latestBalance, yesterdayIncome, todayIncome, incomeSummary, pity, winRate] =
-    await Promise.all([
-      prisma.balanceEntry.findFirst({ orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
-      getYesterdayIncome(),
-      getTodayIncome(),
-      getIncomeSummary(),
-      getPityInfo(),
-      getWinRate(50),
-    ]);
+  const [latestBalance, yesterdayIncome, todayIncome, incomeSummary] = await Promise.all([
+    prisma.balanceEntry.findFirst({ orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
+    getYesterdayIncome(),
+    getTodayIncome(),
+    getIncomeSummary(),
+  ]);
+
+  const [yesterdaySpend, todaySpend, spendSummary] = await Promise.all([
+    getYesterdaySpend(),
+    getTodaySpend(),
+    getSpendSummary(incomeSummary.allTime.days),
+  ]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -28,6 +31,7 @@ export default async function DashboardPage() {
       </Card>
 
       <Card>
+        <h2 className="mb-3 text-sm font-medium text-slate-300">Прибуток</h2>
         <IncomeStats
           yesterday={yesterdayIncome}
           today={todayIncome}
@@ -37,14 +41,13 @@ export default async function DashboardPage() {
       </Card>
 
       <Card>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-medium text-slate-300">Піті-лічильник</h2>
-          <span className="text-xs text-slate-500">
-            Win-rate (50/50): {winRate.rate === null ? "—" : `${Math.round(winRate.rate * 100)}%`}{" "}
-            ({winRate.wins}/{winRate.total})
-          </span>
-        </div>
-        <PityBlock pity={pity} />
+        <h2 className="mb-3 text-sm font-medium text-slate-300">Витрати</h2>
+        <SpendStats
+          yesterday={yesterdaySpend}
+          today={todaySpend}
+          last7Days={spendSummary.last7Days}
+          allTime={spendSummary.allTime}
+        />
       </Card>
 
       <Card>

@@ -27,7 +27,7 @@ type ViewMode = "total" | "detail";
 
 const VIEW_MODES: { value: ViewMode; label: string }[] = [
   { value: "total", label: "Разом" },
-  { value: "detail", label: "Дохід і витрати" },
+  { value: "detail", label: "Прибуток і витрати" },
 ];
 
 const POSITIVE_COLOR = "#f2c94c";
@@ -72,7 +72,7 @@ export default function StatsChart({ series }: { series: Record<Granularity, Inc
 
   const totalData = points.map((p) => ({
     label: p.label,
-    net: p.income === null ? null : p.income - p.spend,
+    net: p.income,
   }));
   const detailData = points.map((p) => ({
     label: p.label,
@@ -148,7 +148,7 @@ export default function StatsChart({ series }: { series: Record<Granularity, Inc
                   </span>
                 )}
               />
-              <Bar dataKey="income" name="Дохід" fill={POSITIVE_COLOR} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="income" name="Прибуток" fill={POSITIVE_COLOR} radius={[4, 4, 0, 0]} />
               <Bar dataKey="spend" name="Витрати" fill={NEGATIVE_COLOR} radius={[4, 4, 0, 0]} />
             </BarChart>
           )}

@@ -2,8 +2,7 @@
 
 import { useActionState } from "react";
 import { saveTodayBalance } from "./actions";
-
-const PULL_COST = 160;
+import { PULL_COST } from "@/lib/gacha";
 
 export default function BalanceForm({ currentBalance }: { currentBalance: number | null }) {
   const [state, formAction, isPending] = useActionState(saveTodayBalance, undefined);

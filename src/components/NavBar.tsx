@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const links = [
   { href: "/", label: "Дашборд" },
-  { href: "/spending", label: "Витрати" },
   { href: "/gacha", label: "Гача-лог" },
   { href: "/history", label: "Історія" },
   { href: "/stats", label: "Статистика" },

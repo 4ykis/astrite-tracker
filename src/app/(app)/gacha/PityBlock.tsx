@@ -2,8 +2,8 @@
 
 import { useTransition } from "react";
 import { BannerType } from "@prisma/client";
-import { incrementPity, resetPity } from "./actions";
-import { HARD_PITY, SOFT_PITY, PityInfo } from "@/lib/gacha";
+import { incrementPity, recordFiveStar, resetPity } from "./actions";
+import { HARD_PITY, PULL_COST, SOFT_PITY, PityInfo } from "@/lib/gacha";
 
 const BANNER_LABEL: Record<BannerType, string> = {
   CHARACTER: "Персонажі",
@@ -44,23 +44,41 @@ export default function PityBlock({ pity }: { pity: PityInfo[] }) {
               </p>
             )}
 
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               <button
                 type="button"
                 disabled={isPending}
                 onClick={() => startTransition(() => incrementPity(p.bannerType, 1))}
-                className="flex-1 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
+                className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
               >
-                +1 пул
+                +1 (-{PULL_COST})
               </button>
               <button
                 type="button"
                 disabled={isPending}
                 onClick={() => startTransition(() => incrementPity(p.bannerType, 10))}
-                className="flex-1 rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
+                className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-200 transition hover:border-amber-400 hover:text-amber-300 disabled:opacity-60"
               >
-                +10 пулів
+                +10 (-{PULL_COST * 10})
               </button>
+              <button
+                type="button"
+                disabled={isPending}
+                onClick={() => startTransition(() => recordFiveStar(p.bannerType, "WIN"))}
+                className="rounded-lg border border-emerald-800 px-3 py-1.5 text-sm text-emerald-300 transition hover:border-emerald-400 hover:bg-emerald-950 disabled:opacity-60"
+              >
+                Win
+              </button>
+              {p.bannerType === "CHARACTER" && (
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => startTransition(() => recordFiveStar(p.bannerType, "LOSE"))}
+                  className="rounded-lg border border-red-900 px-3 py-1.5 text-sm text-red-300 transition hover:border-red-500 hover:bg-red-950 disabled:opacity-60"
+                >
+                  Lose
+                </button>
+              )}
               <button
                 type="button"
                 disabled={isPending}

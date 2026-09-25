@@ -36,7 +36,7 @@ export default async function StatsPage() {
       <h1 className="text-lg font-semibold text-slate-100">Статистика</h1>
 
       <Card>
-        <h2 className="mb-4 text-sm font-medium text-slate-300">Дохід astrite</h2>
+        <h2 className="mb-4 text-sm font-medium text-slate-300">Прибуток astrite</h2>
         <StatsChart series={series} />
       </Card>
 
