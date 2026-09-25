@@ -51,8 +51,8 @@ export default function IncomeStats({
         income={yesterday}
         hint="Потрібно щонайменше два записи балансу поспіль"
         extra={
-          <p className="text-xs text-slate-500">
-            Сьогодні: <span className="text-slate-300">{formatAstrite(today)}</span>
+          <p className="text-sm text-slate-400">
+            Сьогодні: <span className="text-lg font-semibold text-amber-200">{formatAstrite(today)}</span>
           </p>
         }
       />

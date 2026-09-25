@@ -76,6 +76,11 @@ function balanceAtOrBefore(
   return result;
 }
 
+/** Finds the first recorded balance on or after the given date (the next check-in), assuming ascending order. */
+function balanceOnOrAfter<T extends { date: Date }>(balances: T[], date: Date): T | null {
+  return balances.find((b) => b.date.getTime() >= date.getTime()) ?? null;
+}
+
 /**
  * Income for [start, end), falling back to the earliest balance check-in
  * inside the range when there's none before `start` yet (e.g. tracking only
@@ -135,7 +140,12 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
   });
 }
 
-/** Income for the single most recent full day (yesterday -> today), or null if not computable. */
+/**
+ * Income for the single most recent full day (yesterday -> today), or null
+ * if not computable. Closes yesterday out using today's *first* check-in
+ * (not its latest) so this doesn't double-count intraday growth that
+ * happened today — that portion belongs to getTodayIncome instead.
+ */
 export async function getYesterdayIncome(): Promise<number | null> {
   const [balances, spends] = await Promise.all([
     prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
@@ -145,15 +155,32 @@ export async function getYesterdayIncome(): Promise<number | null> {
   const today = toDayStart(new Date());
   const yesterday = addDays(today, -1);
 
-  return bucketIncome(balances, spends, yesterday, today);
+  let effectiveStart = yesterday;
+  let startBalance = balanceAtOrBefore(balances, yesterday);
+
+  if (startBalance === null) {
+    const firstInRange = balances.find((b) => b.date >= yesterday && b.date < today);
+    if (!firstInRange) return null;
+    startBalance = firstInRange.amount;
+    effectiveStart = firstInRange.date;
+  }
+
+  const closingEntry = balanceOnOrAfter(balances, today);
+  if (closingEntry === null) return null;
+
+  const spendSum = spends
+    .filter((s) => s.date >= effectiveStart && s.date < today)
+    .reduce((sum, s) => sum + s.amount, 0);
+
+  return closingEntry.amount - startBalance + spendSum;
 }
 
 /**
- * Income accrued so far today, or null if not computable. Unlike a closed
- * day (whose own last check-in doubles as its closing balance), today isn't
- * over yet, so its own check-ins can't serve as the starting point — this
- * uses yesterday's closing balance as the baseline instead, falling back to
- * today's first check-in when there's no balance history before today.
+ * Income accrued so far today, or null if not computable. Measures growth
+ * since today's *first* check-in (the same one that closes out yesterday),
+ * not since yesterday's balance — otherwise this would report the same
+ * delta as getYesterdayIncome instead of the intraday change on top of it.
+ * Naturally 0 until a second check-in happens today.
  */
 export async function getTodayIncome(): Promise<number | null> {
   const [balances, spends] = await Promise.all([
@@ -162,27 +189,16 @@ export async function getTodayIncome(): Promise<number | null> {
   ]);
 
   const today = toDayStart(new Date());
-  const yesterday = addDays(today, -1);
-  const tomorrow = addDays(today, 1);
+  const firstToday = balances.find((b) => b.date.getTime() === today.getTime());
+  if (!firstToday) return null;
 
-  let effectiveStart = today;
-  let startBalance = balanceAtOrBefore(balances, yesterday);
-
-  if (startBalance === null) {
-    const firstToday = balances.find((b) => b.date >= today && b.date < tomorrow);
-    if (!firstToday) return null;
-    startBalance = firstToday.amount;
-    effectiveStart = firstToday.date;
-  }
-
-  const endBalance = balanceAtOrBefore(balances, tomorrow);
-  if (endBalance === null) return null;
+  const latest = balances[balances.length - 1];
 
   const spendSum = spends
-    .filter((s) => s.date >= effectiveStart && s.date < tomorrow)
+    .filter((s) => s.date.getTime() === today.getTime())
     .reduce((sum, s) => sum + s.amount, 0);
 
-  return endBalance - startBalance + spendSum;
+  return latest.amount - firstToday.amount + spendSum;
 }
 
 export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
