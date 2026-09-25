@@ -52,13 +52,9 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
    `WUWA_DATABASE_URL` (та кілька інших) — нічого копіювати вручну не треба.
 2. Додайте власні env-змінні: `APP_PASSCODE`, `SESSION_SECRET`.
 3. Задеплойте — команда `npm run build` автоматично виконає
-   `prisma generate` (через `postinstall`).
-4. Застосуйте міграції до продакшн-бази один раз (локально з продакшн
-   `WUWA_PRISMA_DATABASE_URL`/`WUWA_DATABASE_URL` у `.env`, або через Vercel CLI):
-
-   ```bash
-   npx prisma migrate deploy
-   ```
+   `prisma generate` (через `postinstall`) і `prisma migrate deploy`
+   (перед `next build`), тож нові міграції накатуються на продакшн-базу
+   самі при кожному деплої.
 
 ## Структура
 
