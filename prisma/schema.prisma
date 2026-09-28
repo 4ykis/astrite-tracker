@@ -66,3 +66,13 @@ model ResourceEntry {
   @@unique([date, itemId])
   @@index([date])
 }
+
+// Echo prefarm setup: one resonator plus five planned echoes. `slots` holds
+// 5 × { echoId, main, subs[5] } and is always read and written as a whole.
+model EchoBuild {
+  id          String   @id @default(cuid())
+  characterId Int?
+  slots       Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

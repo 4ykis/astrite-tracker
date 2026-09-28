@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1102,
+    "name": "Sanhua",
+    "rank": 4,
+    "element": 1
+  },
+  {
+    "id": 1103,
+    "name": "Baizhi",
+    "rank": 4,
+    "element": 1
+  },
+  {
+    "id": 1104,
+    "name": "Lingyang",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1105,
+    "name": "Zhezhi",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1106,
+    "name": "Youhu",
+    "rank": 4,
+    "element": 1
+  },
+  {
+    "id": 1107,
+    "name": "Carlotta",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1108,
+    "name": "Hiyuki",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1109,
+    "name": "Lucilla",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1110,
+    "name": "Suisui",
+    "rank": 5,
+    "element": 1
+  },
+  {
+    "id": 1202,
+    "name": "Chixia",
+    "rank": 4,
+    "element": 2
+  },
+  {
+    "id": 1203,
+    "name": "Encore",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1204,
+    "name": "Mortefi",
+    "rank": 4,
+    "element": 2
+  },
+  {
+    "id": 1205,
+    "name": "Changli",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1206,
+    "name": "Brant",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1207,
+    "name": "Lupa",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1208,
+    "name": "Galbrena",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1209,
+    "name": "Mornye",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1210,
+    "name": "Aemeath",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1211,
+    "name": "Denia",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1212,
+    "name": "Jingran",
+    "rank": 5,
+    "element": 2
+  },
+  {
+    "id": 1301,
+    "name": "Calcharo",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1302,
+    "name": "Yinlin",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1303,
+    "name": "Yuanwu",
+    "rank": 4,
+    "element": 3
+  },
+  {
+    "id": 1304,
+    "name": "Jinhsi",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1305,
+    "name": "Xiangli Yao",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1306,
+    "name": "Augusta",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1307,
+    "name": "Buling",
+    "rank": 4,
+    "element": 3
+  },
+  {
+    "id": 1308,
+    "name": "Rebecca",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1309,
+    "name": "Rover: Electro",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1311,
+    "name": "Hsin",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1312,
+    "name": "Suoming",
+    "rank": 5,
+    "element": 3
+  },
+  {
+    "id": 1402,
+    "name": "Yangyang",
+    "rank": 4,
+    "element": 4
+  },
+  {
+    "id": 1403,
+    "name": "Aalto",
+    "rank": 4,
+    "element": 4
+  },
+  {
+    "id": 1404,
+    "name": "Jiyan",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1405,
+    "name": "Jianxin",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1406,
+    "name": "Rover: Aero",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1407,
+    "name": "Ciaccona",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1409,
+    "name": "Cartethyia",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1410,
+    "name": "Iuno",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1411,
+    "name": "Qiuyuan",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1412,
+    "name": "Sigrika",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1413,
+    "name": "Qingxiao",
+    "rank": 5,
+    "element": 4
+  },
+  {
+    "id": 1501,
+    "name": "Rover: Spectro",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1503,
+    "name": "Verina",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1504,
+    "name": "Lumi",
+    "rank": 4,
+    "element": 3
+  },
+  {
+    "id": 1505,
+    "name": "Shorekeeper",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1506,
+    "name": "Phoebe",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1507,
+    "name": "Zani",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1508,
+    "name": "Chisa",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1509,
+    "name": "Lynae",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1510,
+    "name": "Luuk Herssen",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1511,
+    "name": "Lucy",
+    "rank": 5,
+    "element": 5
+  },
+  {
+    "id": 1601,
+    "name": "Taoqi",
+    "rank": 4,
+    "element": 6
+  },
+  {
+    "id": 1602,
+    "name": "Danjin",
+    "rank": 4,
+    "element": 6
+  },
+  {
+    "id": 1603,
+    "name": "Camellya",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1604,
+    "name": "Rover: Havoc",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1606,
+    "name": "Roccia",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1607,
+    "name": "Cantarella",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1608,
+    "name": "Phrolova",
+    "rank": 5,
+    "element": 6
+  },
+  {
+    "id": 1610,
+    "name": "Yangyang: Xuanling",
+    "rank": 5,
+    "element": 6
+  }
+]

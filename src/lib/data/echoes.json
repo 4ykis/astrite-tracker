@@ -1,0 +1,1683 @@
+[
+  {
+    "id": 6000038,
+    "name": "Hooscamp",
+    "cost": 1,
+    "sonatas": [
+      4,
+      9
+    ]
+  },
+  {
+    "id": 6000039,
+    "name": "Tempest Mephis",
+    "cost": 4,
+    "sonatas": [
+      3
+    ]
+  },
+  {
+    "id": 6000040,
+    "name": "Hoochief",
+    "cost": 3,
+    "sonatas": [
+      4,
+      7
+    ]
+  },
+  {
+    "id": 6000041,
+    "name": "Diamondclaw",
+    "cost": 1,
+    "sonatas": [
+      8,
+      9
+    ]
+  },
+  {
+    "id": 6000042,
+    "name": "Crownless",
+    "cost": 4,
+    "sonatas": [
+      6
+    ]
+  },
+  {
+    "id": 6000043,
+    "name": "Feilian Beringal",
+    "cost": 4,
+    "sonatas": [
+      4
+    ]
+  },
+  {
+    "id": 6000044,
+    "name": "Lampylumen Myriad",
+    "cost": 4,
+    "sonatas": [
+      1
+    ]
+  },
+  {
+    "id": 6000045,
+    "name": "Mourning Aix",
+    "cost": 4,
+    "sonatas": [
+      5
+    ]
+  },
+  {
+    "id": 6000046,
+    "name": "Carapace",
+    "cost": 3,
+    "sonatas": [
+      4,
+      8
+    ]
+  },
+  {
+    "id": 6000047,
+    "name": "Chirpuff",
+    "cost": 1,
+    "sonatas": [
+      4,
+      6
+    ]
+  },
+  {
+    "id": 6000048,
+    "name": "Mech Abomination",
+    "cost": 4,
+    "sonatas": [
+      9
+    ]
+  },
+  {
+    "id": 6000049,
+    "name": "Autopuppet Scout",
+    "cost": 3,
+    "sonatas": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 6000050,
+    "name": "Traffic Illuminator",
+    "cost": 1,
+    "sonatas": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 6000051,
+    "name": "Clang Bang",
+    "cost": 1,
+    "sonatas": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 6000052,
+    "name": "Impermanence Heron",
+    "cost": 4,
+    "sonatas": [
+      8
+    ]
+  },
+  {
+    "id": 6000053,
+    "name": "Dreamless",
+    "cost": 4,
+    "sonatas": [
+      6
+    ]
+  },
+  {
+    "id": 6000054,
+    "name": "Lava Larva",
+    "cost": 1,
+    "sonatas": [
+      2,
+      9
+    ]
+  },
+  {
+    "id": 6000055,
+    "name": "Dwarf Cassowary",
+    "cost": 1,
+    "sonatas": [
+      4,
+      7
+    ]
+  },
+  {
+    "id": 6000056,
+    "name": "Glacio Dreadmane",
+    "cost": 3,
+    "sonatas": [
+      1,
+      8
+    ]
+  },
+  {
+    "id": 6000057,
+    "name": "Lumiscale Construct",
+    "cost": 3,
+    "sonatas": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": 6000058,
+    "name": "Lightcrusher",
+    "cost": 3,
+    "sonatas": [
+      5
+    ]
+  },
+  {
+    "id": 6000059,
+    "name": "Jué",
+    "cost": 4,
+    "sonatas": [
+      5
+    ]
+  },
+  {
+    "id": 6000060,
+    "name": "Fallacy of No Return",
+    "cost": 4,
+    "sonatas": [
+      7
+    ]
+  },
+  {
+    "id": 6000061,
+    "name": "Galescourge Stalker",
+    "cost": 1,
+    "sonatas": [
+      10,
+      13
+    ]
+  },
+  {
+    "id": 6000062,
+    "name": "Voltscourge Stalker",
+    "cost": 1,
+    "sonatas": [
+      12,
+      13
+    ]
+  },
+  {
+    "id": 6000063,
+    "name": "Frostscourge Stalker",
+    "cost": 1,
+    "sonatas": [
+      11,
+      12
+    ]
+  },
+  {
+    "id": 6000064,
+    "name": "Chop Chop: Headless",
+    "cost": 1,
+    "sonatas": [
+      11,
+      14
+    ]
+  },
+  {
+    "id": 6000065,
+    "name": "Chop Chop: Leftless",
+    "cost": 1,
+    "sonatas": [
+      10,
+      14
+    ]
+  },
+  {
+    "id": 6000066,
+    "name": "Chop Chop: Rightless",
+    "cost": 1,
+    "sonatas": [
+      10,
+      14
+    ]
+  },
+  {
+    "id": 6000067,
+    "name": "Fae Ignis",
+    "cost": 1,
+    "sonatas": [
+      11,
+      12,
+      19
+    ]
+  },
+  {
+    "id": 6000068,
+    "name": "Nimbus Wraith",
+    "cost": 1,
+    "sonatas": [
+      12,
+      13,
+      22
+    ]
+  },
+  {
+    "id": 6000069,
+    "name": "Hocus Pocus",
+    "cost": 1,
+    "sonatas": [
+      10,
+      13
+    ]
+  },
+  {
+    "id": 6000070,
+    "name": "Lottie Lost",
+    "cost": 1,
+    "sonatas": [
+      10,
+      14
+    ]
+  },
+  {
+    "id": 6000071,
+    "name": "Diggy Duggy",
+    "cost": 1,
+    "sonatas": [
+      11,
+      14
+    ]
+  },
+  {
+    "id": 6000072,
+    "name": "Chest Mimic",
+    "cost": 1,
+    "sonatas": [
+      10,
+      12,
+      13
+    ]
+  },
+  {
+    "id": 6000073,
+    "name": "Questless Knight",
+    "cost": 3,
+    "sonatas": [
+      10,
+      12
+    ]
+  },
+  {
+    "id": 6000074,
+    "name": "Diurnus Knight",
+    "cost": 3,
+    "sonatas": [
+      11,
+      14
+    ]
+  },
+  {
+    "id": 6000075,
+    "name": "Nocturnus Knight",
+    "cost": 3,
+    "sonatas": [
+      12,
+      13
+    ]
+  },
+  {
+    "id": 6000076,
+    "name": "Abyssal Patricius",
+    "cost": 3,
+    "sonatas": [
+      10,
+      13
+    ]
+  },
+  {
+    "id": 6000077,
+    "name": "Abyssal Gladius",
+    "cost": 3,
+    "sonatas": [
+      12,
+      14,
+      23
+    ]
+  },
+  {
+    "id": 6000078,
+    "name": "Abyssal Mercator",
+    "cost": 3,
+    "sonatas": [
+      10,
+      11
+    ]
+  },
+  {
+    "id": 6000079,
+    "name": "Chop Chop",
+    "cost": 3,
+    "sonatas": [
+      13,
+      14,
+      19
+    ]
+  },
+  {
+    "id": 6000080,
+    "name": "Vitreum Dancer",
+    "cost": 3,
+    "sonatas": [
+      11,
+      13
+    ]
+  },
+  {
+    "id": 6000081,
+    "name": "Cuddle Wuddle",
+    "cost": 3,
+    "sonatas": [
+      10,
+      12
+    ]
+  },
+  {
+    "id": 6000082,
+    "name": "Lorelei",
+    "cost": 4,
+    "sonatas": [
+      12
+    ]
+  },
+  {
+    "id": 6000083,
+    "name": "Sentry Construct",
+    "cost": 4,
+    "sonatas": [
+      10
+    ]
+  },
+  {
+    "id": 6000084,
+    "name": "Dragon of Dirge",
+    "cost": 4,
+    "sonatas": [
+      14
+    ]
+  },
+  {
+    "id": 6000085,
+    "name": "Hecate",
+    "cost": 4,
+    "sonatas": [
+      13
+    ]
+  },
+  {
+    "id": 6000086,
+    "name": "Nightmare: Feilian Beringal",
+    "cost": 4,
+    "sonatas": [
+      4
+    ]
+  },
+  {
+    "id": 6000087,
+    "name": "Nightmare: Impermanence Heron",
+    "cost": 4,
+    "sonatas": [
+      12
+    ]
+  },
+  {
+    "id": 6000088,
+    "name": "Nightmare: Thundering Mephis",
+    "cost": 4,
+    "sonatas": [
+      3
+    ]
+  },
+  {
+    "id": 6000089,
+    "name": "Nightmare: Tempest Mephis",
+    "cost": 4,
+    "sonatas": [
+      3,
+      13
+    ]
+  },
+  {
+    "id": 6000090,
+    "name": "Nightmare: Crownless",
+    "cost": 4,
+    "sonatas": [
+      6
+    ]
+  },
+  {
+    "id": 6000091,
+    "name": "Nightmare: Inferno Rider",
+    "cost": 4,
+    "sonatas": [
+      2
+    ]
+  },
+  {
+    "id": 6000092,
+    "name": "Nightmare: Mourning Aix",
+    "cost": 4,
+    "sonatas": [
+      11
+    ]
+  },
+  {
+    "id": 6000093,
+    "name": "Golden Junrock",
+    "cost": 1,
+    "sonatas": [
+      10,
+      11,
+      21
+    ]
+  },
+  {
+    "id": 6000094,
+    "name": "Calcified Junrock",
+    "cost": 1,
+    "sonatas": [
+      13,
+      14,
+      20
+    ]
+  },
+  {
+    "id": 6000095,
+    "name": "Aero Prism",
+    "cost": 1,
+    "sonatas": [
+      11,
+      14
+    ]
+  },
+  {
+    "id": 6000096,
+    "name": "Rage Against the Statue",
+    "cost": 3,
+    "sonatas": [
+      11,
+      16,
+      21
+    ]
+  },
+  {
+    "id": 6000097,
+    "name": "Hurriclaw",
+    "cost": 3,
+    "sonatas": [
+      14,
+      16,
+      20
+    ]
+  },
+  {
+    "id": 6000098,
+    "name": "La Guardia",
+    "cost": 1,
+    "sonatas": [
+      12,
+      16,
+      18
+    ]
+  },
+  {
+    "id": 6000099,
+    "name": "Sagittario",
+    "cost": 1,
+    "sonatas": [
+      11,
+      16,
+      18
+    ]
+  },
+  {
+    "id": 6000100,
+    "name": "Sacerdos",
+    "cost": 1,
+    "sonatas": [
+      16,
+      17
+    ]
+  },
+  {
+    "id": 6000101,
+    "name": "Aero Drake",
+    "cost": 1,
+    "sonatas": [
+      14,
+      16,
+      18
+    ]
+  },
+  {
+    "id": 6000102,
+    "name": "Electro Drake",
+    "cost": 1,
+    "sonatas": [
+      12,
+      16,
+      18
+    ]
+  },
+  {
+    "id": 6000103,
+    "name": "Glacio Drake",
+    "cost": 1,
+    "sonatas": [
+      16,
+      17
+    ]
+  },
+  {
+    "id": 6000104,
+    "name": "Capitaneus",
+    "cost": 3,
+    "sonatas": [
+      11,
+      16,
+      17
+    ]
+  },
+  {
+    "id": 6000105,
+    "name": "Nightmare: Lampylumen Myriad",
+    "cost": 4,
+    "sonatas": [
+      10,
+      13
+    ]
+  },
+  {
+    "id": 6000106,
+    "name": "Reminiscence: Fleurdelys",
+    "cost": 4,
+    "sonatas": [
+      16,
+      17
+    ]
+  },
+  {
+    "id": 6000107,
+    "name": "Fusion Drake",
+    "cost": 1,
+    "sonatas": [
+      17,
+      18
+    ]
+  },
+  {
+    "id": 6000108,
+    "name": "Spectro Drake",
+    "cost": 1,
+    "sonatas": [
+      17,
+      18
+    ]
+  },
+  {
+    "id": 6000109,
+    "name": "Havoc Drake",
+    "cost": 1,
+    "sonatas": [
+      17,
+      18,
+      23
+    ]
+  },
+  {
+    "id": 6000110,
+    "name": "Devotee's Flesh",
+    "cost": 1,
+    "sonatas": [
+      16,
+      17,
+      18
+    ]
+  },
+  {
+    "id": 6000111,
+    "name": "Pilgrim's Shell",
+    "cost": 3,
+    "sonatas": [
+      17,
+      18
+    ]
+  },
+  {
+    "id": 6000112,
+    "name": "Kerasaur",
+    "cost": 3,
+    "sonatas": [
+      17,
+      18,
+      22
+    ]
+  },
+  {
+    "id": 6000113,
+    "name": "Nightmare: Kelpie",
+    "cost": 4,
+    "sonatas": [
+      16,
+      17
+    ]
+  },
+  {
+    "id": 6000114,
+    "name": "Lioness of Glory",
+    "cost": 4,
+    "sonatas": [
+      18
+    ]
+  },
+  {
+    "id": 6000115,
+    "name": "Nightmare: Hecate",
+    "cost": 4,
+    "sonatas": [
+      19
+    ]
+  },
+  {
+    "id": 6000116,
+    "name": "Reminiscence: Fenrico",
+    "cost": 4,
+    "sonatas": [
+      19,
+      21
+    ]
+  },
+  {
+    "id": 6000117,
+    "name": "Nightmare: Havoc Warrior",
+    "cost": 1,
+    "sonatas": [
+      19
+    ]
+  },
+  {
+    "id": 6000118,
+    "name": "Nightmare: Glacio Predator",
+    "cost": 1,
+    "sonatas": [
+      19
+    ]
+  },
+  {
+    "id": 6000119,
+    "name": "Nightmare: Tambourinist",
+    "cost": 3,
+    "sonatas": [
+      19
+    ]
+  },
+  {
+    "id": 6000120,
+    "name": "Corrosaurus",
+    "cost": 3,
+    "sonatas": [
+      18,
+      22
+    ]
+  },
+  {
+    "id": 6000121,
+    "name": "The False Sovereign",
+    "cost": 4,
+    "sonatas": [
+      20
+    ]
+  },
+  {
+    "id": 6000160,
+    "name": "Lady of the Sea",
+    "cost": 4,
+    "sonatas": [
+      20
+    ]
+  },
+  {
+    "id": 6000161,
+    "name": "Nightmare: Violet-Feathered Heron",
+    "cost": 3,
+    "sonatas": [
+      20
+    ]
+  },
+  {
+    "id": 6000162,
+    "name": "Nightmare: Cyan-Feathered Heron",
+    "cost": 3,
+    "sonatas": [
+      21
+    ]
+  },
+  {
+    "id": 6000163,
+    "name": "Nightmare: Electro Predator",
+    "cost": 1,
+    "sonatas": [
+      20
+    ]
+  },
+  {
+    "id": 6000164,
+    "name": "Nightmare: Aero Predator",
+    "cost": 1,
+    "sonatas": [
+      20
+    ]
+  },
+  {
+    "id": 6000165,
+    "name": "Nightmare: Gulpuff",
+    "cost": 1,
+    "sonatas": [
+      21
+    ]
+  },
+  {
+    "id": 6000166,
+    "name": "Nightmare: Chirpuff",
+    "cost": 1,
+    "sonatas": [
+      21
+    ]
+  },
+  {
+    "id": 6000167,
+    "name": "Reminiscence: Threnodian - Leviathan",
+    "cost": 4,
+    "sonatas": [
+      22,
+      23
+    ]
+  },
+  {
+    "id": 6000168,
+    "name": "Nightmare: Viridblaze Saurian",
+    "cost": 3,
+    "sonatas": [
+      22
+    ]
+  },
+  {
+    "id": 6000169,
+    "name": "Nightmare: Baby Viridblaze Saurian",
+    "cost": 1,
+    "sonatas": [
+      22
+    ]
+  },
+  {
+    "id": 6000170,
+    "name": "Nightmare: Baby Roseshroom",
+    "cost": 1,
+    "sonatas": [
+      22
+    ]
+  },
+  {
+    "id": 6000171,
+    "name": "Nightmare: Tick Tack",
+    "cost": 1,
+    "sonatas": [
+      23
+    ]
+  },
+  {
+    "id": 6000172,
+    "name": "Nightmare: Dwarf Cassowary",
+    "cost": 1,
+    "sonatas": [
+      23
+    ]
+  },
+  {
+    "id": 6000173,
+    "name": "Nightmare: Roseshroom",
+    "cost": 3,
+    "sonatas": [
+      23
+    ]
+  },
+  {
+    "id": 6000174,
+    "name": "Tremor Warrior",
+    "cost": 1,
+    "sonatas": [
+      25,
+      28,
+      30
+    ]
+  },
+  {
+    "id": 6000175,
+    "name": "Flora Drone",
+    "cost": 1,
+    "sonatas": [
+      24,
+      26,
+      29,
+      31
+    ]
+  },
+  {
+    "id": 6000176,
+    "name": "Mining Drone",
+    "cost": 1,
+    "sonatas": [
+      25,
+      26,
+      29,
+      31
+    ]
+  },
+  {
+    "id": 6000177,
+    "name": "Geospider S4",
+    "cost": 1,
+    "sonatas": [
+      24,
+      25,
+      27
+    ]
+  },
+  {
+    "id": 6000178,
+    "name": "Zip Zap",
+    "cost": 1,
+    "sonatas": [
+      24,
+      26,
+      28,
+      29
+    ]
+  },
+  {
+    "id": 6000179,
+    "name": "Twin Nova: Nebulous Cannon",
+    "cost": 3,
+    "sonatas": [
+      26,
+      28
+    ]
+  },
+  {
+    "id": 6000180,
+    "name": "Twin Nova: Collapsar Blade",
+    "cost": 3,
+    "sonatas": [
+      26,
+      27,
+      29
+    ]
+  },
+  {
+    "id": 6000181,
+    "name": "Flora Reindeer",
+    "cost": 3,
+    "sonatas": [
+      26,
+      31
+    ]
+  },
+  {
+    "id": 6000182,
+    "name": "Mining Reindeer",
+    "cost": 3,
+    "sonatas": [
+      24,
+      31
+    ]
+  },
+  {
+    "id": 6000183,
+    "name": "Ironhoof",
+    "cost": 3,
+    "sonatas": [
+      24,
+      30,
+      31
+    ]
+  },
+  {
+    "id": 6000184,
+    "name": "Spacetrek Explorer",
+    "cost": 3,
+    "sonatas": [
+      25,
+      28,
+      29
+    ]
+  },
+  {
+    "id": 6000185,
+    "name": "Sabercat Reaver",
+    "cost": 3,
+    "sonatas": [
+      24,
+      25,
+      29
+    ]
+  },
+  {
+    "id": 6000186,
+    "name": "Sabercat Prowler",
+    "cost": 3,
+    "sonatas": [
+      24,
+      25,
+      29
+    ]
+  },
+  {
+    "id": 6000187,
+    "name": "Frostbite Coleoid",
+    "cost": 3,
+    "sonatas": [
+      25,
+      30
+    ]
+  },
+  {
+    "id": 6000188,
+    "name": "Windlash Coleoid",
+    "cost": 3,
+    "sonatas": [
+      26,
+      30
+    ]
+  },
+  {
+    "id": 6000189,
+    "name": "Hyvatia",
+    "cost": 4,
+    "sonatas": [
+      24,
+      26
+    ]
+  },
+  {
+    "id": 6000190,
+    "name": "Reactor Husk",
+    "cost": 4,
+    "sonatas": [
+      25,
+      28
+    ]
+  },
+  {
+    "id": 6000191,
+    "name": "Sigillum",
+    "cost": 4,
+    "sonatas": [
+      27
+    ]
+  },
+  {
+    "id": 6000192,
+    "name": "Nameless Explorer",
+    "cost": 4,
+    "sonatas": [
+      29,
+      31
+    ]
+  },
+  {
+    "id": 6000193,
+    "name": "Kronablight",
+    "cost": 3,
+    "sonatas": [
+      27,
+      28
+    ]
+  },
+  {
+    "id": 6000194,
+    "name": "Reminiscence: Kronaclaw",
+    "cost": 3,
+    "sonatas": [
+      27,
+      28
+    ]
+  },
+  {
+    "id": 6000195,
+    "name": "Glommoth",
+    "cost": 3,
+    "sonatas": [
+      27,
+      30
+    ]
+  },
+  {
+    "id": 6000196,
+    "name": "Iceglint Dancer",
+    "cost": 1,
+    "sonatas": [
+      27,
+      30,
+      31
+    ]
+  },
+  {
+    "id": 6000197,
+    "name": "Shadow Stepper",
+    "cost": 1,
+    "sonatas": [
+      27,
+      28,
+      30
+    ]
+  },
+  {
+    "id": 6000198,
+    "name": "Voidwing Moth",
+    "cost": 3,
+    "sonatas": [
+      31
+    ]
+  },
+  {
+    "id": 6000199,
+    "name": "Reminiscence: Threnodian - Voidborne Construct",
+    "cost": 4,
+    "sonatas": [
+      30
+    ]
+  },
+  {
+    "id": 6000200,
+    "name": "Reminiscence: Denia",
+    "cost": 4,
+    "sonatas": [
+      28
+    ]
+  },
+  {
+    "id": 6000201,
+    "name": "Reminiscence - Nightmare: Adam Smasher",
+    "cost": 4,
+    "sonatas": [
+      32
+    ]
+  },
+  {
+    "id": 6000202,
+    "name": "Smiter",
+    "cost": 1,
+    "sonatas": [
+      33
+    ]
+  },
+  {
+    "id": 6000203,
+    "name": "Porcelain Picket",
+    "cost": 1,
+    "sonatas": [
+      35,
+      37
+    ]
+  },
+  {
+    "id": 6000204,
+    "name": "Stone Picket",
+    "cost": 1,
+    "sonatas": [
+      35,
+      37
+    ]
+  },
+  {
+    "id": 6000205,
+    "name": "Aureate Picket",
+    "cost": 1,
+    "sonatas": [
+      34,
+      37
+    ]
+  },
+  {
+    "id": 6000206,
+    "name": "Kernel Puppet: Joy",
+    "cost": 1,
+    "sonatas": [
+      33,
+      36
+    ]
+  },
+  {
+    "id": 6000207,
+    "name": "Kernel Puppet: Anger",
+    "cost": 1,
+    "sonatas": [
+      34,
+      38
+    ]
+  },
+  {
+    "id": 6000208,
+    "name": "Kernel Puppet: Worry",
+    "cost": 1,
+    "sonatas": [
+      34,
+      37
+    ]
+  },
+  {
+    "id": 6000209,
+    "name": "Kernel Puppet: Reflection",
+    "cost": 1,
+    "sonatas": [
+      34,
+      38
+    ]
+  },
+  {
+    "id": 6000210,
+    "name": "Kernel Puppet: Grief",
+    "cost": 1,
+    "sonatas": [
+      35,
+      38
+    ]
+  },
+  {
+    "id": 6000211,
+    "name": "Kernel Puppet: Fright",
+    "cost": 1,
+    "sonatas": [
+      35,
+      38
+    ]
+  },
+  {
+    "id": 6000212,
+    "name": "Fog Lionarch: Body",
+    "cost": 1,
+    "sonatas": [
+      33,
+      36
+    ]
+  },
+  {
+    "id": 6000213,
+    "name": "Fog Lionarch: Head",
+    "cost": 1,
+    "sonatas": [
+      33,
+      36
+    ]
+  },
+  {
+    "id": 6000214,
+    "name": "Smolder",
+    "cost": 1,
+    "sonatas": [
+      33
+    ]
+  },
+  {
+    "id": 6000215,
+    "name": "Fog Lionarch",
+    "cost": 3,
+    "sonatas": [
+      33,
+      34,
+      35
+    ]
+  },
+  {
+    "id": 6000216,
+    "name": "Forbidden Bastion",
+    "cost": 3,
+    "sonatas": [
+      33,
+      34,
+      35
+    ]
+  },
+  {
+    "id": 6000217,
+    "name": "Myriad Snare: Rustfire Chassis",
+    "cost": 4,
+    "sonatas": [
+      34,
+      35
+    ]
+  },
+  {
+    "id": 6000218,
+    "name": "Thousand-Puppet Pavilion",
+    "cost": 4,
+    "sonatas": [
+      33,
+      38
+    ]
+  },
+  {
+    "id": 6000219,
+    "name": "Jade Nether Serpent",
+    "cost": 1,
+    "sonatas": [
+      36
+    ]
+  },
+  {
+    "id": 6000220,
+    "name": "Skywatch Lancer",
+    "cost": 3,
+    "sonatas": [
+      37,
+      38
+    ]
+  },
+  {
+    "id": 6000221,
+    "name": "Calamity Effigy",
+    "cost": 4,
+    "sonatas": [
+      34,
+      35
+    ]
+  },
+  {
+    "id": 6000222,
+    "name": "Stay tuned",
+    "cost": 1,
+    "sonatas": [
+      36
+    ]
+  },
+  {
+    "id": 6000223,
+    "name": "Stay tuned",
+    "cost": 3,
+    "sonatas": [
+      36,
+      38
+    ]
+  },
+  {
+    "id": 6000224,
+    "name": "Stay tuned",
+    "cost": 3,
+    "sonatas": [
+      36,
+      37
+    ]
+  },
+  {
+    "id": 6000225,
+    "name": "Stay tuned",
+    "cost": 4,
+    "sonatas": [
+      36,
+      37
+    ]
+  },
+  {
+    "id": 390070051,
+    "name": "Vanguard Junrock",
+    "cost": 1,
+    "sonatas": [
+      3,
+      7,
+      9
+    ]
+  },
+  {
+    "id": 390070052,
+    "name": "Fission Junrock",
+    "cost": 1,
+    "sonatas": [
+      3,
+      7,
+      8
+    ]
+  },
+  {
+    "id": 390070053,
+    "name": "Electro Predator",
+    "cost": 1,
+    "sonatas": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": 390070064,
+    "name": "Fusion Warrior",
+    "cost": 1,
+    "sonatas": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 390070065,
+    "name": "Havoc Warrior",
+    "cost": 1,
+    "sonatas": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": 390070066,
+    "name": "Snip Snap",
+    "cost": 1,
+    "sonatas": [
+      2,
+      7,
+      9
+    ]
+  },
+  {
+    "id": 390070067,
+    "name": "Zig Zag",
+    "cost": 1,
+    "sonatas": [
+      5,
+      8,
+      9
+    ]
+  },
+  {
+    "id": 390070068,
+    "name": "Whiff Whaff",
+    "cost": 1,
+    "sonatas": [
+      4,
+      7,
+      8
+    ]
+  },
+  {
+    "id": 390070069,
+    "name": "Tick Tack",
+    "cost": 1,
+    "sonatas": [
+      6,
+      7,
+      9
+    ]
+  },
+  {
+    "id": 390070070,
+    "name": "Glacio Predator",
+    "cost": 1,
+    "sonatas": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 390070071,
+    "name": "Aero Predator",
+    "cost": 1,
+    "sonatas": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": 390070074,
+    "name": "Cruisewing",
+    "cost": 1,
+    "sonatas": [
+      5,
+      7,
+      8
+    ]
+  },
+  {
+    "id": 390070075,
+    "name": "Sabyr Boar",
+    "cost": 1,
+    "sonatas": [
+      1,
+      4,
+      8
+    ]
+  },
+  {
+    "id": 390070076,
+    "name": "Gulpuff",
+    "cost": 1,
+    "sonatas": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 390070077,
+    "name": "Excarat",
+    "cost": 1,
+    "sonatas": [
+      1,
+      6
+    ]
+  },
+  {
+    "id": 390070078,
+    "name": "Baby Viridblaze Saurian",
+    "cost": 1,
+    "sonatas": [
+      2,
+      3,
+      9
+    ]
+  },
+  {
+    "id": 390070079,
+    "name": "Baby Roseshroom",
+    "cost": 1,
+    "sonatas": [
+      4,
+      6
+    ]
+  },
+  {
+    "id": 390070100,
+    "name": "Fusion Dreadmane",
+    "cost": 1,
+    "sonatas": [
+      2,
+      7
+    ]
+  },
+  {
+    "id": 390070105,
+    "name": "Hoartoise",
+    "cost": 1,
+    "sonatas": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 390077004,
+    "name": "Violet-Feathered Heron",
+    "cost": 3,
+    "sonatas": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": 390077005,
+    "name": "Cyan-Feathered Heron",
+    "cost": 3,
+    "sonatas": [
+      4,
+      5
+    ]
+  },
+  {
+    "id": 390077012,
+    "name": "Fusion Prism",
+    "cost": 1,
+    "sonatas": [
+      1,
+      2,
+      9
+    ]
+  },
+  {
+    "id": 390077013,
+    "name": "Glacio Prism",
+    "cost": 1,
+    "sonatas": [
+      1,
+      6,
+      8
+    ]
+  },
+  {
+    "id": 390077016,
+    "name": "Spectro Prism",
+    "cost": 1,
+    "sonatas": [
+      2,
+      3,
+      5
+    ]
+  },
+  {
+    "id": 390077017,
+    "name": "Havoc Prism",
+    "cost": 1,
+    "sonatas": [
+      3,
+      5,
+      6
+    ]
+  },
+  {
+    "id": 390077021,
+    "name": "Stonewall Bracer",
+    "cost": 3,
+    "sonatas": [
+      7,
+      8
+    ]
+  },
+  {
+    "id": 390077022,
+    "name": "Flautist",
+    "cost": 3,
+    "sonatas": [
+      3,
+      9
+    ]
+  },
+  {
+    "id": 390077023,
+    "name": "Tambourinist",
+    "cost": 3,
+    "sonatas": [
+      1,
+      6
+    ]
+  },
+  {
+    "id": 390077024,
+    "name": "Rocksteady Guardian",
+    "cost": 3,
+    "sonatas": [
+      5,
+      7
+    ]
+  },
+  {
+    "id": 390077025,
+    "name": "Chasm Guardian",
+    "cost": 3,
+    "sonatas": [
+      7,
+      9
+    ]
+  },
+  {
+    "id": 390077028,
+    "name": "Viridblaze Saurian",
+    "cost": 3,
+    "sonatas": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": 390077029,
+    "name": "Roseshroom",
+    "cost": 3,
+    "sonatas": [
+      1,
+      6
+    ]
+  },
+  {
+    "id": 390077033,
+    "name": "Havoc Dreadmane",
+    "cost": 3,
+    "sonatas": [
+      2,
+      6
+    ]
+  },
+  {
+    "id": 390077038,
+    "name": "Spearback",
+    "cost": 3,
+    "sonatas": [
+      8,
+      9
+    ]
+  },
+  {
+    "id": 390080003,
+    "name": "Thundering Mephis",
+    "cost": 4,
+    "sonatas": [
+      3
+    ]
+  },
+  {
+    "id": 390080005,
+    "name": "Bell-Borne Geochelone",
+    "cost": 4,
+    "sonatas": [
+      7,
+      8
+    ]
+  },
+  {
+    "id": 390080007,
+    "name": "Inferno Rider",
+    "cost": 4,
+    "sonatas": [
+      2
+    ]
+  }
+]

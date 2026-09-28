@@ -4,6 +4,7 @@ const links = [
   { href: "/", label: "Дашборд" },
   { href: "/gacha", label: "Гача-лог" },
   { href: "/resources", label: "Ресурси" },
+  { href: "/echoes", label: "Префарм" },
   { href: "/history", label: "Історія" },
   { href: "/stats", label: "Статистика" },
 ];
