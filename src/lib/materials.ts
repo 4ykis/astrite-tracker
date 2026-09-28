@@ -108,33 +108,14 @@ export const GROUP_LABELS: Record<MaterialGroup, string> = {
   forgery: "Кузня (Forgery)",
 };
 
-/**
- * Amount one character needs per tier (LF, MF, HF, FF): all forte nodes maxed
- * plus a 5★ signature weapon to Lv.90.
- *   enemy:   forte 25/28/40/57 + weapon 6/6/10/12
- *   forgery: forte 25/28/55/67 + weapon 6/8/6/20
- */
-export const NEED_PER_CHARACTER: Record<MaterialGroup, [number, number, number, number]> = {
-  enemy: [31, 34, 50, 69],
-  forgery: [31, 36, 61, 87],
-};
-
 export const ALL_MATERIALS: (Material & { group: MaterialGroup })[] = SERIES.flatMap((s) =>
   s.items.map((item) => ({ ...item, group: s.group })),
 );
 
-export function needFor(group: MaterialGroup, tier: Tier): number {
-  return NEED_PER_CHARACTER[group][tier - 1];
-}
-
-/** 97 with need 31 → { full: 3, rem: 4, need: 31 } */
-export function breakdown(total: number, need: number) {
-  return { full: Math.floor(total / need), rem: total % need, need };
-}
-
+// In-game rarity colours: LF green, MF blue, HF purple, FF gold.
 export const TIER_STYLES: Record<Tier, { border: string; bg: string; text: string }> = {
-  1: { border: "border-slate-500", bg: "bg-slate-500/15", text: "text-slate-300" },
-  2: { border: "border-emerald-500", bg: "bg-emerald-500/15", text: "text-emerald-300" },
-  3: { border: "border-sky-500", bg: "bg-sky-500/15", text: "text-sky-300" },
-  4: { border: "border-violet-500", bg: "bg-violet-500/15", text: "text-violet-300" },
+  1: { border: "border-emerald-500", bg: "bg-emerald-500/15", text: "text-emerald-300" },
+  2: { border: "border-sky-500", bg: "bg-sky-500/15", text: "text-sky-300" },
+  3: { border: "border-violet-500", bg: "bg-violet-500/15", text: "text-violet-300" },
+  4: { border: "border-amber-400", bg: "bg-amber-400/15", text: "text-amber-300" },
 };

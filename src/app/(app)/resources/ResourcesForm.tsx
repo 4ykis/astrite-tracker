@@ -4,33 +4,20 @@ import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 import Card from "@/components/Card";
 import MaterialIcon from "@/components/MaterialIcon";
-import {
-  GROUP_LABELS,
-  Material,
-  MaterialGroup,
-  NEED_PER_CHARACTER,
-  SERIES,
-  breakdown,
-  needFor,
-} from "@/lib/materials";
+import { GROUP_LABELS, Material, MaterialGroup, SERIES } from "@/lib/materials";
 import { saveResources } from "./actions";
 
 const GROUPS: MaterialGroup[] = ["enemy", "forgery"];
 
 function MaterialCell({
   material,
-  group,
   value,
   onChange,
 }: {
   material: Material;
-  group: MaterialGroup;
   value: string;
   onChange: (value: string) => void;
 }) {
-  const total = Number(value) || 0;
-  const { full, rem, need } = breakdown(total, needFor(group, material.tier));
-
   return (
     <label className="flex flex-col items-center gap-1">
       <MaterialIcon material={material} />
@@ -45,10 +32,6 @@ function MaterialCell({
         onFocus={(event) => event.target.select()}
         className="w-full rounded-md border border-slate-700 bg-slate-950 px-1 py-1 text-center text-sm text-slate-100 outline-none focus:border-amber-400"
       />
-      <span className="whitespace-nowrap text-[11px] text-slate-500">
-        ({rem}/{need}){" "}
-        <span className={full > 0 ? "font-semibold text-amber-300" : "text-slate-600"}>{full}</span>
-      </span>
     </label>
   );
 }
@@ -70,12 +53,6 @@ export default function ResourcesForm({
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
-      <p className="text-xs text-slate-500">
-        <span className="text-slate-300">(22/31) 3</span> — прогрес до наступного персонажа / скільки
-        повних персонажів уже є. На 1 персонажа (всі скіли + 5★ зброя 90): звичайні{" "}
-        {NEED_PER_CHARACTER.enemy.join("/")}, кузня {NEED_PER_CHARACTER.forgery.join("/")}.
-      </p>
-
       {GROUPS.map((group) => (
         <Card key={group}>
           <h2 className="mb-3 text-sm font-medium text-slate-300">{GROUP_LABELS[group]}</h2>
@@ -88,7 +65,6 @@ export default function ResourcesForm({
                     <MaterialCell
                       key={material.id}
                       material={material}
-                      group={group}
                       value={values[material.id]}
                       onChange={(value) => setValues((prev) => ({ ...prev, [material.id]: value }))}
                     />

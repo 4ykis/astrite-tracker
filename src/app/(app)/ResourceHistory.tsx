@@ -1,5 +1,5 @@
 import MaterialIcon from "@/components/MaterialIcon";
-import { SERIES, breakdown, needFor } from "@/lib/materials";
+import { SERIES } from "@/lib/materials";
 import { ResourceDay } from "@/lib/resources";
 import { deleteResourceDay } from "./resources/actions";
 
@@ -54,14 +54,10 @@ export default function ResourceHistory({ days }: { days: ResourceDay[] }) {
                     <div className="grid grid-cols-4 gap-2">
                       {s.items.map((material) => {
                         const amount = day.amounts[material.id] ?? 0;
-                        const { full, rem, need } = breakdown(amount, needFor(s.group, material.tier));
                         return (
                           <div key={material.id} className="flex flex-col items-center gap-0.5 text-[11px]">
                             <MaterialIcon material={material} size={36} />
                             <DeltaLabel delta={day.deltas[material.id]} amount={amount} />
-                            <span className="whitespace-nowrap text-slate-600">
-                              ({rem}/{need}) <span className={full > 0 ? "text-amber-300/80" : ""}>{full}</span>
-                            </span>
                           </div>
                         );
                       })}
