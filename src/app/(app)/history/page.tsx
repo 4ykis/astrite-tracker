@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import BalanceHistory from "../BalanceHistory";
 import SpendList from "../spending/SpendList";
 import PullList from "../gacha/PullList";
+import ResourceHistory from "../ResourceHistory";
+import { getResourceTimeline } from "@/lib/resources";
 
 export const dynamic = "force-dynamic";
 
@@ -79,7 +81,7 @@ export default async function HistoryPage({
   const spendPage = parsePage(params.spendPage);
   const pullPage = parsePage(params.pullPage);
 
-  const [balances, balanceCount, spends, spendCount, pulls, pullCount] = await Promise.all([
+  const [balances, balanceCount, spends, spendCount, pulls, pullCount, resourceDays] = await Promise.all([
     prisma.balanceEntry.findMany({
       orderBy: [{ date: "desc" }, { createdAt: "desc" }],
       skip: (balancePage - 1) * PAGE_SIZE,
@@ -98,6 +100,7 @@ export default async function HistoryPage({
       take: PAGE_SIZE,
     }),
     prisma.pullEntry.count(),
+    getResourceTimeline(10),
   ]);
 
   return (
@@ -113,6 +116,11 @@ export default async function HistoryPage({
           paramKey="balancePage"
           searchParams={params}
         />
+      </Card>
+
+      <Card>
+        <h2 className="mb-2 text-sm font-medium text-slate-300">Ресурси</h2>
+        <ResourceHistory days={resourceDays} />
       </Card>
 
       <Card>

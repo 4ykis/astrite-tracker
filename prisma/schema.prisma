@@ -53,3 +53,16 @@ model PityCounter {
   currentPity Int        @default(0)
   updatedAt   DateTime   @updatedAt
 }
+
+// Daily snapshot of development materials: one row per item per day. A day
+// without a row for an item means the amount is unchanged since the last row.
+model ResourceEntry {
+  id        String   @id @default(cuid())
+  date      DateTime
+  itemId    Int
+  amount    Int
+  createdAt DateTime @default(now())
+
+  @@unique([date, itemId])
+  @@index([date])
+}
