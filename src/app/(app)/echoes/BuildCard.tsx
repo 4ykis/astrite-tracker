@@ -8,14 +8,16 @@ import {
   characterIcon,
   ECHO_BY_ID,
   echoIcon,
+  ECHO_COUNT,
   EchoSlot,
   FIXED_MAIN,
   MAIN_STATS,
   mainStat,
+  SUB_COUNT,
   SUB_STAT_BY_KEY,
   SUB_STATS,
 } from "@/lib/echoes";
-import { deleteBuild, updateBuild } from "./actions";
+import { deleteBuild, moveBuild, setBuildCollapsed, updateBuild } from "./actions";
 import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
 import StatPicker from "./StatPicker";
@@ -33,13 +35,20 @@ export default function BuildCard({
   id,
   characterId: initialCharacterId,
   slots: initialSlots,
+  collapsed: initialCollapsed,
+  isFirst,
+  isLast,
 }: {
   id: string;
   characterId: number | null;
   slots: EchoSlot[];
+  collapsed: boolean;
+  isFirst: boolean;
+  isLast: boolean;
 }) {
   const [characterId, setCharacterId] = useState(initialCharacterId);
   const [slots, setSlots] = useState(initialSlots);
+  const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [picker, setPicker] = useState<Picker | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -60,52 +69,106 @@ export default function BuildCard({
   const pickedEchoId = picker && picker.kind !== "character" ? slots[picker.slot].echoId : null;
   const pickedEcho = pickedEchoId !== null ? ECHO_BY_ID.get(pickedEchoId) : undefined;
 
-  return (
-    <Card className="flex flex-col gap-3 !p-3">
-      <div className="flex items-center justify-between px-1">
-        <span className="text-sm font-medium text-slate-300">
-          Сетап
-          {isPending && <span className="ml-2 text-xs text-slate-500">збереження…</span>}
-        </span>
-        <button
-          type="button"
-          onClick={() => {
-            if (confirm("Видалити цей сетап?")) startTransition(() => deleteBuild(id));
-          }}
-          className="rounded-md px-2 py-0.5 text-xs text-slate-500 transition hover:bg-red-950 hover:text-red-300"
-        >
-          Видалити
-        </button>
-      </div>
+  const allEchoesChosen = slots.every((slot) => slot.echoId !== null);
+  const totalGot = slots.reduce((sum, slot) => sum + gotCount(slot), 0);
+  const border = allEchoesChosen ? TOTAL_BORDER[level(totalGot, 20, 13)] : "";
 
-      {/* Resonator banner */}
+  // Ordering and collapsing only make sense once the setup has a resonator.
+  const isCollapsed = collapsed && character !== undefined;
+
+  const toggleCollapsed = () => {
+    setCollapsed(!isCollapsed);
+    startTransition(() => setBuildCollapsed(id, !isCollapsed));
+  };
+
+  const moveButtons = (
+    <div className="flex shrink-0 flex-col gap-1">
+      <MoveButton label="Вгору" disabled={isFirst || isPending} onClick={() => startTransition(() => moveBuild(id, -1))}>
+        ↑
+      </MoveButton>
+      <MoveButton label="Вниз" disabled={isLast || isPending} onClick={() => startTransition(() => moveBuild(id, 1))}>
+        ↓
+      </MoveButton>
+    </div>
+  );
+
+  const collapseButton = (
+    <button
+      type="button"
+      aria-label={isCollapsed ? "Розгорнути" : "Згорнути"}
+      title={isCollapsed ? "Розгорнути" : "Згорнути"}
+      onClick={toggleCollapsed}
+      className="flex w-10 shrink-0 items-center justify-center self-stretch rounded-xl border border-slate-800 text-slate-400 transition hover:border-slate-600 hover:text-amber-300"
+    >
+      <span className={`inline-block transition ${isCollapsed ? "" : "rotate-180"}`}>▾</span>
+    </button>
+  );
+
+  return (
+    <Card className={`relative flex flex-col gap-3 !p-3 ${border}`}>
       <button
         type="button"
-        onClick={() => setPicker({ kind: "character" })}
-        className={`group flex h-20 items-center gap-4 overflow-hidden rounded-xl border px-3 text-left transition ${
-          character
-            ? "border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 hover:border-slate-600"
-            : "justify-center border-dashed border-amber-400/60 bg-amber-400/10 hover:bg-amber-400/20"
-        }`}
+        aria-label="Видалити сетап"
+        title="Видалити"
+        onClick={() => {
+          if (confirm("Видалити цей сетап?")) startTransition(() => deleteBuild(id));
+        }}
+        className="absolute -top-3 -right-3 z-10 flex size-7 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-base leading-none text-slate-400 shadow transition hover:border-red-500 hover:bg-red-950 hover:text-red-300"
       >
-        {character ? (
-          <>
-            <Image
-              src={characterIcon(character.id)}
-              alt={character.name}
-              width={64}
-              height={64}
-              unoptimized
-              className={`size-16 shrink-0 rounded-lg ${character.rank === 5 ? "bg-amber-400/15" : "bg-violet-500/15"}`}
-            />
-            <span className="flex-1 truncate text-lg font-semibold text-amber-300">{character.name}</span>
-            <span className="text-xl text-slate-400 transition group-hover:text-amber-300">›</span>
-          </>
-        ) : (
-          <span className="text-sm text-amber-200">+ обрати героя</span>
-        )}
+        ×
       </button>
 
+      {!character ? (
+        <button
+          type="button"
+          onClick={() => setPicker({ kind: "character" })}
+          className="flex h-20 items-center justify-center rounded-xl border border-dashed border-amber-400/60 bg-amber-400/10 text-sm text-amber-200 transition hover:bg-amber-400/20"
+        >
+          + обрати героя
+        </button>
+      ) : (
+        <div className="flex gap-2">
+          <div
+            className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 px-2 ${
+              isCollapsed ? "h-[72px]" : "h-20"
+            }`}
+          >
+            {moveButtons}
+            <button
+              type="button"
+              onClick={() => (isCollapsed ? toggleCollapsed() : setPicker({ kind: "character" }))}
+              className="group flex min-w-0 flex-1 items-center gap-3 self-stretch text-left"
+            >
+              <Image
+                src={characterIcon(character.id)}
+                alt={character.name}
+                width={64}
+                height={64}
+                unoptimized
+                className={`shrink-0 rounded-lg ${isCollapsed ? "size-10" : "size-16"} ${
+                  character.rank === 5 ? "bg-amber-400/15" : "bg-violet-500/15"
+                }`}
+              />
+              <span className={`flex-1 truncate font-semibold text-amber-300 ${isCollapsed ? "" : "text-lg"}`}>
+                {character.name}
+              </span>
+              {isCollapsed ? (
+                allEchoesChosen && (
+                  <span className="text-xs text-slate-400">
+                    {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
+                  </span>
+                )
+              ) : (
+                <span className="text-xl text-slate-400 transition group-hover:text-amber-300">›</span>
+              )}
+            </button>
+          </div>
+          {collapseButton}
+        </div>
+      )}
+
+      {!isCollapsed && (
+        <>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
         {/* Echoes */}
         {slots.map((slot, index) => {
@@ -127,7 +190,7 @@ export default function BuildCard({
           return (
             <div
               key={index}
-              className={`${cell} bg-[radial-gradient(ellipse_at_top,_var(--color-indigo-900)_0%,_var(--color-slate-950)_70%)]`}
+              className={`${cell} bg-[radial-gradient(circle_at_top,_var(--color-indigo-900)_0%,_var(--color-slate-950)_90%)]`}
             >
               <div className="relative flex flex-1 flex-col gap-1 p-1.5">
                 <button
@@ -186,6 +249,9 @@ export default function BuildCard({
           );
         })}
       </div>
+
+        </>
+      )}
 
       {pickedEcho && picker?.kind === "main" && (
         <StatPicker
@@ -246,23 +312,70 @@ export default function BuildCard({
   );
 }
 
+type Level = "good" | "ok" | "low";
+
+const level = (value: number, good: number, ok: number): Level =>
+  value >= good ? "good" : value >= ok ? "ok" : "low";
+
+// Muted on purpose: noticeable, but not louder than the content.
+const TOTAL_BORDER: Record<Level, string> = {
+  good: "!border-emerald-500/45",
+  ok: "!border-amber-400/45",
+  low: "!border-red-500/40",
+};
+
+const PROGRESS: Record<Level, { bar: string; text: string }> = {
+  good: { bar: "bg-emerald-500/80", text: "text-emerald-300" },
+  ok: { bar: "bg-amber-400/80", text: "text-amber-300" },
+  low: { bar: "bg-red-500/70", text: "text-red-300" },
+};
+
+const STATS_PER_ECHO = 1 + SUB_COUNT;
+
+const gotCount = (slot: EchoSlot) => (slot.mainGot ? 1 : 0) + slot.subsGot.filter(Boolean).length;
+
 function GotProgress({ slot }: { slot: EchoSlot }) {
   const planned = (slot.main ? 1 : 0) + slot.subs.filter(Boolean).length;
   if (planned === 0) return null;
-  const got = (slot.mainGot ? 1 : 0) + slot.subsGot.filter(Boolean).length;
-  const done = got === planned;
+  const got = gotCount(slot);
+  const style = PROGRESS[level(got, 4, 3)];
 
   return (
-    <div className="mt-auto flex items-center gap-2 px-1.5 pt-1 text-[11px] text-slate-400">
+    <div className="mt-auto flex items-center gap-2 px-1.5 pt-1 text-[11px]">
       <div className="h-1 flex-1 overflow-hidden rounded-full bg-slate-800">
         <div
-          className={`h-full rounded-full transition-all ${done ? "bg-emerald-400" : "bg-emerald-600"}`}
-          style={{ width: `${(got / planned) * 100}%` }}
+          className={`h-full rounded-full transition-all ${style.bar}`}
+          style={{ width: `${(got / STATS_PER_ECHO) * 100}%` }}
         />
       </div>
-      <span className={done ? "text-emerald-300" : ""}>
-        {got}/{planned}
+      <span className={style.text}>
+        {got}/{STATS_PER_ECHO}
       </span>
     </div>
+  );
+}
+
+function MoveButton({
+  label,
+  disabled,
+  onClick,
+  children,
+}: {
+  label: string;
+  disabled?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      disabled={disabled}
+      onClick={onClick}
+      className="flex size-[30px] items-center justify-center rounded-md bg-slate-950/60 text-sm text-slate-400 transition hover:bg-slate-800 hover:text-amber-300 disabled:pointer-events-none disabled:opacity-30"
+    >
+      {children}
+    </button>
   );
 }

@@ -20,6 +20,7 @@ html {
 }
 
 body {
-  background: radial-gradient(circle at top, #1a1642 0%, var(--background) 55%);
+  /* no-repeat: on pages taller than the viewport the gradient would restart and leave a seam. */
+  background: var(--background) radial-gradient(circle at top, #1a1642 0%, var(--background) 55%) no-repeat;
   color: var(--foreground);
 }
