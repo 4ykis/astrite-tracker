@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import Modal from "@/components/Modal";
-import { COSTS, EchoCost, ECHOES, echoIcon, SONATAS, sonataIcon } from "@/lib/echoes";
+import { COSTS, EchoCost, ECHOES, echoIcon, sonataIcon } from "@/lib/echoes";
+import SonataSelect from "./SonataSelect";
 
 const chip = (active: boolean) =>
   `flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition ${
@@ -24,41 +25,21 @@ export default function EchoPicker({
   const [sonatas, setSonatas] = useState<Set<number>>(new Set());
   const [cost, setCost] = useState<EchoCost | null>(null);
 
-  const toggleSonata = (id: number) =>
-    setSonatas((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-
   const visible = ECHOES.filter(
     (e) => (cost === null || e.cost === cost) && (sonatas.size === 0 || e.sonatas.some((s) => sonatas.has(s))),
   );
 
   const filters = (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap gap-1.5">
-        <button type="button" className={chip(cost === null)} onClick={() => setCost(null)}>
-          Усі
+    <div className="flex flex-wrap items-center gap-1.5">
+      <SonataSelect value={sonatas} onChange={setSonatas} />
+      <button type="button" className={chip(cost === null)} onClick={() => setCost(null)}>
+        Усі
+      </button>
+      {COSTS.map((c) => (
+        <button key={c} type="button" className={chip(cost === c)} onClick={() => setCost(c)}>
+          Cost {c}
         </button>
-        {COSTS.map((c) => (
-          <button key={c} type="button" className={chip(cost === c)} onClick={() => setCost(c)}>
-            Cost {c}
-          </button>
-        ))}
-      </div>
-      <div className="flex max-h-28 flex-wrap gap-1.5 overflow-y-auto">
-        <button type="button" className={chip(sonatas.size === 0)} onClick={() => setSonatas(new Set())}>
-          Усі сонати
-        </button>
-        {SONATAS.map((s) => (
-          <button key={s.id} type="button" className={chip(sonatas.has(s.id))} onClick={() => toggleSonata(s.id)}>
-            <Image src={sonataIcon(s.id)} alt="" width={16} height={16} unoptimized />
-            {s.name}
-          </button>
-        ))}
-      </div>
+      ))}
     </div>
   );
 

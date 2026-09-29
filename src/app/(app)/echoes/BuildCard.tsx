@@ -144,7 +144,10 @@ export default function BuildCard({
                     className="size-10 shrink-0 rounded-md bg-slate-900/60"
                   />
                   <span className="line-clamp-2 flex-1 text-xs font-semibold text-amber-300 lg:text-sm">{echo.name}</span>
-                  <span className="shrink-0 rounded bg-slate-800 px-1 text-[10px] font-semibold text-slate-300">
+                  <span
+                    title={`Cost ${echo.cost}`}
+                    className="flex size-7 shrink-0 items-center justify-center rounded-md border border-amber-400/60 bg-amber-400/15 text-base font-bold text-amber-300 lg:size-8 lg:text-lg"
+                  >
                     {echo.cost}
                   </span>
                 </button>
@@ -155,7 +158,9 @@ export default function BuildCard({
                 </div>
                 <StatRow
                   stat={mainStat(echo.cost, slot.main)}
+                  got={slot.mainGot}
                   onClick={() => setPicker({ kind: "main", slot: index })}
+                  onToggle={() => patchSlot(index, (s) => ({ ...s, mainGot: !s.mainGot }))}
                 />
 
                 <div className="mx-1.5 my-0.5 h-px bg-amber-400/70" />
@@ -164,9 +169,18 @@ export default function BuildCard({
                   <StatRow
                     key={subIndex}
                     stat={key ? SUB_STAT_BY_KEY.get(key) : undefined}
+                    got={slot.subsGot[subIndex]}
                     onClick={() => setPicker({ kind: "sub", slot: index, index: subIndex })}
+                    onToggle={() =>
+                      patchSlot(index, (s) => ({
+                        ...s,
+                        subsGot: s.subsGot.map((got, i) => (i === subIndex ? !got : got)),
+                      }))
+                    }
                   />
                 ))}
+
+                <GotProgress slot={slot} />
               </div>
             </div>
           );
@@ -179,7 +193,9 @@ export default function BuildCard({
           stats={MAIN_STATS[pickedEcho.cost]}
           selected={slots[picker.slot].main}
           onClose={() => setPicker(null)}
-          onSelect={(key) => patchSlot(picker.slot, (s) => ({ ...s, main: key }))}
+          onSelect={(key) =>
+            patchSlot(picker.slot, (s) => ({ ...s, main: key, mainGot: key === s.main && s.mainGot }))
+          }
         />
       )}
       {pickedEcho && picker?.kind === "sub" && (
@@ -193,6 +209,7 @@ export default function BuildCard({
             patchSlot(picker.slot, (s) => ({
               ...s,
               subs: s.subs.map((sub, i) => (i === picker.index ? key : sub)),
+              subsGot: s.subsGot.map((got, i) => (i === picker.index ? key === s.subs[i] && got : got)),
             }))
           }
         />
@@ -211,12 +228,41 @@ export default function BuildCard({
           onClose={() => setPicker(null)}
           onSelect={(echoId) =>
             patchSlot(picker.slot, (s) => {
+              if (s.echoId === echoId) return s;
+              // A different echo means a different real piece: keep the plan, drop the got-marks.
               const sameCost = s.echoId !== null && ECHO_BY_ID.get(s.echoId)?.cost === ECHO_BY_ID.get(echoId)?.cost;
-              return { ...s, echoId, main: sameCost ? s.main : null };
+              return {
+                ...s,
+                echoId,
+                main: sameCost ? s.main : null,
+                mainGot: false,
+                subsGot: s.subsGot.map(() => false),
+              };
             })
           }
         />
       )}
     </Card>
+  );
+}
+
+function GotProgress({ slot }: { slot: EchoSlot }) {
+  const planned = (slot.main ? 1 : 0) + slot.subs.filter(Boolean).length;
+  if (planned === 0) return null;
+  const got = (slot.mainGot ? 1 : 0) + slot.subsGot.filter(Boolean).length;
+  const done = got === planned;
+
+  return (
+    <div className="mt-auto flex items-center gap-2 px-1.5 pt-1 text-[11px] text-slate-400">
+      <div className="h-1 flex-1 overflow-hidden rounded-full bg-slate-800">
+        <div
+          className={`h-full rounded-full transition-all ${done ? "bg-emerald-400" : "bg-emerald-600"}`}
+          style={{ width: `${(got / planned) * 100}%` }}
+        />
+      </div>
+      <span className={done ? "text-emerald-300" : ""}>
+        {got}/{planned}
+      </span>
+    </div>
   );
 }

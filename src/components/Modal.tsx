@@ -43,7 +43,7 @@ export default function Modal({
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
         className={`flex max-h-full w-full flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-xl ${
-          size === "xl" ? "max-w-5xl" : "max-w-md"
+          size === "xl" ? "min-h-[60vh] max-w-5xl" : "max-w-md"
         }`}
       >
         <div className="flex flex-col gap-3 border-b border-slate-800 p-4">

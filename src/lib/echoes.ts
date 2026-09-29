@@ -94,9 +94,22 @@ export function mainStat(cost: EchoCost, key: string | null): Stat | undefined {
 export const SUB_COUNT = 5;
 export const ECHO_COUNT = 5;
 
-export type EchoSlot = { echoId: number | null; main: string | null; subs: (string | null)[] };
+/** `mainGot` / `subsGot` mark stats that are already rolled on the real echo. */
+export type EchoSlot = {
+  echoId: number | null;
+  main: string | null;
+  mainGot: boolean;
+  subs: (string | null)[];
+  subsGot: boolean[];
+};
 
-export const emptySlot = (): EchoSlot => ({ echoId: null, main: null, subs: Array(SUB_COUNT).fill(null) });
+export const emptySlot = (): EchoSlot => ({
+  echoId: null,
+  main: null,
+  mainGot: false,
+  subs: Array(SUB_COUNT).fill(null),
+  subsGot: Array(SUB_COUNT).fill(false),
+});
 
 /** Normalises whatever is stored in the DB into exactly ECHO_COUNT well-formed slots. */
 export function normalizeSlots(raw: unknown): EchoSlot[] {
@@ -109,6 +122,9 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
       const key = Array.isArray(slot?.subs) ? slot.subs[j] : null;
       return typeof key === "string" && SUB_STAT_BY_KEY.has(key) ? key : null;
     });
-    return { echoId: echo?.id ?? null, main, subs };
+    // Older rows have no got-flags; a flag only counts while its stat is set.
+    const mainGot = main !== null && slot?.mainGot === true;
+    const subsGot = subs.map((key, j) => key !== null && Array.isArray(slot?.subsGot) && slot.subsGot[j] === true);
+    return { echoId: echo?.id ?? null, main, mainGot, subs, subsGot };
   });
 }
