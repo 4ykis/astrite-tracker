@@ -1,19 +1,16 @@
 import MaterialIcon from "@/components/MaterialIcon";
-import { SERIES } from "@/lib/materials";
+import { ALL_MATERIALS } from "@/lib/materials";
 import { ResourceDay } from "@/lib/resources";
 import { deleteResourceDay } from "./resources/actions";
 
-function DeltaLabel({ delta, amount }: { delta: number | null | undefined; amount: number }) {
-  if (delta === undefined || delta === 0) {
-    return <span className="text-slate-500">— ({amount})</span>;
-  }
-  if (delta === null) {
-    return <span className="font-medium text-slate-100">{amount}</span>;
-  }
+// delta is null for the very first record: everything counts as gained from zero.
+function DeltaLabel({ delta, amount }: { delta: number | null; amount: number }) {
+  const change = delta ?? amount;
   return (
-    <span className={`font-medium ${delta >= 0 ? "text-amber-300" : "text-red-400"}`}>
-      {delta >= 0 ? "+" : ""}
-      {delta} ({amount})
+    <span className={`font-medium ${change >= 0 ? "text-amber-300" : "text-red-400"}`}>
+      {change >= 0 ? "+" : ""}
+      {change}
+      {change !== amount && <span className="font-normal text-slate-500"> ({amount})</span>}
     </span>
   );
 }
@@ -26,7 +23,10 @@ export default function ResourceHistory({ days }: { days: ResourceDay[] }) {
   return (
     <ul className="flex flex-col divide-y divide-slate-800">
       {days.map((day, index) => {
-        const changed = Object.keys(day.deltas).length;
+        const changes = ALL_MATERIALS.flatMap((material) => {
+          const delta = day.deltas[material.id];
+          return delta === undefined || delta === 0 ? [] : [{ material, delta }];
+        });
 
         return (
           <li key={day.date.toISOString()} className="py-2">
@@ -35,7 +35,7 @@ export default function ResourceHistory({ days }: { days: ResourceDay[] }) {
                 <span className="text-sm text-slate-300">
                   <span className="mr-1 inline-block text-slate-500 transition group-open:rotate-90">›</span>
                   {day.date.toLocaleDateString("uk-UA", { timeZone: "UTC" })}{" "}
-                  <span className="text-slate-500">· змін: {changed}</span>
+                  <span className="text-slate-500">· змін: {changes.length}</span>
                 </span>
                 <form action={deleteResourceDay.bind(null, day.date.toISOString())}>
                   <button
@@ -47,24 +47,18 @@ export default function ResourceHistory({ days }: { days: ResourceDay[] }) {
                 </form>
               </summary>
 
-              <div className="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-                {SERIES.map((s) => (
-                  <div key={s.key} className="flex flex-col gap-1">
-                    <span className="text-xs text-slate-400">{s.name}</span>
-                    <div className="grid grid-cols-4 gap-2">
-                      {s.items.map((material) => {
-                        const amount = day.amounts[material.id] ?? 0;
-                        return (
-                          <div key={material.id} className="flex flex-col items-center gap-0.5 text-[11px]">
-                            <MaterialIcon material={material} size={36} />
-                            <DeltaLabel delta={day.deltas[material.id]} amount={amount} />
-                          </div>
-                        );
-                      })}
+              {changes.length === 0 ? (
+                <p className="mt-3 text-xs text-slate-500">Без змін</p>
+              ) : (
+                <div className="mt-3 flex flex-wrap gap-[5px]">
+                  {changes.map(({ material, delta }) => (
+                    <div key={material.id} className="flex flex-col items-center gap-0.5 text-base">
+                      <MaterialIcon material={material} size={64} />
+                      <DeltaLabel delta={delta} amount={day.amounts[material.id]} />
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </details>
           </li>
         );
