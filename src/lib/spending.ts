@@ -1,24 +1,24 @@
 import { prisma } from "@/lib/prisma";
 import { addDays, toDayStart } from "@/lib/date";
 
-async function spendBetween(start: Date, end: Date): Promise<number> {
+async function spendBetween(userId: string, start: Date, end: Date): Promise<number> {
   const result = await prisma.spendEntry.aggregate({
     _sum: { amount: true },
-    where: { date: { gte: start, lt: end } },
+    where: { userId, date: { gte: start, lt: end } },
   });
   return result._sum.amount ?? 0;
 }
 
 /** Astrite spent yesterday (its own business day, 12:00 -> 11:59 next day). */
-export async function getYesterdaySpend(): Promise<number> {
+export async function getYesterdaySpend(userId: string): Promise<number> {
   const today = toDayStart(new Date());
-  return spendBetween(addDays(today, -1), today);
+  return spendBetween(userId, addDays(today, -1), today);
 }
 
 /** Astrite spent so far today (its own business day, so far). */
-export async function getTodaySpend(): Promise<number> {
+export async function getTodaySpend(userId: string): Promise<number> {
   const today = toDayStart(new Date());
-  return spendBetween(today, addDays(today, 1));
+  return spendBetween(userId, today, addDays(today, 1));
 }
 
 export type SpendRange = { amount: number; avgPerDay: number | null; days: number };
@@ -29,12 +29,12 @@ export type SpendSummary = { last7Days: SpendRange; allTime: SpendRange };
  * tracked history. `allTimeDays` should match IncomeSummary.allTime.days so
  * both blocks report over the same span.
  */
-export async function getSpendSummary(allTimeDays: number): Promise<SpendSummary> {
+export async function getSpendSummary(userId: string, allTimeDays: number): Promise<SpendSummary> {
   const now = toDayStart(new Date());
 
   const [last7DaysAmount, allTimeAmount] = await Promise.all([
-    spendBetween(addDays(now, -7), now),
-    prisma.spendEntry.aggregate({ _sum: { amount: true } }).then((r) => r._sum.amount ?? 0),
+    spendBetween(userId, addDays(now, -7), now),
+    prisma.spendEntry.aggregate({ where: { userId }, _sum: { amount: true } }).then((r) => r._sum.amount ?? 0),
   ]);
 
   return {

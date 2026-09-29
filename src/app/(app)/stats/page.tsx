@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { getIncomeSeries, Granularity } from "@/lib/income";
 import StatsChart from "./StatsChart";
 import SpendByCategoryChart from "./SpendByCategoryChart";
@@ -7,9 +8,10 @@ import SpendByCategoryChart from "./SpendByCategoryChart";
 export const dynamic = "force-dynamic";
 
 export default async function StatsPage() {
+  const userId = await requireUserId();
   const granularities: Granularity[] = ["day", "week", "month", "year"];
   const seriesEntries = await Promise.all(
-    granularities.map(async (g) => [g, await getIncomeSeries(g)] as const)
+    granularities.map(async (g) => [g, await getIncomeSeries(userId, g)] as const)
   );
   const series = Object.fromEntries(seriesEntries) as Record<
     Granularity,
@@ -18,6 +20,7 @@ export default async function StatsPage() {
 
   const spendByCategory = await prisma.spendEntry.groupBy({
     by: ["category"],
+    where: { userId },
     _sum: { amount: true },
   });
   const categoryData = [

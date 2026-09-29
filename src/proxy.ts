@@ -3,9 +3,9 @@ import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/auth";
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-  const isAuthed = await verifySessionToken(token);
+  const userId = await verifySessionToken(token);
 
-  if (!isAuthed) {
+  if (!userId) {
     const loginUrl = new URL("/login", request.url);
     return NextResponse.redirect(loginUrl);
   }

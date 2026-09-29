@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { parseDateInput } from "@/lib/date";
 import { BannerType } from "@prisma/client";
 
@@ -26,8 +27,9 @@ export async function updateSpendEntry(
     return { error: "Введіть дату" };
   }
 
+  const userId = await requireUserId();
   await prisma.spendEntry.update({
-    where: { id },
+    where: { id, userId },
     data: {
       date: parseDateInput(dateRaw),
       amount,
@@ -44,7 +46,8 @@ export async function updateSpendEntry(
 }
 
 export async function deleteSpendEntry(id: string) {
-  await prisma.spendEntry.delete({ where: { id } });
+  const userId = await requireUserId();
+  await prisma.spendEntry.delete({ where: { id, userId } });
   revalidatePath("/");
   revalidatePath("/stats");
   revalidatePath("/history");

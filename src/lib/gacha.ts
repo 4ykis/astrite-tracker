@@ -16,15 +16,15 @@ export type PityInfo = {
   } | null;
 };
 
-export async function getPityInfo(): Promise<PityInfo[]> {
+export async function getPityInfo(userId: string): Promise<PityInfo[]> {
   const bannerTypes: BannerType[] = ["CHARACTER", "WEAPON"];
 
   return Promise.all(
     bannerTypes.map(async (bannerType) => {
       const [counter, lastPull] = await Promise.all([
-        prisma.pityCounter.findUnique({ where: { bannerType } }),
+        prisma.pityCounter.findUnique({ where: { userId_bannerType: { userId, bannerType } } }),
         prisma.pullEntry.findFirst({
-          where: { bannerType },
+          where: { userId, bannerType },
           orderBy: [{ date: "desc" }, { createdAt: "desc" }],
         }),
       ]);
@@ -45,8 +45,9 @@ export async function getPityInfo(): Promise<PityInfo[]> {
   );
 }
 
-export async function getWinRate(limit = 50) {
+export async function getWinRate(userId: string, limit = 50) {
   const recentPulls = await prisma.pullEntry.findMany({
+    where: { userId },
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
     take: limit,
   });

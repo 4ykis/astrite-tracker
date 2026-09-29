@@ -18,25 +18,54 @@ enum PullResult {
   LOSE
 }
 
+// A Google account. Every other table is scoped to one user. The row with
+// id "legacy-owner" holds data from before logins existed; it is claimed by
+// the first Google login whose email matches LEGACY_OWNER_EMAIL.
+model User {
+  id        String   @id @default(cuid())
+  googleId  String?  @unique
+  email     String?  @unique
+  name      String?
+  image     String?
+  createdAt DateTime @default(now())
+
+  balanceEntries  BalanceEntry[]
+  spendEntries    SpendEntry[]
+  pullEntries     PullEntry[]
+  pityCounters    PityCounter[]
+  resourceEntries ResourceEntry[]
+  echoBuilds      EchoBuild[]
+}
+
 model BalanceEntry {
   id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   date      DateTime
   amount    Int
   createdAt DateTime @default(now())
+
+  @@index([userId, date])
 }
 
 model SpendEntry {
   id         String     @id @default(cuid())
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   date       DateTime
   amount     Int
   category   BannerType
   bannerName String?
   note       String?
   createdAt  DateTime   @default(now())
+
+  @@index([userId, date])
 }
 
 model PullEntry {
   id         String     @id @default(cuid())
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   date       DateTime
   bannerType BannerType
   bannerName String
@@ -44,37 +73,48 @@ model PullEntry {
   result     PullResult
   pityAtPull Int
   createdAt  DateTime   @default(now())
+
+  @@index([userId, date])
 }
 
 // Tracks pulls made since the last logged 5-star, per banner type, so the
 // dashboard can show live pity progress even between 5-star hits.
 model PityCounter {
-  bannerType  BannerType @id
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bannerType  BannerType
   currentPity Int        @default(0)
   updatedAt   DateTime   @updatedAt
+
+  @@id([userId, bannerType])
 }
 
 // Daily snapshot of development materials: one row per item per day. A day
 // without a row for an item means the amount is unchanged since the last row.
 model ResourceEntry {
   id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   date      DateTime
   itemId    Int
   amount    Int
   createdAt DateTime @default(now())
 
-  @@unique([date, itemId])
-  @@index([date])
+  @@unique([userId, date, itemId])
 }
 
 // Echo prefarm setup: one resonator plus five planned echoes. `slots` holds
 // 5 × { echoId, main, subs[5] } and is always read and written as a whole.
 model EchoBuild {
   id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   characterId Int?
   slots       Json
   position    Int      @default(0)
   collapsed   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([userId, position])
 }

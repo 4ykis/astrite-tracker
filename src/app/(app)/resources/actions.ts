@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { addDays, parseDateInput, toDayStart } from "@/lib/date";
 import { ALL_MATERIALS } from "@/lib/materials";
 import { getResourcesAsOf } from "@/lib/resources";
@@ -12,6 +13,7 @@ function parseDate(raw: FormDataEntryValue | null): Date {
 }
 
 export async function saveResources(_prevState: { error?: string } | undefined, formData: FormData) {
+  const userId = await requireUserId();
   const date = parseDate(formData.get("date"));
   const values = new Map<number, number>();
 
@@ -26,7 +28,7 @@ export async function saveResources(_prevState: { error?: string } | undefined, 
   }
 
   // Only store items that differ from what the previous days already imply.
-  const before = await getResourcesAsOf(addDays(date, -1));
+  const before = await getResourcesAsOf(userId, addDays(date, -1));
   const upserts = [];
   const unchanged: number[] = [];
 
@@ -36,8 +38,8 @@ export async function saveResources(_prevState: { error?: string } | undefined, 
     } else {
       upserts.push(
         prisma.resourceEntry.upsert({
-          where: { date_itemId: { date, itemId } },
-          create: { date, itemId, amount },
+          where: { userId_date_itemId: { userId, date, itemId } },
+          create: { userId, date, itemId, amount },
           update: { amount },
         }),
       );
@@ -45,7 +47,7 @@ export async function saveResources(_prevState: { error?: string } | undefined, 
   }
 
   await prisma.$transaction([
-    prisma.resourceEntry.deleteMany({ where: { date, itemId: { in: unchanged } } }),
+    prisma.resourceEntry.deleteMany({ where: { userId, date, itemId: { in: unchanged } } }),
     ...upserts,
   ]);
 
@@ -55,7 +57,8 @@ export async function saveResources(_prevState: { error?: string } | undefined, 
 }
 
 export async function deleteResourceDay(dateIso: string) {
-  await prisma.resourceEntry.deleteMany({ where: { date: new Date(dateIso) } });
+  const userId = await requireUserId();
+  await prisma.resourceEntry.deleteMany({ where: { userId, date: new Date(dateIso) } });
   revalidatePath("/resources");
   revalidatePath("/history");
 }

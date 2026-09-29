@@ -135,10 +135,10 @@ export type IncomePoint = { label: string; income: number | null; spend: number 
  * boundaries. When tracking only started partway through the bucket, income
  * falls back to whatever partial period is computable (see bucketIncome).
  */
-export async function getIncomeSeries(granularity: Granularity): Promise<IncomePoint[]> {
+export async function getIncomeSeries(userId: string, granularity: Granularity): Promise<IncomePoint[]> {
   const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-    prisma.spendEntry.findMany({ orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.balanceEntry.findMany({ where: { userId }, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ where: { userId }, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
   ]);
 
   const buckets = buildBuckets(granularity, toDayStart(new Date()));
@@ -155,8 +155,9 @@ export async function getIncomeSeries(granularity: Granularity): Promise<IncomeP
 }
 
 /** Profit for yesterday (its own business day, 12:00 -> 11:59 next day), or null if not computable. */
-export async function getYesterdayIncome(): Promise<number | null> {
+export async function getYesterdayIncome(userId: string): Promise<number | null> {
   const balances = await prisma.balanceEntry.findMany({
+    where: { userId },
     orderBy: [{ date: "asc" }, { createdAt: "asc" }],
   });
 
@@ -165,8 +166,9 @@ export async function getYesterdayIncome(): Promise<number | null> {
 }
 
 /** Profit accrued so far today (its own business day, so far), or null if not computable. */
-export async function getTodayIncome(): Promise<number | null> {
+export async function getTodayIncome(userId: string): Promise<number | null> {
   const balances = await prisma.balanceEntry.findMany({
+    where: { userId },
     orderBy: [{ date: "asc" }, { createdAt: "asc" }],
   });
 
@@ -193,8 +195,9 @@ function computeRange(
 export type IncomeSummary = { last7Days: IncomeRange; allTime: IncomeRange };
 
 /** Profit (and average per day) over the last 7 days and over the whole tracked history. */
-export async function getIncomeSummary(): Promise<IncomeSummary> {
+export async function getIncomeSummary(userId: string): Promise<IncomeSummary> {
   const balances = await prisma.balanceEntry.findMany({
+    where: { userId },
     orderBy: [{ date: "asc" }, { createdAt: "asc" }],
   });
 

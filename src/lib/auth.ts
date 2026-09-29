@@ -21,34 +21,27 @@ async function hmac(data: string, secret: string) {
   return Buffer.from(signature).toString("base64url");
 }
 
-/** Builds a signed session token: `<expiryEpochSeconds>.<signature>`. */
-export async function createSessionToken(): Promise<string> {
+/** Builds a signed session token: `<userId>.<expiryEpochSeconds>.<signature>`. */
+export async function createSessionToken(userId: string): Promise<string> {
   const expiresAt = Math.floor(Date.now() / 1000) + SESSION_MAX_AGE_SECONDS;
-  const payload = String(expiresAt);
+  const payload = `${userId}.${expiresAt}`;
   const signature = await hmac(payload, getSecret());
   return `${payload}.${signature}`;
 }
 
-export async function verifySessionToken(token: string | undefined): Promise<boolean> {
-  if (!token) return false;
-  const [payload, signature] = token.split(".");
-  if (!payload || !signature) return false;
+/** Returns the user id the token was issued for, or null if it is missing, forged or expired. */
+export async function verifySessionToken(token: string | undefined): Promise<string | null> {
+  if (!token) return null;
+  const [userId, expiry, signature] = token.split(".");
+  if (!userId || !expiry || !signature) return null;
 
-  const expected = await hmac(payload, getSecret());
-  if (expected !== signature) return false;
+  const expected = await hmac(`${userId}.${expiry}`, getSecret());
+  if (expected !== signature) return null;
 
-  const expiresAt = Number(payload);
-  if (!Number.isFinite(expiresAt) || Date.now() / 1000 > expiresAt) return false;
+  const expiresAt = Number(expiry);
+  if (!Number.isFinite(expiresAt) || Date.now() / 1000 > expiresAt) return null;
 
-  return true;
-}
-
-export function verifyPasscode(passcode: string): boolean {
-  const expected = process.env.APP_PASSCODE;
-  if (!expected) {
-    throw new Error("APP_PASSCODE env var is not set");
-  }
-  return passcode === expected;
+  return userId;
 }
 
 export { SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS };

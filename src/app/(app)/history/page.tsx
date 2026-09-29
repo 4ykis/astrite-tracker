@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import BalanceHistory from "../BalanceHistory";
 import SpendList from "../spending/SpendList";
 import PullList from "../gacha/PullList";
@@ -80,27 +81,31 @@ export default async function HistoryPage({
   const balancePage = parsePage(params.balancePage);
   const spendPage = parsePage(params.spendPage);
   const pullPage = parsePage(params.pullPage);
+  const userId = await requireUserId();
 
   const [balances, balanceCount, spends, spendCount, pulls, pullCount, resourceDays] = await Promise.all([
     prisma.balanceEntry.findMany({
+      where: { userId },
       orderBy: [{ date: "desc" }, { createdAt: "desc" }],
       skip: (balancePage - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
     }),
-    prisma.balanceEntry.count(),
+    prisma.balanceEntry.count({ where: { userId } }),
     prisma.spendEntry.findMany({
+      where: { userId },
       orderBy: [{ date: "desc" }, { createdAt: "desc" }],
       skip: (spendPage - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
     }),
-    prisma.spendEntry.count(),
+    prisma.spendEntry.count({ where: { userId } }),
     prisma.pullEntry.findMany({
+      where: { userId },
       orderBy: [{ date: "desc" }, { createdAt: "desc" }],
       skip: (pullPage - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
     }),
-    prisma.pullEntry.count(),
-    getResourceTimeline(10),
+    prisma.pullEntry.count({ where: { userId } }),
+    getResourceTimeline(userId, 10),
   ]);
 
   return (

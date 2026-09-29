@@ -1,5 +1,6 @@
 import { parseDateInput, toDayStart } from "@/lib/date";
 import { getResourcesAsOf } from "@/lib/resources";
+import { requireUserId } from "@/lib/session";
 import ResourcesForm from "./ResourcesForm";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ export default async function ResourcesPage({
   const today = toDayStart(new Date());
   const parsed = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? parseDateInput(dateParam) : null;
   const date = parsed && parsed <= today ? parsed : today;
-  const amounts = await getResourcesAsOf(date);
+  const amounts = await getResourcesAsOf(await requireUserId(), date);
   const dateValue = date.toISOString().slice(0, 10);
 
   return (

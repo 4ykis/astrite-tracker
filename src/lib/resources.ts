@@ -11,9 +11,9 @@ export type ResourceDay = {
 };
 
 /** Amounts as of the given day (inclusive), carrying forward the latest row per item. */
-export async function getResourcesAsOf(date: Date): Promise<ResourceAmounts> {
+export async function getResourcesAsOf(userId: string, date: Date): Promise<ResourceAmounts> {
   const rows = await prisma.resourceEntry.findMany({
-    where: { date: { lte: date } },
+    where: { userId, date: { lte: date } },
     orderBy: { date: "asc" },
     select: { itemId: true, amount: true },
   });
@@ -24,8 +24,9 @@ export async function getResourcesAsOf(date: Date): Promise<ResourceAmounts> {
 }
 
 /** Days with at least one recorded change, newest first. */
-export async function getResourceTimeline(limitDays: number): Promise<ResourceDay[]> {
+export async function getResourceTimeline(userId: string, limitDays: number): Promise<ResourceDay[]> {
   const rows = await prisma.resourceEntry.findMany({
+    where: { userId },
     orderBy: { date: "asc" },
     select: { date: true, itemId: true, amount: true },
   });

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { normalizeSlots } from "@/lib/echoes";
 import AddBuildButton from "./AddBuildButton";
 import BuildCard from "./BuildCard";
@@ -6,7 +7,11 @@ import BuildCard from "./BuildCard";
 export const dynamic = "force-dynamic";
 
 export default async function EchoesPage() {
-  const builds = await prisma.echoBuild.findMany({ orderBy: [{ position: "asc" }, { createdAt: "asc" }] });
+  const userId = await requireUserId();
+  const builds = await prisma.echoBuild.findMany({
+    where: { userId },
+    orderBy: [{ position: "asc" }, { createdAt: "asc" }],
+  });
 
   return (
     // Breaks out of the layout's max-w-3xl so five echo columns stay readable.

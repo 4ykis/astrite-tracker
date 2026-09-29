@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { parseDateInput, toDayStart } from "@/lib/date";
 import { PULL_COST } from "@/lib/gacha";
 import { BannerType, PullResult } from "@prisma/client";
@@ -20,14 +21,16 @@ function revalidateGachaPaths() {
 
 /** Logs `pulls` pulls against the pity counter and their astrite cost (pulls * PULL_COST), without a 5★. */
 export async function incrementPity(bannerType: BannerType, pulls: number) {
+  const userId = await requireUserId();
   await prisma.$transaction([
     prisma.pityCounter.upsert({
-      where: { bannerType },
-      create: { bannerType, currentPity: pulls },
+      where: { userId_bannerType: { userId, bannerType } },
+      create: { userId, bannerType, currentPity: pulls },
       update: { currentPity: { increment: pulls } },
     }),
     prisma.spendEntry.create({
       data: {
+        userId,
         date: toDayStart(new Date()),
         amount: pulls * PULL_COST,
         category: bannerType,
@@ -40,9 +43,10 @@ export async function incrementPity(bannerType: BannerType, pulls: number) {
 }
 
 export async function resetPity(bannerType: BannerType) {
+  const userId = await requireUserId();
   await prisma.pityCounter.upsert({
-    where: { bannerType },
-    create: { bannerType, currentPity: 0 },
+    where: { userId_bannerType: { userId, bannerType } },
+    create: { userId, bannerType, currentPity: 0 },
     update: { currentPity: 0 },
   });
 
@@ -51,12 +55,14 @@ export async function resetPity(bannerType: BannerType) {
 
 /** Logs the pull that hit a 5★ (win or lose the 50/50): its astrite cost, the pull itself, and resets pity. */
 export async function recordFiveStar(bannerType: BannerType, result: PullResult) {
-  const counter = await prisma.pityCounter.findUnique({ where: { bannerType } });
+  const userId = await requireUserId();
+  const counter = await prisma.pityCounter.findUnique({ where: { userId_bannerType: { userId, bannerType } } });
   const pityAtPull = (counter?.currentPity ?? 0) + 1;
 
   await prisma.$transaction([
     prisma.spendEntry.create({
       data: {
+        userId,
         date: toDayStart(new Date()),
         amount: PULL_COST,
         category: bannerType,
@@ -65,6 +71,7 @@ export async function recordFiveStar(bannerType: BannerType, result: PullResult)
     }),
     prisma.pullEntry.create({
       data: {
+        userId,
         date: toDayStart(new Date()),
         bannerType,
         bannerName: BANNER_LABEL[bannerType],
@@ -74,8 +81,8 @@ export async function recordFiveStar(bannerType: BannerType, result: PullResult)
       },
     }),
     prisma.pityCounter.upsert({
-      where: { bannerType },
-      create: { bannerType, currentPity: 0 },
+      where: { userId_bannerType: { userId, bannerType } },
+      create: { userId, bannerType, currentPity: 0 },
       update: { currentPity: 0 },
     }),
   ]);
@@ -114,8 +121,9 @@ export async function updatePullEntry(
     return { error: "Введіть дату" };
   }
 
+  const userId = await requireUserId();
   await prisma.pullEntry.update({
-    where: { id },
+    where: { id, userId },
     data: {
       date: parseDateInput(dateRaw),
       bannerType: bannerType as BannerType,
@@ -133,7 +141,8 @@ export async function updatePullEntry(
 }
 
 export async function deletePullEntry(id: string) {
-  await prisma.pullEntry.delete({ where: { id } });
+  const userId = await requireUserId();
+  await prisma.pullEntry.delete({ where: { id, userId } });
   revalidatePath("/gacha");
   revalidatePath("/");
   revalidatePath("/history");

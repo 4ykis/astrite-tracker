@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { parseDateInput, toDayStart } from "@/lib/date";
 
 export async function saveTodayBalance(_prevState: { error?: string } | undefined, formData: FormData) {
@@ -12,9 +13,10 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
     return { error: "Введіть коректну кількість astrite" };
   }
 
+  const userId = await requireUserId();
   const date = toDayStart(new Date());
 
-  await prisma.balanceEntry.create({ data: { date, amount } });
+  await prisma.balanceEntry.create({ data: { userId, date, amount } });
 
   revalidatePath("/");
   revalidatePath("/history");
@@ -36,9 +38,10 @@ export async function updateBalanceEntry(
     return { error: "Введіть дату" };
   }
 
+  const userId = await requireUserId();
   const date = parseDateInput(dateRaw);
 
-  await prisma.balanceEntry.update({ where: { id }, data: { date, amount } });
+  await prisma.balanceEntry.update({ where: { id, userId }, data: { date, amount } });
 
   revalidatePath("/");
   revalidatePath("/history");
@@ -46,7 +49,8 @@ export async function updateBalanceEntry(
 }
 
 export async function deleteBalanceEntry(id: string) {
-  await prisma.balanceEntry.delete({ where: { id } });
+  const userId = await requireUserId();
+  await prisma.balanceEntry.delete({ where: { id, userId } });
   revalidatePath("/");
   revalidatePath("/history");
 }

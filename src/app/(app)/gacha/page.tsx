@@ -1,11 +1,13 @@
 import Card from "@/components/Card";
 import { getPityInfo, getWinRate } from "@/lib/gacha";
+import { requireUserId } from "@/lib/session";
 import PityBlock from "./PityBlock";
 
 export const dynamic = "force-dynamic";
 
 export default async function GachaPage() {
-  const [pity, winRate] = await Promise.all([getPityInfo(), getWinRate(50)]);
+  const userId = await requireUserId();
+  const [pity, winRate] = await Promise.all([getPityInfo(userId), getWinRate(userId, 50)]);
 
   return (
     <div className="flex flex-col gap-5">

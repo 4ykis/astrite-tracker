@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/session";
 import { getIncomeSummary, getTodayIncome, getYesterdayIncome } from "@/lib/income";
 import { getSpendSummary, getTodaySpend, getYesterdaySpend } from "@/lib/spending";
 import BalanceForm from "./BalanceForm";
@@ -9,17 +10,18 @@ import SpendStats from "./SpendStats";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
+  const userId = await requireUserId();
   const [latestBalance, yesterdayIncome, todayIncome, incomeSummary] = await Promise.all([
-    prisma.balanceEntry.findFirst({ orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
-    getYesterdayIncome(),
-    getTodayIncome(),
-    getIncomeSummary(),
+    prisma.balanceEntry.findFirst({ where: { userId }, orderBy: [{ date: "desc" }, { createdAt: "desc" }] }),
+    getYesterdayIncome(userId),
+    getTodayIncome(userId),
+    getIncomeSummary(userId),
   ]);
 
   const [yesterdaySpend, todaySpend, spendSummary] = await Promise.all([
-    getYesterdaySpend(),
-    getTodaySpend(),
-    getSpendSummary(incomeSummary.allTime.days),
+    getYesterdaySpend(userId),
+    getTodaySpend(userId),
+    getSpendSummary(userId, incomeSummary.allTime.days),
   ]);
 
   return (

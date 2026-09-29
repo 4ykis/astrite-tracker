@@ -27,7 +27,13 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
      `WUWA_`. Для локальної розробки вкажіть тут ваш локальний Postgres
      (однакове значення для обох підійде, якщо немає окремого
      pooled/direct URL).
-   - `APP_PASSCODE` — код доступу до застосунку.
+   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — OAuth-клієнт Google
+     (Google Cloud Console → APIs & Services → Credentials → OAuth client ID,
+     тип «Web application»). В Authorized redirect URIs додайте
+     `http://localhost:3000/login/google/callback` і продакшн-адресу
+     `https://<домен>/login/google/callback`.
+   - `LEGACY_OWNER_EMAIL` — Google-акаунт, якому при першому вході
+     дістануться дані, записані до появи логіну (необов'язково).
    - `SESSION_SECRET` — випадковий секрет для підпису cookie сесії
      (`openssl rand -base64 32`).
 
@@ -43,14 +49,16 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
    npm run dev
    ```
 
-   Відкрийте http://localhost:3000 і введіть `APP_PASSCODE`.
+   Відкрийте http://localhost:3000 і увійдіть через Google. Кожен
+   користувач бачить лише власні дані.
 
 ## Деплой на Vercel
 
 1. У проєкті на Vercel: Storage → Create Database → Postgres, і підключіть
    її до проєкту. Vercel сам створить `WUWA_PRISMA_DATABASE_URL` і
    `WUWA_DATABASE_URL` (та кілька інших) — нічого копіювати вручну не треба.
-2. Додайте власні env-змінні: `APP_PASSCODE`, `SESSION_SECRET`.
+2. Додайте власні env-змінні: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
+   `SESSION_SECRET`, `LEGACY_OWNER_EMAIL`.
 3. Задеплойте — команда `npm run build` автоматично виконає
    `prisma generate` (через `postinstall`) і `prisma migrate deploy`
    (перед `next build`), тож нові міграції накатуються на продакшн-базу
