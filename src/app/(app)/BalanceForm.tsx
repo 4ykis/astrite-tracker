@@ -4,7 +4,13 @@ import { useActionState } from "react";
 import { saveTodayBalance } from "./actions";
 import { PULL_COST } from "@/lib/gacha";
 
-export default function BalanceForm({ currentBalance }: { currentBalance: number | null }) {
+export default function BalanceForm({
+  currentBalance,
+  spentSince,
+}: {
+  currentBalance: number | null;
+  spentSince: number;
+}) {
   const [state, formAction, isPending] = useActionState(saveTodayBalance, undefined);
 
   return (
@@ -39,6 +45,11 @@ export default function BalanceForm({ currentBalance }: { currentBalance: number
           {isPending ? "..." : "Зберегти"}
         </button>
       </div>
+      {spentSince > 0 && (
+        <p className="text-xs text-slate-500">
+          Враховано −{spentSince} з гача-логу після останнього запису балансу
+        </p>
+      )}
       {state?.error && <p className="text-sm text-red-400">{state.error}</p>}
     </form>
   );

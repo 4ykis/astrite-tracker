@@ -28,7 +28,7 @@ Route folder = URL; `(app)` is a route group (not in the URL). Paths below are r
 
 | URL | Files | Logic | Tables |
 | --- | --- | --- | --- |
-| `/` dashboard | `page.tsx`, `BalanceForm`, `IncomeStats`, `SpendStats`, `actions.ts` (balance CRUD) | `lib/income.ts`, `lib/spending.ts` | BalanceEntry, SpendEntry |
+| `/` dashboard | `page.tsx`, `BalanceForm`, `IncomeStats`, `SpendStats`, `actions.ts` (balance CRUD) | `lib/balance.ts`, `lib/income.ts`, `lib/spending.ts` | BalanceEntry, SpendEntry |
 | `/gacha` | `gacha/page.tsx`, `PityBlock`, `PullList`, `gacha/actions.ts` | `lib/gacha.ts` | PityCounter, PullEntry, SpendEntry |
 | `/resources` | `resources/page.tsx`, `ResourcesForm`, `resources/actions.ts` | `lib/materials.ts` (catalogue), `lib/resources.ts` | ResourceEntry |
 | `/echoes` | `echoes/page.tsx`, `BuildCard.tsx` (biggest file, editing UI) + `*Picker`/`StatRow`/`SonataSelect`, `echoes/actions.ts` | `lib/echoes.ts`, `lib/data/*.json` | EchoBuild |
@@ -54,7 +54,7 @@ Finding things fast:
 
 1. **Tenant scoping.** Every model except `User` has `userId` → `User` (`onDelete: Cascade`, plus an `@@index`/`@@id`/`@@unique` that starts with `userId`). Every read/write starts with `const userId = await requireUserId()` and filters by it; update/delete use `where: { id, userId }`. Never trust a client-supplied id alone. A new model follows the same shape and gets a relation field on `User`.
 2. **Dates.** `date` columns are UTC-midnight markers of the *tracked day* = calendar day in `Europe/Kyiv` that rolls over at **12:00**, not midnight (hard-coded for all users). Create with `toDayStart(new Date())` (now) or `parseDateInput("YYYY-MM-DD")` (form input, no noon shift); shift with `addDays`/`addMonths`/… from `lib/date.ts`. Never `new Date()`, `setHours` or `toISOString().slice(0, 10)` for these fields.
-3. **Income vs spend.** `income = balance_end − balance_start` (pure balance change). Spend lives in `SpendEntry` and is never added to income. All-time income also counts the very first balance (`getIncomeSummary`).
+3. **Income vs spend.** `income = balance_end − balance_start` (pure balance change). Spend lives in `SpendEntry` and is never added to income. All-time income also counts the very first balance (`getIncomeSummary`). The balance shown on the dashboard is `getCurrentBalance()` (`lib/balance.ts`): latest `BalanceEntry` minus `SpendEntry` rows *created after it* — this is display only, income still reads raw check-ins.
 4. **Gacha.** `PULL_COST` 160, soft pity 66, hard pity 80 (`lib/gacha.ts`). Pity buttons create `SpendEntry` rows in the same `prisma.$transaction` as the pity/pull change — keep that atomic.
 5. **Resources are sparse.** A `ResourceEntry` row exists only when an item's amount changed that day (`saveResources` drops rows equal to the carried-forward value). Current amounts = `getResourcesAsOf()`, history = `getResourceTimeline()`. Item ids are in-game ids from `lib/materials.ts`; changing an id orphans stored rows.
 6. **Echo builds.** `EchoBuild.slots` is a Json column, read and written as a whole and always through `normalizeSlots()` (shape: `EchoSlot` in `lib/echoes.ts`). Order = `position`, then `createdAt`.
