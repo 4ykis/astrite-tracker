@@ -52,6 +52,28 @@ Next.js (App Router, TypeScript) · Prisma · PostgreSQL · Recharts · Tailwind
    Відкрийте http://localhost:3000 і увійдіть через Google. Кожен
    користувач бачить лише власні дані.
 
+### Реальні дані з продакшну локально
+
+Щоб тестувати на справжніх даних, скопіюйте продакшн-базу в локальну.
+Продакшн лише читається; локальна база спершу повністю очищається.
+
+1. Створіть `.env.prod` (він у `.gitignore`) з рядком підключення до
+   продакшн-бази (Vercel → Settings → Environment Variables →
+   `WUWA_DATABASE_URL`):
+
+   ```bash
+   PROD_DATABASE_URL="postgresql://...?sslmode=require"
+   ```
+
+2. З запущеним `npm run db:local` виконайте:
+
+   ```bash
+   npm run db:pull-prod
+   ```
+
+   Скрипт застосує міграції до локальної бази і скопіює всі таблиці.
+   Він відмовиться працювати, якщо `.env` вказує не на `localhost`.
+
 ## Деплой на Vercel
 
 1. У проєкті на Vercel: Storage → Create Database → Postgres, і підключіть

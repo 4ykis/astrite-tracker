@@ -42,7 +42,7 @@ Cross-cutting:
 - `src/lib/session.ts` — `requireUserId()` (redirects to `/login`) and `getCurrentUser()`. `(app)/layout.tsx` renders `NavBar` for the current user.
 - `src/lib/prisma.ts` singleton client · `src/lib/date.ts` all day/timezone logic.
 - `src/components/` — `Card`, `Modal` (client), `MaterialIcon`, `NavBar` (the list of nav links lives here).
-- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `fetch-echo-data.ts`, `fetch-material-icons.ts`.
+- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `pull-prod-db.ts` (copy production rows into the local DB), `fetch-echo-data.ts`, `fetch-material-icons.ts`.
 
 Finding things fast:
 
@@ -72,6 +72,7 @@ npm run dev            # http://localhost:3000
 npm run db:local       # embedded Postgres on :51218, data in .pgdata — keep it running in its own terminal
 npm run db:migrate     # prisma migrate dev (create + apply a migration after editing schema.prisma)
 npm run db:studio
+npm run db:pull-prod  # wipe local DB and copy every production row into it (reads PROD_DATABASE_URL from .env.prod; refuses a non-localhost target)
 npx tsc --noEmit && npm run lint
 npx tsx scripts/fetch-echo-data.ts        # refresh characters/echoes/sonatas + icons (needs network)
 npx tsx scripts/fetch-material-icons.ts
