@@ -23,6 +23,9 @@ export default function SpendByCategoryChart({
               borderRadius: 8,
               color: "#e2e8f0",
             }}
+            labelStyle={{ color: "#94a3b8" }}
+            itemStyle={{ color: "#e2e8f0" }}
+            cursor={{ fill: "#1e293b" }}
             formatter={(value) => [`${value} astrite`, "Витрачено"]}
           />
           <Bar dataKey="amount" radius={[0, 4, 4, 0]}>

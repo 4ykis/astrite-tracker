@@ -19,6 +19,21 @@ html {
   color-scheme: dark;
 }
 
+/* Tailwind 4 resets buttons to the default cursor; restore the pointer on everything clickable. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  label[for],
+  summary,
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="date"]:not(:disabled)::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+}
+
 body {
   /* no-repeat: on pages taller than the viewport the gradient would restart and leave a seam. */
   background: var(--background) radial-gradient(circle at top, #1a1642 0%, var(--background) 55%) no-repeat;
