@@ -3,6 +3,7 @@ import { requireUserId } from "@/lib/session";
 import { getCurrentBalance } from "@/lib/balance";
 import { getIncomeSummary, getTodayIncome, getYesterdayIncome } from "@/lib/income";
 import { getSpendSummary, getTodaySpend, getYesterdaySpend } from "@/lib/spending";
+import { toDayStart } from "@/lib/date";
 import BalanceForm from "./BalanceForm";
 import IncomeStats from "./IncomeStats";
 import SpendStats from "./SpendStats";
@@ -29,7 +30,11 @@ export default async function DashboardPage() {
       <h1 className="text-lg font-semibold text-slate-100">Дашборд</h1>
 
       <Card>
-        <BalanceForm currentBalance={balance?.current ?? null} spentSince={balance?.spentSince ?? 0} />
+        <BalanceForm
+          currentBalance={balance?.current ?? null}
+          spentSince={balance?.spentSince ?? 0}
+          today={toDayStart(new Date()).toISOString().slice(0, 10)}
+        />
       </Card>
 
       <Card>

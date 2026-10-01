@@ -13,8 +13,17 @@ export async function saveTodayBalance(_prevState: { error?: string } | undefine
     return { error: "Введіть коректну кількість astrite" };
   }
 
+  const today = toDayStart(new Date());
+  const dateRaw = String(formData.get("date") ?? "");
+  const date = dateRaw ? parseDateInput(dateRaw) : today;
+  if (Number.isNaN(date.getTime())) {
+    return { error: "Введіть коректну дату" };
+  }
+  if (date > today) {
+    return { error: "Дата не може бути в майбутньому" };
+  }
+
   const userId = await requireUserId();
-  const date = toDayStart(new Date());
 
   await prisma.balanceEntry.create({ data: { userId, date, amount } });
 
