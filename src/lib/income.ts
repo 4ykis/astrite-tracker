@@ -60,85 +60,97 @@ function buildBuckets(granularity: Granularity, now: Date): Bucket[] {
   return buckets;
 }
 
-/** Finds the balance recorded at or before the given date (the nearest prior check-in). */
-function balanceAtOrBefore(
-  balances: { date: Date; amount: number }[],
-  date: Date
-): number | null {
-  let result: number | null = null;
-  for (const entry of balances) {
-    if (entry.date.getTime() <= date.getTime()) {
-      result = entry.amount;
-    } else {
-      break;
-    }
+type Check = { date: Date; amount: number; createdAt: Date };
+type Spend = { date: Date; amount: number; createdAt: Date };
+
+/**
+ * Balance check-ins in timeline order plus, per check-in, the spend it is the
+ * first to reflect. A check-in is typed by hand, so it already contains every
+ * pull logged before it was entered; a pull logged afterwards only shows up in
+ * the next check-in. Attributing spend to that first reflecting check-in keeps
+ * the balance drop and its spend in the same period, so they cancel out.
+ * Spend no check-in reflects yet (logged after the latest one) is left out:
+ * the balance has not dropped for it either.
+ */
+type Ledger = { balances: Check[]; spendAt: number[] };
+
+function buildLedger(balances: Check[], spends: Spend[]): Ledger {
+  const spendAt = balances.map(() => 0);
+  for (const spend of spends) {
+    let best = -1;
+    balances.forEach((b, i) => {
+      // A check-in backdated to before the spend's day cannot contain it.
+      if (b.createdAt < spend.createdAt || b.date < spend.date) return;
+      if (best === -1 || b.createdAt < balances[best].createdAt) best = i;
+    });
+    if (best !== -1) spendAt[best] += spend.amount;
+  }
+  return { balances, spendAt };
+}
+
+async function loadLedger(userId: string): Promise<Ledger> {
+  const [balances, spends] = await Promise.all([
+    prisma.balanceEntry.findMany({ where: { userId }, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.spendEntry.findMany({ where: { userId } }),
+  ]);
+  return buildLedger(balances, spends);
+}
+
+/** Index of the last check-in dated strictly before `date` (the balance carried into it), or -1. */
+function lastIndexBefore(balances: Check[], date: Date): number {
+  let result = -1;
+  for (let i = 0; i < balances.length; i++) {
+    if (balances[i].date.getTime() < date.getTime()) result = i;
+    else break;
   }
   return result;
 }
 
+type Window = { balanceChange: number; earned: number };
+
 /**
- * Profit for a single tracked day: its own closing balance (the latest
- * check-in dated that day) against the balance carried in from the day
- * before. Self-contained — it never looks at the following day's data, so
- * this works the same whether the day is closed (yesterday) or still in
- * progress (today). Spend is tracked separately (see spending.ts); this is
- * the raw balance change only.
+ * Astrite movement over the tracked days [start, end): from the balance
+ * carried into `start` to the last check-in before `end`. Falls back to the
+ * earliest check-in inside the range when there's none before `start` yet
+ * (tracking started partway through), so in-progress periods still report
+ * what is computable. `earned` adds back the spend reflected in between.
  */
-function dayIncome(balances: { date: Date; amount: number }[], day: Date): number | null {
-  const previousDay = addDays(day, -1);
-
-  let startBalance = balanceAtOrBefore(balances, previousDay);
-
-  if (startBalance === null) {
-    const firstInDay = balances.find((b) => b.date.getTime() === day.getTime());
-    if (!firstInDay) return null;
-    startBalance = firstInDay.amount;
+function windowIncome({ balances, spendAt }: Ledger, start: Date, end: Date): Window | null {
+  let startIdx = lastIndexBefore(balances, start);
+  if (startIdx === -1) {
+    startIdx = balances.findIndex((b) => b.date >= start && b.date < end);
+    if (startIdx === -1) return null;
   }
 
-  const endBalance = balanceAtOrBefore(balances, day);
-  if (endBalance === null) return null;
+  const endIdx = lastIndexBefore(balances, end);
+  if (endIdx < startIdx) return null;
 
-  return endBalance - startBalance;
+  let spent = 0;
+  for (let i = startIdx + 1; i <= endIdx; i++) spent += spendAt[i];
+
+  const balanceChange = balances[endIdx].amount - balances[startIdx].amount;
+  return { balanceChange, earned: balanceChange + spent };
 }
 
 /**
- * Profit for [start, end): the raw balance change, falling back to the
- * earliest balance check-in inside the range when there's none before
- * `start` yet (e.g. tracking only started partway through the current
- * month/week) — this reports whatever partial profit is computable for the
- * period-so-far instead of nothing.
+ * Profit for a single tracked day: astrite earned between the balance carried
+ * in from the day before and that day's closing check-in. Works the same
+ * whether the day is closed (yesterday) or still in progress (today).
  */
-function bucketIncome(
-  balances: { date: Date; amount: number }[],
-  start: Date,
-  end: Date
-): number | null {
-  let startBalance = balanceAtOrBefore(balances, start);
-
-  if (startBalance === null) {
-    const firstInRange = balances.find((b) => b.date >= start && b.date < end);
-    if (!firstInRange) return null;
-    startBalance = firstInRange.amount;
-  }
-
-  const endBalance = balanceAtOrBefore(balances, end);
-  if (endBalance === null) return null;
-
-  return endBalance - startBalance;
+function dayIncome(ledger: Ledger, day: Date): number | null {
+  return windowIncome(ledger, day, addDays(day, 1))?.earned ?? null;
 }
 
-export type IncomePoint = { label: string; income: number | null; spend: number };
-
 /**
- * income(period) = (balance_end - balance_start) + sum(spend in period)
- * balance_start/end are the nearest recorded balance check-ins at the bucket
- * boundaries. When tracking only started partway through the bucket, income
- * falls back to whatever partial period is computable (see bucketIncome).
+ * income = astrite earned (balance change + spend reflected in it), net = the
+ * raw balance change, spend = spend logged on days inside the bucket.
  */
+export type IncomePoint = { label: string; income: number | null; net: number | null; spend: number };
+
 export async function getIncomeSeries(userId: string, granularity: Granularity): Promise<IncomePoint[]> {
-  const [balances, spends] = await Promise.all([
-    prisma.balanceEntry.findMany({ where: { userId }, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
-    prisma.spendEntry.findMany({ where: { userId }, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+  const [ledger, spends] = await Promise.all([
+    loadLedger(userId),
+    prisma.spendEntry.findMany({ where: { userId }, select: { date: true, amount: true } }),
   ]);
 
   const buckets = buildBuckets(granularity, toDayStart(new Date()));
@@ -148,76 +160,57 @@ export async function getIncomeSeries(userId: string, granularity: Granularity):
       .filter((s) => s.date >= bucket.start && s.date < bucket.end)
       .reduce((sum, s) => sum + s.amount, 0);
 
-    const income = bucketIncome(balances, bucket.start, bucket.end);
+    const window = windowIncome(ledger, bucket.start, bucket.end);
 
-    return { label: bucket.label, income, spend: spendSum };
+    return {
+      label: bucket.label,
+      income: window?.earned ?? null,
+      net: window?.balanceChange ?? null,
+      spend: spendSum,
+    };
   });
 }
 
 /** Profit for yesterday (its own business day, 12:00 -> 11:59 next day), or null if not computable. */
 export async function getYesterdayIncome(userId: string): Promise<number | null> {
-  const balances = await prisma.balanceEntry.findMany({
-    where: { userId },
-    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
-  });
-
-  const yesterday = addDays(toDayStart(new Date()), -1);
-  return dayIncome(balances, yesterday);
+  const ledger = await loadLedger(userId);
+  return dayIncome(ledger, addDays(toDayStart(new Date()), -1));
 }
 
 /** Profit accrued so far today (its own business day, so far), or null if not computable. */
 export async function getTodayIncome(userId: string): Promise<number | null> {
-  const balances = await prisma.balanceEntry.findMany({
-    where: { userId },
-    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
-  });
-
-  const today = toDayStart(new Date());
-  return dayIncome(balances, today);
+  const ledger = await loadLedger(userId);
+  return dayIncome(ledger, toDayStart(new Date()));
 }
 
 export type IncomeRange = { income: number | null; avgPerDay: number | null; days: number };
-
-function computeRange(
-  balances: { date: Date; amount: number }[],
-  start: Date,
-  end: Date,
-  days: number
-): IncomeRange {
-  const income = bucketIncome(balances, start, end);
-  if (income === null) {
-    return { income: null, avgPerDay: null, days };
-  }
-
-  return { income, avgPerDay: days > 0 ? income / days : null, days };
-}
 
 export type IncomeSummary = { last7Days: IncomeRange; allTime: IncomeRange };
 
 /** Profit (and average per day) over the last 7 days and over the whole tracked history. */
 export async function getIncomeSummary(userId: string): Promise<IncomeSummary> {
-  const balances = await prisma.balanceEntry.findMany({
-    where: { userId },
-    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
-  });
+  const ledger = await loadLedger(userId);
+  const { balances, spendAt } = ledger;
 
-  const now = toDayStart(new Date());
-  const last7Days = computeRange(balances, addDays(now, -7), now, 7);
+  const today = toDayStart(new Date());
+  const last7 = windowIncome(ledger, addDays(today, -6), addDays(today, 1));
+  const last7Days: IncomeRange = {
+    income: last7?.earned ?? null,
+    avgPerDay: last7 ? last7.earned / 7 : null,
+    days: 7,
+  };
 
   let allTime: IncomeRange = { income: null, avgPerDay: null, days: 0 };
   if (balances.length >= 2) {
     const firstDate = balances[0].date;
     const lastDate = balances[balances.length - 1].date;
     const days = Math.max(1, Math.round((lastDate.getTime() - firstDate.getTime()) / 86_400_000));
-    const range = computeRange(balances, firstDate, lastDate, days);
 
-    // Unlike the day-to-day profit figures, all-time counts the balance you
-    // started tracking with too, instead of treating it as an untracked
-    // baseline that gets subtracted away.
-    if (range.income !== null) {
-      const income = range.income + balances[0].amount;
-      allTime = { income, avgPerDay: days > 0 ? income / days : null, days };
-    }
+    // All-time counts the balance you started tracking with too, instead of
+    // treating it as an untracked baseline: everything ever held is the
+    // latest balance plus everything spent that the check-ins reflect.
+    const income = balances[balances.length - 1].amount + spendAt.reduce((sum, s) => sum + s, 0);
+    allTime = { income, avgPerDay: income / days, days };
   }
 
   return { last7Days, allTime };

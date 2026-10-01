@@ -72,7 +72,7 @@ export default function StatsChart({ series }: { series: Record<Granularity, Inc
 
   const totalData = points.map((p) => ({
     label: p.label,
-    net: p.income,
+    net: p.net,
   }));
   const detailData = points.map((p) => ({
     label: p.label,
