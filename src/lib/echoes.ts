@@ -103,6 +103,12 @@ export type EchoSlot = {
   subsGot: boolean[];
 };
 
+/** Sub stats pre-filled when an echo is put into an empty slot (the rest stay free). */
+export const DEFAULT_SUBS = ["crit-rate", "crit-dmg", "atk%", "energy"];
+
+/** Main stat pre-filled for a freshly chosen echo of this cost, if any. */
+export const defaultMain = (cost: EchoCost): string | null => (cost === 1 ? "atk%" : null);
+
 export const emptySlot = (): EchoSlot => ({
   echoId: null,
   main: null,

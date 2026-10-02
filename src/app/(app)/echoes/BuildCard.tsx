@@ -6,6 +6,8 @@ import Card from "@/components/Card";
 import {
   CHARACTER_BY_ID,
   characterIcon,
+  DEFAULT_SUBS,
+  defaultMain,
   ECHO_BY_ID,
   echoIcon,
   ECHO_COUNT,
@@ -295,12 +297,25 @@ export default function BuildCard({
           onSelect={(echoId) =>
             patchSlot(picker.slot, (s) => {
               if (s.echoId === echoId) return s;
+              const cost = ECHO_BY_ID.get(echoId)?.cost;
+              if (cost === undefined) return s;
+              // A fresh slot starts from the usual DPS plan; every stat stays editable and unchecked.
+              if (s.echoId === null && s.subs.every((sub) => sub === null)) {
+                return {
+                  ...s,
+                  echoId,
+                  main: defaultMain(cost),
+                  mainGot: false,
+                  subs: s.subs.map((_, i) => DEFAULT_SUBS[i] ?? null),
+                  subsGot: s.subsGot.map(() => false),
+                };
+              }
               // A different echo means a different real piece: keep the plan, drop the got-marks.
-              const sameCost = s.echoId !== null && ECHO_BY_ID.get(s.echoId)?.cost === ECHO_BY_ID.get(echoId)?.cost;
+              const sameCost = s.echoId !== null && ECHO_BY_ID.get(s.echoId)?.cost === cost;
               return {
                 ...s,
                 echoId,
-                main: sameCost ? s.main : null,
+                main: sameCost ? s.main : defaultMain(cost),
                 mainGot: false,
                 subsGot: s.subsGot.map(() => false),
               };

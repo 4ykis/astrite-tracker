@@ -13,6 +13,9 @@ const chip = (active: boolean) =>
       : "border-slate-700 text-slate-300 hover:border-slate-500 hover:text-slate-100"
   }`;
 
+// Remembered for the whole page session, so the next pick opens with the same filters.
+const lastFilter: { sonatas: Set<number>; cost: EchoCost | null } = { sonatas: new Set(), cost: null };
+
 export default function EchoPicker({
   selected,
   onSelect,
@@ -22,8 +25,17 @@ export default function EchoPicker({
   onSelect: (id: number) => void;
   onClose: () => void;
 }) {
-  const [sonatas, setSonatas] = useState<Set<number>>(new Set());
-  const [cost, setCost] = useState<EchoCost | null>(null);
+  const [sonatas, setSonatasState] = useState(lastFilter.sonatas);
+  const [cost, setCostState] = useState(lastFilter.cost);
+
+  const setSonatas = (next: Set<number>) => {
+    lastFilter.sonatas = next;
+    setSonatasState(next);
+  };
+  const setCost = (next: EchoCost | null) => {
+    lastFilter.cost = next;
+    setCostState(next);
+  };
 
   const visible = ECHOES.filter(
     (e) => (cost === null || e.cost === cost) && (sonatas.size === 0 || e.sonatas.some((s) => sonatas.has(s))),
