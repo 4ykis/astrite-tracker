@@ -84,6 +84,14 @@ export default async function DashboardPage() {
           >
             Wuthering.gg Map ↗
           </a>
+          <a
+            href="https://wuthering.th.gl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-slate-800 px-4 py-2.5 text-sm text-slate-300 transition hover:border-amber-400 hover:text-amber-300"
+          >
+            Wuthering Waves Map (th.gl) ↗
+          </a>
         </div>
       </Card>
     </div>
