@@ -21,8 +21,9 @@ const SITE_LINKS = [
 ];
 
 const VIDEO_LINKS = [
-  { href: "https://youtu.be/P8q8q8GWO_w?t=632", label: "Lucille Guide (IWinToLose Gaming)" },
-];
+  { href: "https://youtu.be/P8q8q8GWO_w?t=632", label: "Lucille Guide (IWinToLose Gaming)", icon: "youtube" },
+  { href: "https://www.reddit.com/r/WutheringWavesGuide/s/YHQvAL6LPp", label: "Список ютуберів", icon: "reddit" },
+] as const;
 
 function YouTubeIcon() {
   return (
@@ -32,6 +33,18 @@ function YouTubeIcon() {
         d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.4-1.9.5-5.8.5-5.8s0-3.9-.5-5.8Z"
       />
       <path fill="#fff" d="m9.6 15.6 6.2-3.6-6.2-3.6v7.2Z" />
+    </svg>
+  );
+}
+
+function RedditIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 shrink-0">
+      <circle cx="12" cy="12" r="12" fill="#ff4500" />
+      <path
+        fill="#fff"
+        d="M19.6 12a1.7 1.7 0 0 0-2.9-1.2 8.4 8.4 0 0 0-4.5-1.4l.8-3.6 2.5.5a1.2 1.2 0 1 0 .1-.6l-2.8-.6a.3.3 0 0 0-.4.2l-.9 4.1a8.4 8.4 0 0 0-4.6 1.4 1.7 1.7 0 1 0-1.9 2.8 3.3 3.3 0 0 0 0 .5c0 2.6 3 4.7 6.7 4.7s6.7-2.1 6.7-4.7a3.3 3.3 0 0 0 0-.5 1.7 1.7 0 0 0 1.2-1.6ZM8.1 13.2a1.2 1.2 0 1 1 1.2 1.2 1.2 1.2 0 0 1-1.2-1.2Zm6.7 3.2a4.4 4.4 0 0 1-2.8.9 4.4 4.4 0 0 1-2.8-.9.3.3 0 0 1 .4-.4 3.8 3.8 0 0 0 2.4.7 3.8 3.8 0 0 0 2.4-.7.3.3 0 0 1 .4.4Zm-.2-2a1.2 1.2 0 1 1 1.2-1.2 1.2 1.2 0 0 1-1.2 1.2Z"
+      />
     </svg>
   );
 }
@@ -104,7 +117,7 @@ export default async function DashboardPage() {
                 rel="noopener noreferrer"
                 className={`${LINK_CLASS} flex items-center gap-2`}
               >
-                <YouTubeIcon />
+                {link.icon === "reddit" ? <RedditIcon /> : <YouTubeIcon />}
                 <span>{link.label} ↗</span>
               </a>
             ))}
