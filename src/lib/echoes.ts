@@ -150,13 +150,18 @@ export function mainStat(cost: EchoCost, key: string | null): Stat | undefined {
 export const SUB_COUNT = 5;
 export const ECHO_COUNT = 5;
 
-/** `mainGot` / `subsGot` mark stats that are already rolled on the real echo. */
+/**
+ * `mainGot` / `subsGot` mark stats that are already rolled on the real echo;
+ * `mainValue` / `subValues` hold the rolled number, kept only while that stat is set and marked.
+ */
 export type EchoSlot = {
   echoId: number | null;
   main: string | null;
   mainGot: boolean;
+  mainValue: number | null;
   subs: (string | null)[];
   subsGot: boolean[];
+  subValues: (number | null)[];
 };
 
 /** Sub stats pre-filled when an echo is put into an empty slot (the rest stay free). */
@@ -169,9 +174,17 @@ export const emptySlot = (): EchoSlot => ({
   echoId: null,
   main: null,
   mainGot: false,
+  mainValue: null,
   subs: Array(SUB_COUNT).fill(null),
   subsGot: Array(SUB_COUNT).fill(false),
+  subValues: Array(SUB_COUNT).fill(null),
 });
+
+/** Whether `value` is a number this stat can actually have. */
+export const isValidStatValue = (stat: Stat, value: unknown): value is number =>
+  typeof value === "number" && Number.isFinite(value) && value >= stat.min && value <= stat.max;
+
+const validValue = (stat: Stat | undefined, value: unknown) => (stat && isValidStatValue(stat, value) ? value : null);
 
 /** Normalises whatever is stored in the DB into exactly ECHO_COUNT well-formed slots. */
 export function normalizeSlots(raw: unknown): EchoSlot[] {
@@ -179,7 +192,8 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
   return Array.from({ length: ECHO_COUNT }, (_, i) => {
     const slot = list[i] as Partial<EchoSlot> | undefined;
     const echo = typeof slot?.echoId === "number" ? ECHO_BY_ID.get(slot.echoId) : undefined;
-    const main = echo && typeof slot?.main === "string" && mainStat(echo.cost, slot.main) ? slot.main : null;
+    const mainDef = echo && typeof slot?.main === "string" ? mainStat(echo.cost, slot.main) : undefined;
+    const main = mainDef?.key ?? null;
     const subs = Array.from({ length: SUB_COUNT }, (_, j) => {
       const key = Array.isArray(slot?.subs) ? slot.subs[j] : null;
       return typeof key === "string" && SUB_STAT_BY_KEY.has(key) ? key : null;
@@ -187,6 +201,13 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
     // Older rows have no got-flags; a flag only counts while its stat is set.
     const mainGot = main !== null && slot?.mainGot === true;
     const subsGot = subs.map((key, j) => key !== null && Array.isArray(slot?.subsGot) && slot.subsGot[j] === true);
-    return { echoId: echo?.id ?? null, main, mainGot, subs, subsGot };
+    // Values are newer still; an out-of-range or non-numeric value is dropped.
+    const mainValue = mainGot ? validValue(mainDef, slot?.mainValue) : null;
+    const subValues = subs.map((key, j) =>
+      subsGot[j] && key !== null && Array.isArray(slot?.subValues)
+        ? validValue(SUB_STAT_BY_KEY.get(key), slot.subValues[j])
+        : null,
+    );
+    return { echoId: echo?.id ?? null, main, mainGot, mainValue, subs, subsGot, subValues };
   });
 }

@@ -1,15 +1,28 @@
+"use client";
+
+import { useState } from "react";
+import { isValidStatValue, Stat } from "@/lib/echoes";
+
 export default function StatRow({
   stat,
   got,
+  value,
   onClick,
   onToggle,
+  onValue,
 }: {
-  stat?: { label: string; short: string };
+  stat?: Stat;
   /** Whether this stat is already rolled on the real echo. */
   got: boolean;
+  /** The rolled value, only meaningful while `got`. */
+  value: number | null;
   onClick: () => void;
   onToggle: () => void;
+  onValue: (value: number | null) => void;
 }) {
+  // Set when the user checks the box, so the value field that appears takes focus.
+  const [justChecked, setJustChecked] = useState(false);
+
   if (!stat) {
     return (
       <button
@@ -31,7 +44,10 @@ export default function StatRow({
       <input
         type="checkbox"
         checked={got}
-        onChange={onToggle}
+        onChange={() => {
+          setJustChecked(!got);
+          onToggle();
+        }}
         aria-label={`${stat.label}: вже є`}
         className="size-3.5 shrink-0 cursor-pointer accent-emerald-500"
       />
@@ -46,8 +62,64 @@ export default function StatRow({
         <span className="hidden truncate lg:inline" title={stat.label}>
           {stat.label}
         </span>
-        <span className="text-slate-500 transition group-hover:text-amber-300">›</span>
+        {!got && (
+          <span className="shrink-0 text-[11px] text-slate-500 transition group-hover:text-amber-300">
+            ({stat.min === 0 ? stat.max : `${stat.min} – ${stat.max}`})
+          </span>
+        )}
       </button>
+      {got && (
+        <ValueInput key={stat.key} stat={stat} value={value} autoFocus={justChecked && value === null} onValue={onValue} />
+      )}
     </div>
+  );
+}
+
+/** Saves on blur / Enter; an out-of-range number is highlighted and not saved. */
+function ValueInput({
+  stat,
+  value,
+  autoFocus,
+  onValue,
+}: {
+  stat: Stat;
+  value: number | null;
+  autoFocus: boolean;
+  onValue: (value: number | null) => void;
+}) {
+  const [text, setText] = useState(value === null ? "" : String(value));
+  // Follow the saved value when it changes from outside (e.g. reset by a stat change).
+  const [shownValue, setShownValue] = useState(value);
+  if (value !== shownValue) {
+    setShownValue(value);
+    setText(value === null ? "" : String(value));
+  }
+
+  const parsed = text.trim() === "" ? null : Number(text.replace(",", "."));
+  const invalid = parsed !== null && !isValidStatValue(stat, parsed);
+
+  const commit = () => {
+    if (!invalid && parsed !== value) onValue(parsed);
+  };
+
+  return (
+    <span className="flex shrink-0 items-center gap-0.5">
+      <input
+        type="text"
+        inputMode="decimal"
+        autoFocus={autoFocus}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        onBlur={commit}
+        onKeyDown={(event) => event.key === "Enter" && event.currentTarget.blur()}
+        aria-label={`${stat.label}: значення`}
+        aria-invalid={invalid}
+        title={invalid ? `Від ${stat.min} до ${stat.max}` : undefined}
+        className={`w-11 rounded border bg-slate-950/70 px-1 py-0.5 text-right text-xs tabular-nums outline-none lg:w-12 lg:text-sm ${
+          invalid ? "border-red-500 text-red-200" : "border-emerald-500/30 text-emerald-100 focus:border-emerald-400"
+        }`}
+      />
+      {stat.unit === "%" && <span className="text-emerald-300/70">%</span>}
+    </span>
   );
 }

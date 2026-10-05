@@ -224,8 +224,17 @@ export default function BuildCard({
                 <StatRow
                   stat={mainStat(echo.cost, slot.main)}
                   got={slot.mainGot}
+                  value={slot.mainValue}
                   onClick={() => setPicker({ kind: "main", slot: index })}
-                  onToggle={() => patchSlot(index, (s) => ({ ...s, mainGot: !s.mainGot }))}
+                  onToggle={() =>
+                    patchSlot(index, (s) => ({
+                      ...s,
+                      mainGot: !s.mainGot,
+                      // A freshly checked main stat is almost always fully levelled.
+                      mainValue: s.mainGot ? null : (mainStat(echo.cost, s.main)?.max ?? null),
+                    }))
+                  }
+                  onValue={(value) => patchSlot(index, (s) => ({ ...s, mainValue: value }))}
                 />
 
                 <div className="mx-1.5 my-0.5 h-px bg-amber-400/70" />
@@ -235,11 +244,19 @@ export default function BuildCard({
                     key={subIndex}
                     stat={key ? SUB_STAT_BY_KEY.get(key) : undefined}
                     got={slot.subsGot[subIndex]}
+                    value={slot.subValues[subIndex]}
                     onClick={() => setPicker({ kind: "sub", slot: index, index: subIndex })}
                     onToggle={() =>
                       patchSlot(index, (s) => ({
                         ...s,
                         subsGot: s.subsGot.map((got, i) => (i === subIndex ? !got : got)),
+                        subValues: s.subValues.map((v, i) => (i === subIndex ? null : v)),
+                      }))
+                    }
+                    onValue={(value) =>
+                      patchSlot(index, (s) => ({
+                        ...s,
+                        subValues: s.subValues.map((v, i) => (i === subIndex ? value : v)),
                       }))
                     }
                   />
@@ -262,7 +279,12 @@ export default function BuildCard({
           selected={slots[picker.slot].main}
           onClose={() => setPicker(null)}
           onSelect={(key) =>
-            patchSlot(picker.slot, (s) => ({ ...s, main: key, mainGot: key === s.main && s.mainGot }))
+            patchSlot(picker.slot, (s) => ({
+              ...s,
+              main: key,
+              mainGot: key === s.main && s.mainGot,
+              mainValue: key === s.main ? s.mainValue : null,
+            }))
           }
         />
       )}
@@ -278,6 +300,7 @@ export default function BuildCard({
               ...s,
               subs: s.subs.map((sub, i) => (i === picker.index ? key : sub)),
               subsGot: s.subsGot.map((got, i) => (i === picker.index ? key === s.subs[i] && got : got)),
+              subValues: s.subValues.map((v, i) => (i === picker.index && key !== s.subs[i] ? null : v)),
             }))
           }
         />
@@ -306,18 +329,22 @@ export default function BuildCard({
                   echoId,
                   main: defaultMain(cost),
                   mainGot: false,
+                  mainValue: null,
                   subs: s.subs.map((_, i) => DEFAULT_SUBS[i] ?? null),
                   subsGot: s.subsGot.map(() => false),
+                  subValues: s.subValues.map(() => null),
                 };
               }
-              // A different echo means a different real piece: keep the plan, drop the got-marks.
+              // A different echo means a different real piece: keep the plan, drop the got-marks and values.
               const sameCost = s.echoId !== null && ECHO_BY_ID.get(s.echoId)?.cost === cost;
               return {
                 ...s,
                 echoId,
                 main: sameCost ? s.main : defaultMain(cost),
                 mainGot: false,
+                mainValue: null,
                 subsGot: s.subsGot.map(() => false),
+                subValues: s.subValues.map(() => null),
               };
             })
           }
