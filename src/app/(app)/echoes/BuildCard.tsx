@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import Card from "@/components/Card";
+import { CharacterStats, computeStats } from "@/lib/build-stats";
 import {
   Character,
   CHARACTER_BY_ID,
@@ -18,6 +19,8 @@ import {
   ECHO_COUNT,
   EchoSlot,
   FIXED_MAIN,
+  formatFlat,
+  formatPercent,
   MAIN_STATS,
   mainStat,
   SUB_COUNT,
@@ -86,6 +89,7 @@ export default function BuildCard({
 
   const character = characterId !== null ? CHARACTER_BY_ID.get(characterId) : undefined;
   const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
+  const stats = character && computeStats(character, weapon, forteNodes, slots);
   const pickedEchoId = picker && "slot" in picker ? slots[picker.slot].echoId : null;
   const pickedEcho = pickedEchoId !== null ? ECHO_BY_ID.get(pickedEchoId) : undefined;
 
@@ -167,7 +171,7 @@ export default function BuildCard({
               </button>
             </div>
           ) : (
-            <div className="flex min-h-20 min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
+            <div className="flex min-h-20 min-w-0 flex-1 flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
               {moveButtons}
               <button
                 type="button"
@@ -178,7 +182,7 @@ export default function BuildCard({
                 <CharacterIcon character={character} className="size-16" />
               </button>
               <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <div className="flex min-w-0 items-center gap-2">
+                <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
                   <button
                     type="button"
                     onClick={() => setPicker({ kind: "character" })}
@@ -188,6 +192,7 @@ export default function BuildCard({
                   </button>
                   <ForteChip mask={forteNodes} onClick={() => setPicker({ kind: "forte" })} />
                 </div>
+                {stats && <StatsGrid stats={stats} className="hidden sm:grid" />}
               </div>
               <button
                 type="button"
@@ -203,6 +208,8 @@ export default function BuildCard({
                   </span>
                 )}
               </button>
+              {/* Narrow screens: the stats get their own full-width row under the icons. */}
+              {stats && <StatsGrid stats={stats} className="grid basis-full sm:hidden" />}
             </div>
           )}
           {collapseButton}
@@ -439,6 +446,35 @@ function ForteChip({ mask, onClick }: { mask: number; onClick: () => void }) {
     >
       Форте {count}/{FORTE_NODE_COUNT} ▾
     </button>
+  );
+}
+
+/** Columns: (ATK, Energy) · (Crit Rate, Crit DMG) · (DEF, HP). */
+function StatsGrid({ stats, className }: { stats: CharacterStats; className: string }) {
+  // [label, short label for phones, value]
+  const cells: [string, string, string][] = [
+    ["ATK", "ATK", formatFlat(stats.atk)],
+    ["Energy", "ER", formatPercent(stats.energy)],
+    ["Crit Rate", "CR", formatPercent(stats.critRate)],
+    ["Crit DMG", "CD", formatPercent(stats.critDmg)],
+    ["DEF", "DEF", formatFlat(stats.def)],
+    ["HP", "HP", formatFlat(stats.hp)],
+  ];
+  return (
+    <dl className={`max-w-xl grid-flow-col grid-cols-3 grid-rows-2 gap-x-2 gap-y-0.5 text-xs sm:gap-x-3 sm:text-sm ${className}`}>
+      {cells.map(([label, short, value], i) => (
+        <div
+          key={label}
+          className={`flex min-w-0 items-baseline justify-between gap-1.5 ${i >= 2 ? "border-l border-slate-700/70 pl-2 sm:pl-3" : ""}`}
+        >
+          <dt className="truncate text-slate-400" title={label}>
+            <span className="sm:hidden">{short}</span>
+            <span className="hidden sm:inline">{label}</span>
+          </dt>
+          <dd className="tabular-nums text-slate-100">{value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 

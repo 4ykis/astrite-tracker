@@ -31,7 +31,7 @@ Route folder = URL; `(app)` is a route group (not in the URL). Paths below are r
 | `/` dashboard | `page.tsx`, `BalanceForm`, `IncomeStats`, `SpendStats`, `actions.ts` (balance CRUD) | `lib/balance.ts`, `lib/income.ts`, `lib/spending.ts` | BalanceEntry, SpendEntry |
 | `/gacha` | `gacha/page.tsx`, `PityBlock`, `PullList`, `gacha/actions.ts` | `lib/gacha.ts` | PityCounter, PullEntry, SpendEntry |
 | `/resources` | `resources/page.tsx`, `ResourcesForm`, `resources/actions.ts` | `lib/materials.ts` (catalogue), `lib/resources.ts` | ResourceEntry |
-| `/echoes` | `echoes/page.tsx`, `BuildCard.tsx` (biggest file, editing UI) + `*Picker`/`StatRow`/`SonataSelect`, `echoes/actions.ts` | `lib/echoes.ts`, `lib/data/*.json` | EchoBuild |
+| `/echoes` | `echoes/page.tsx`, `BuildCard.tsx` (biggest file, editing UI + stats header) + `*Picker`/`StatRow`/`SonataSelect`/`ForteDialog`/`WeaponIcon`, `echoes/actions.ts` | `lib/echoes.ts`, `lib/build-stats.ts` (`computeStats`), `lib/data/*.json` | EchoBuild |
 | `/history` | `history/page.tsx` (queries prisma directly, paginated) composing `BalanceHistory`, `spending/SpendList`, `gacha/PullList`, `ResourceHistory`; `spending/actions.ts` (edit/delete spend) | `lib/resources.ts` (timeline) | Balance/Spend/Pull/Resource |
 | `/stats` | `stats/page.tsx`, `StatsChart`, `SpendByCategoryChart` | `lib/income.ts` (`getIncomeSeries`) | BalanceEntry, SpendEntry |
 | `/login`, `/login/google`, `/login/google/callback`, `/logout` | `src/app/login/**`, `src/app/logout/route.ts` | `lib/google.ts` (OAuth + PKCE), `lib/auth.ts` (HMAC session token), `lib/session.ts` | User |
@@ -42,7 +42,7 @@ Cross-cutting:
 - `src/lib/session.ts` — `requireUserId()` (redirects to `/login`) and `getCurrentUser()`. `(app)/layout.tsx` renders `NavBar` for the current user.
 - `src/lib/prisma.ts` singleton client · `src/lib/date.ts` all day/timezone logic.
 - `src/components/` — `Card`, `Modal` (client), `MaterialIcon`, `NavBar` (the list of nav links lives here).
-- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `fetch-echo-data.ts`, `fetch-material-icons.ts`.
+- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `fetch-echo-data.ts` (calls `fetch-stat-data.ts`), `fetch-material-icons.ts`.
 
 Finding things fast:
 
@@ -57,8 +57,8 @@ Finding things fast:
 3. **Income vs spend.** Income ("Прибуток") = astrite *earned*: `balance_end − balance_start` + the spend those check-ins reflect (`lib/income.ts`). Each `SpendEntry` is attributed to the first check-in created after it (and dated on/after its day), so a balance drop and its pulls land in the same period and cancel; spend logged after the latest check-in is not counted yet. Buckets run over tracked days `[start, end)`: from the balance carried into `start` to the last check-in before `end`. The `/stats` "Разом" view shows the raw balance change (`net`). All-time income = latest balance + all reflected spend (the first balance counts as earned). The balance shown on the dashboard is `getCurrentBalance()` (`lib/balance.ts`): the most recently *created* `BalanceEntry` (by `createdAt`, not `date` — a backdated check-in still sets it) minus `SpendEntry` rows *created after it* — this is display only, income still reads raw check-ins.
 4. **Gacha.** `PULL_COST` 160, soft pity 66, hard pity 80 (`lib/gacha.ts`). Pity buttons create `SpendEntry` rows in the same `prisma.$transaction` as the pity/pull change — keep that atomic.
 5. **Resources are sparse.** A `ResourceEntry` row exists only when an item's amount changed that day (`saveResources` drops rows equal to the carried-forward value). Current amounts = `getResourcesAsOf()`, history = `getResourceTimeline()`. Item ids are in-game ids from `lib/materials.ts`; changing an id orphans stored rows.
-6. **Echo builds.** `EchoBuild.slots` is a Json column, read and written as a whole and always through `normalizeSlots()` (shape: `EchoSlot` in `lib/echoes.ts`). Order = `position`, then `createdAt`.
-7. **Generated data.** `src/lib/data/*.json`, `public/icons/**`, `public/materials/**` come from `scripts/` (source: static.nanoka.cc; game version is a constant in `fetch-echo-data.ts`). Re-run the script instead of hand-editing.
+6. **Echo builds.** `EchoBuild.slots` is a Json column, read and written as a whole and always through `normalizeSlots()` (shape: `EchoSlot` in `lib/echoes.ts`; `mainValue`/`subValues` are kept only while the stat is set and its got-flag is on). `weaponId` must fit the character's weapon type (`validWeaponId`); `forteNodes` is a bitmask over `Character.forte` (255 = all 8). Order = `position`, then `createdAt`.
+7. **Generated data.** `src/lib/data/*.json`, `public/icons/**`, `public/materials/**` come from `scripts/` (characters/echoes/sonatas + icons: static.nanoka.cc, game version is a constant in `fetch-echo-data.ts`; character base stats/forte and `weapons.json`: the game tables at github.com/Arikatsu/WutheringWaves_Data, branch constant in `fetch-stat-data.ts`, which merges into `characters.json` and tolerates missing weapon icons). Re-run the script instead of hand-editing.
 8. **Cache.** Every `(app)` page is `export const dynamic = "force-dynamic"`. After a mutation call `revalidatePath` for every page that shows the data (current convention: balance → `/`, `/history`; spend edit/delete → `/`, `/stats`, `/history`; pity/5★ → `/gacha`, `/`, `/history`, `/stats`; pull edit/delete → `/gacha`, `/`, `/history`; resources → `/resources`, `/history`; echoes → `/echoes`).
 9. **Public assets vs auth.** A new folder under `public/` that must load without a session (like `icons`, `materials`) has to be added to the `src/proxy.ts` matcher exclusions, otherwise it redirects to `/login`.
 10. **UI.** Dark only (slate-950/900 surfaces, amber accents, `color-scheme: dark` in `globals.css`), Tailwind utilities inline, no CSS modules. Reuse `Card`, `Modal`, `MaterialIcon`. Server components by default; `"use client"` only for interactive parts (currently: forms, lists with inline editing, pickers, charts, `Modal`). Form actions take `(…args, _prevState, formData)` and return `{ error?: string }` with a Ukrainian message.
@@ -73,7 +73,8 @@ npm run db:local       # embedded Postgres on :51218, data in .pgdata — keep i
 npm run db:migrate     # prisma migrate dev (create + apply a migration after editing schema.prisma)
 npm run db:studio
 npx tsc --noEmit && npm run lint
-npx tsx scripts/fetch-echo-data.ts        # refresh characters/echoes/sonatas + icons (needs network)
+npx tsx scripts/fetch-echo-data.ts        # refresh characters/echoes/sonatas + icons, then stats/weapons (needs network)
+npx tsx scripts/fetch-stat-data.ts        # only character stats, forte nodes, weapons.json + weapon icons
 npx tsx scripts/fetch-material-icons.ts
 ```
 
