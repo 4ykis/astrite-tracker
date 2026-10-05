@@ -1,0 +1,1366 @@
+[
+  {
+    "id": 21010074,
+    "name": "Autumntrace",
+    "rank": 4,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 20.25
+    }
+  },
+  {
+    "id": 21020074,
+    "name": "Lumingloss",
+    "rank": 4,
+    "type": 2,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21030074,
+    "name": "Thunderbolt",
+    "rank": 4,
+    "type": 3,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21040074,
+    "name": "Stonard",
+    "rank": 4,
+    "type": 4,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 20.25
+    }
+  },
+  {
+    "id": 21050074,
+    "name": "Augment",
+    "rank": 4,
+    "type": 5,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 20.25
+    }
+  },
+  {
+    "id": 21010024,
+    "name": "Discord",
+    "rank": 4,
+    "type": 1,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21020024,
+    "name": "Overture",
+    "rank": 4,
+    "type": 2,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21030024,
+    "name": "Cadenza",
+    "rank": 4,
+    "type": 3,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21040024,
+    "name": "Marcato",
+    "rank": 4,
+    "type": 4,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21050024,
+    "name": "Variation",
+    "rank": 4,
+    "type": 5,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21010013,
+    "name": "Broadblade of Night",
+    "rank": 3,
+    "type": 1,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21020013,
+    "name": "Sword of Night",
+    "rank": 3,
+    "type": 2,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21030013,
+    "name": "Pistols of Night",
+    "rank": 3,
+    "type": 3,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040013,
+    "name": "Gauntlets of Night",
+    "rank": 3,
+    "type": 4,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050013,
+    "name": "Rectifier of Night",
+    "rank": 3,
+    "type": 5,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21010012,
+    "name": "Tyro Broadblade",
+    "rank": 2,
+    "type": 1,
+    "atk": 275,
+    "secondary": {
+      "stat": "atk%",
+      "value": 14.85
+    }
+  },
+  {
+    "id": 21020012,
+    "name": "Tyro Sword",
+    "rank": 2,
+    "type": 2,
+    "atk": 275,
+    "secondary": {
+      "stat": "atk%",
+      "value": 14.85
+    }
+  },
+  {
+    "id": 21030012,
+    "name": "Tyro Pistols",
+    "rank": 2,
+    "type": 3,
+    "atk": 275,
+    "secondary": {
+      "stat": "atk%",
+      "value": 14.85
+    }
+  },
+  {
+    "id": 21040012,
+    "name": "Tyro Gauntlets",
+    "rank": 2,
+    "type": 4,
+    "atk": 275,
+    "secondary": {
+      "stat": "atk%",
+      "value": 14.85
+    }
+  },
+  {
+    "id": 21050012,
+    "name": "Tyro Rectifier",
+    "rank": 2,
+    "type": 5,
+    "atk": 275,
+    "secondary": {
+      "stat": "atk%",
+      "value": 14.85
+    }
+  },
+  {
+    "id": 21010011,
+    "name": "Training Broadblade",
+    "rank": 1,
+    "type": 1,
+    "atk": 250,
+    "secondary": {
+      "stat": "atk%",
+      "value": 11.475
+    }
+  },
+  {
+    "id": 21020011,
+    "name": "Training Sword",
+    "rank": 1,
+    "type": 2,
+    "atk": 250,
+    "secondary": {
+      "stat": "atk%",
+      "value": 11.475
+    }
+  },
+  {
+    "id": 21030011,
+    "name": "Training Pistols",
+    "rank": 1,
+    "type": 3,
+    "atk": 250,
+    "secondary": {
+      "stat": "atk%",
+      "value": 11.475
+    }
+  },
+  {
+    "id": 21040011,
+    "name": "Training Gauntlets",
+    "rank": 1,
+    "type": 4,
+    "atk": 250,
+    "secondary": {
+      "stat": "atk%",
+      "value": 11.475
+    }
+  },
+  {
+    "id": 21050011,
+    "name": "Training Rectifier",
+    "rank": 1,
+    "type": 5,
+    "atk": 250,
+    "secondary": {
+      "stat": "atk%",
+      "value": 11.475
+    }
+  },
+  {
+    "id": 21010023,
+    "name": "Originite: Type I",
+    "rank": 3,
+    "type": 1,
+    "atk": 300,
+    "secondary": {
+      "stat": "def%",
+      "value": 38.475
+    }
+  },
+  {
+    "id": 21020023,
+    "name": "Originite: Type II",
+    "rank": 3,
+    "type": 2,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21030023,
+    "name": "Originite: Type III",
+    "rank": 3,
+    "type": 3,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040023,
+    "name": "Originite: Type IV",
+    "rank": 3,
+    "type": 4,
+    "atk": 300,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 40.5
+    }
+  },
+  {
+    "id": 21050023,
+    "name": "Originite: Type V",
+    "rank": 3,
+    "type": 5,
+    "atk": 300,
+    "secondary": {
+      "stat": "hp%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21010034,
+    "name": "Broadblade#41",
+    "rank": 4,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 32.4
+    }
+  },
+  {
+    "id": 21020034,
+    "name": "Sword#18",
+    "rank": 4,
+    "type": 2,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21030034,
+    "name": "Pistols#26",
+    "rank": 4,
+    "type": 3,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21040034,
+    "name": "Gauntlets#21D",
+    "rank": 4,
+    "type": 4,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 38.88
+    }
+  },
+  {
+    "id": 21050034,
+    "name": "Rectifier#25",
+    "rank": 4,
+    "type": 5,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21010044,
+    "name": "Dauntless Evernight",
+    "rank": 4,
+    "type": 1,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "def%",
+      "value": 61.56
+    }
+  },
+  {
+    "id": 21020044,
+    "name": "Commando of Conviction",
+    "rank": 4,
+    "type": 2,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21030044,
+    "name": "Undying Flame",
+    "rank": 4,
+    "type": 3,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21040044,
+    "name": "Amity Accord",
+    "rank": 4,
+    "type": 4,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "def%",
+      "value": 61.56
+    }
+  },
+  {
+    "id": 21050044,
+    "name": "Jinzhou Keeper",
+    "rank": 4,
+    "type": 5,
+    "atk": 387.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21010043,
+    "name": "Broadblade of Voyager",
+    "rank": 3,
+    "type": 1,
+    "atk": 300,
+    "secondary": {
+      "stat": "energy",
+      "value": 32.4
+    }
+  },
+  {
+    "id": 21020043,
+    "name": "Sword of Voyager",
+    "rank": 3,
+    "type": 2,
+    "atk": 300,
+    "secondary": {
+      "stat": "energy",
+      "value": 32.4
+    }
+  },
+  {
+    "id": 21030043,
+    "name": "Pistols of Voyager",
+    "rank": 3,
+    "type": 3,
+    "atk": 300,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21040043,
+    "name": "Gauntlets of Voyager",
+    "rank": 3,
+    "type": 4,
+    "atk": 325,
+    "secondary": {
+      "stat": "def%",
+      "value": 30.78
+    }
+  },
+  {
+    "id": 21050043,
+    "name": "Rectifier of Voyager",
+    "rank": 3,
+    "type": 5,
+    "atk": 300,
+    "secondary": {
+      "stat": "energy",
+      "value": 32.4
+    }
+  },
+  {
+    "id": 21010053,
+    "name": "Guardian Broadblade",
+    "rank": 3,
+    "type": 1,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21020053,
+    "name": "Guardian Sword",
+    "rank": 3,
+    "type": 2,
+    "atk": 300,
+    "secondary": {
+      "stat": "hp%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21030053,
+    "name": "Guardian Pistols",
+    "rank": 3,
+    "type": 3,
+    "atk": 300,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21040053,
+    "name": "Guardian Gauntlets",
+    "rank": 3,
+    "type": 4,
+    "atk": 300,
+    "secondary": {
+      "stat": "def%",
+      "value": 38.475
+    }
+  },
+  {
+    "id": 21050053,
+    "name": "Guardian Rectifier",
+    "rank": 3,
+    "type": 5,
+    "atk": 325,
+    "secondary": {
+      "stat": "atk%",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21010064,
+    "name": "Helios Cleaver",
+    "rank": 4,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21020064,
+    "name": "Lunar Cutter",
+    "rank": 4,
+    "type": 2,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21030064,
+    "name": "Novaburst",
+    "rank": 4,
+    "type": 3,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21040064,
+    "name": "Hollow Mirage",
+    "rank": 4,
+    "type": 4,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21050064,
+    "name": "Comet Flare",
+    "rank": 4,
+    "type": 5,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "hp%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21010015,
+    "name": "Lustrous Razor",
+    "rank": 5,
+    "type": 1,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21020015,
+    "name": "Emerald of Genesis",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21030015,
+    "name": "Static Mist",
+    "rank": 5,
+    "type": 3,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040015,
+    "name": "Abyss Surges",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 36.45
+    }
+  },
+  {
+    "id": 21050015,
+    "name": "Cosmic Ripples",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "atk%",
+      "value": 54
+    }
+  },
+  {
+    "id": 21010016,
+    "name": "Verdant Summit",
+    "rank": 5,
+    "type": 1,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21050016,
+    "name": "Stringmaster",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21010026,
+    "name": "Ages of Harvest",
+    "rank": 5,
+    "type": 1,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21020016,
+    "name": "Blazing Brilliance",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21010063,
+    "name": "Beguiling Melody",
+    "rank": 3,
+    "type": 1,
+    "atk": 300,
+    "secondary": {
+      "stat": "atk%",
+      "value": 30.375
+    }
+  },
+  {
+    "id": 21050026,
+    "name": "Rime-Draped Sprouts",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 72
+    }
+  },
+  {
+    "id": 21040016,
+    "name": "Verity's Handle",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050036,
+    "name": "Stellar Symphony",
+    "rank": 5,
+    "type": 5,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 77.04
+    }
+  },
+  {
+    "id": 21010084,
+    "name": "Waning Redshift",
+    "rank": 4,
+    "type": 1,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21020084,
+    "name": "Endless Collapse",
+    "rank": 4,
+    "type": 2,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21030084,
+    "name": "Relativistic Jet",
+    "rank": 4,
+    "type": 3,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21040084,
+    "name": "Celestial Spiral",
+    "rank": 4,
+    "type": 4,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21050084,
+    "name": "Fusion Accretion",
+    "rank": 4,
+    "type": 5,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21020017,
+    "name": "Somnoire Anchor",
+    "rank": 4,
+    "type": 2,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21020026,
+    "name": "Red Spring",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050017,
+    "name": "Call of the Abyss",
+    "rank": 4,
+    "type": 5,
+    "atk": 337.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 51.84
+    }
+  },
+  {
+    "id": 21010094,
+    "name": "Meditations on Mercy",
+    "rank": 4,
+    "type": 1,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21020094,
+    "name": "Fables of Wisdom",
+    "rank": 4,
+    "type": 2,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21030094,
+    "name": "Romance in Farewell",
+    "rank": 4,
+    "type": 3,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21040094,
+    "name": "Legend of Drunken Hero",
+    "rank": 4,
+    "type": 4,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21050094,
+    "name": "Waltz in Masquerade",
+    "rank": 4,
+    "type": 5,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21040026,
+    "name": "Tragicomedy",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21030016,
+    "name": "The Last Dance",
+    "rank": 5,
+    "type": 3,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 72
+    }
+  },
+  {
+    "id": 21020036,
+    "name": "Unflickering Valor",
+    "rank": 5,
+    "type": 2,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 77.04
+    }
+  },
+  {
+    "id": 21050046,
+    "name": "Luminous Hymn",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21050027,
+    "name": "Ocean's Gift",
+    "rank": 4,
+    "type": 5,
+    "atk": 462.5,
+    "secondary": {
+      "stat": "atk%",
+      "value": 18.225
+    }
+  },
+  {
+    "id": 21050056,
+    "name": "Whispers of Sirens",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 72
+    }
+  },
+  {
+    "id": 21020046,
+    "name": "Bloodpact's Pledge",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 38.88
+    }
+  },
+  {
+    "id": 21040036,
+    "name": "Blazing Justice",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21030026,
+    "name": "Woodland Aria",
+    "rank": 5,
+    "type": 3,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21020056,
+    "name": "Defier's Thorn",
+    "rank": 5,
+    "type": 2,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "hp%",
+      "value": 72.225
+    }
+  },
+  {
+    "id": 21010036,
+    "name": "Wildfire Mark",
+    "rank": 5,
+    "type": 1,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21050066,
+    "name": "Lethean Elegy",
+    "rank": 5,
+    "type": 5,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040046,
+    "name": "Moongazer's Sigil",
+    "rank": 5,
+    "type": 4,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21010046,
+    "name": "Thunderflare Dominion",
+    "rank": 5,
+    "type": 1,
+    "atk": 675,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 12.15
+    }
+  },
+  {
+    "id": 21010104,
+    "name": "Aureate Zenith",
+    "rank": 4,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 40.5
+    }
+  },
+  {
+    "id": 21020104,
+    "name": "Feather Edge",
+    "rank": 4,
+    "type": 2,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 20.25
+    }
+  },
+  {
+    "id": 21030104,
+    "name": "Solar Flame",
+    "rank": 4,
+    "type": 3,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 20.25
+    }
+  },
+  {
+    "id": 21040104,
+    "name": "Aether Strike",
+    "rank": 4,
+    "type": 4,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 40.5
+    }
+  },
+  {
+    "id": 21050104,
+    "name": "Radiant Dawn",
+    "rank": 4,
+    "type": 5,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 40.5
+    }
+  },
+  {
+    "id": 21030036,
+    "name": "Lux & Umbra",
+    "rank": 5,
+    "type": 3,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21020066,
+    "name": "Emerald Sentence",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21010056,
+    "name": "Kumokiri",
+    "rank": 5,
+    "type": 1,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21030046,
+    "name": "Spectrum Blaster",
+    "rank": 5,
+    "type": 3,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21010066,
+    "name": "Starfield Calibrator",
+    "rank": 5,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 77.04
+    }
+  },
+  {
+    "id": 21010045,
+    "name": "Radiance Cleaver",
+    "rank": 5,
+    "type": 1,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21020045,
+    "name": "Laser Shearer",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 38.88
+    }
+  },
+  {
+    "id": 21030045,
+    "name": "Phasic Homogenizer",
+    "rank": 5,
+    "type": 3,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21040045,
+    "name": "Pulsation Bracer",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050045,
+    "name": "Boson Astrolabe",
+    "rank": 5,
+    "type": 5,
+    "atk": 525,
+    "secondary": {
+      "stat": "energy",
+      "value": 38.88
+    }
+  },
+  {
+    "id": 21020076,
+    "name": "Everbright Polestar",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040056,
+    "name": "Daybreaker's Spine",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21040066,
+    "name": "Solsworn Ciphers",
+    "rank": 5,
+    "type": 4,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21050076,
+    "name": "Forged Dwarf Star",
+    "rank": 5,
+    "type": 5,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21020086,
+    "name": "Frostburn",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21030056,
+    "name": "Spectral Trigger",
+    "rank": 5,
+    "type": 3,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 48.6
+    }
+  },
+  {
+    "id": 21030066,
+    "name": "Skull Thrasher",
+    "rank": 5,
+    "type": 3,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-dmg",
+      "value": 72
+    }
+  },
+  {
+    "id": 21050086,
+    "name": "Freeze Frame",
+    "rank": 5,
+    "type": 5,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21020096,
+    "name": "Azure Oath",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050096,
+    "name": "Firstlight's Herald",
+    "rank": 5,
+    "type": 5,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "energy",
+      "value": 77.04
+    }
+  },
+  {
+    "id": 21010076,
+    "name": "Thousandfold Deliverance",
+    "rank": 5,
+    "type": 1,
+    "atk": 412.5,
+    "secondary": {
+      "stat": "hp%",
+      "value": 72.225
+    }
+  },
+  {
+    "id": 21020106,
+    "name": "Glint of Clouds",
+    "rank": 5,
+    "type": 2,
+    "atk": 500,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 36
+    }
+  },
+  {
+    "id": 21020107,
+    "name": "Unspoken Rue",
+    "rank": 5,
+    "type": 2,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  },
+  {
+    "id": 21050116,
+    "name": "Blooming Jadehaven",
+    "rank": 5,
+    "type": 5,
+    "atk": 587.5,
+    "secondary": {
+      "stat": "crit-rate",
+      "value": 24.3
+    }
+  }
+]

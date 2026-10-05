@@ -3,360 +3,2640 @@
     "id": 1102,
     "name": "Sanhua",
     "rank": 4,
-    "element": 1
+    "element": 1,
+    "weaponType": 2,
+    "hp": 10062.5,
+    "atk": 275,
+    "def": 941.109,
+    "forte": [
+      {
+        "stat": "glacio-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1103,
     "name": "Baizhi",
     "rank": 4,
-    "element": 1
+    "element": 1,
+    "weaponType": 5,
+    "hp": 12812.5,
+    "atk": 212.5,
+    "def": 1002.22,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1104,
     "name": "Lingyang",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 4,
+    "hp": 10387.5,
+    "atk": 437.5,
+    "def": 1209.998,
+    "forte": [
+      {
+        "stat": "glacio-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "glacio-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1105,
     "name": "Zhezhi",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 5,
+    "hp": 12250,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1106,
     "name": "Youhu",
     "rank": 4,
-    "element": 1
+    "element": 1,
+    "weaponType": 4,
+    "hp": 9975,
+    "atk": 262.5,
+    "def": 1051.109,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1107,
     "name": "Carlotta",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 3,
+    "hp": 12450,
+    "atk": 462.5,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1108,
     "name": "Hiyuki",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 2,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1109,
     "name": "Lucilla",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 5,
+    "hp": 12237.5,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1110,
     "name": "Suisui",
     "rank": 5,
-    "element": 1
+    "element": 1,
+    "weaponType": 5,
+    "hp": 16712.5,
+    "atk": 287.5,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1202,
     "name": "Chixia",
     "rank": 4,
-    "element": 2
+    "element": 2,
+    "weaponType": 3,
+    "hp": 9087.5,
+    "atk": 300,
+    "def": 953.332,
+    "forte": [
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1203,
     "name": "Encore",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 5,
+    "hp": 10512.5,
+    "atk": 425,
+    "def": 1246.664,
+    "forte": [
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1204,
     "name": "Mortefi",
     "rank": 4,
-    "element": 2
+    "element": 2,
+    "weaponType": 3,
+    "hp": 10025,
+    "atk": 250,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "fusion-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1205,
     "name": "Changli",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 2,
+    "hp": 10387.5,
+    "atk": 462.5,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1206,
     "name": "Brant",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 2,
+    "hp": 11675,
+    "atk": 375,
+    "def": 1307.775,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1207,
     "name": "Lupa",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 1,
+    "hp": 11912.5,
+    "atk": 387.5,
+    "def": 1185.553,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1208,
     "name": "Galbrena",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 3,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1209,
     "name": "Mornye",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 1,
+    "hp": 15375,
+    "atk": 287.5,
+    "def": 1356.664,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1210,
     "name": "Aemeath",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 2,
+    "hp": 11025,
+    "atk": 425,
+    "def": 1148.887,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1211,
     "name": "Denia",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 5,
+    "hp": 11025,
+    "atk": 425,
+    "def": 1148.887,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1212,
     "name": "Jingran",
     "rank": 5,
-    "element": 2
+    "element": 2,
+    "weaponType": 1,
+    "hp": 15375,
+    "atk": 312.5,
+    "def": 0,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1301,
     "name": "Calcharo",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 1,
+    "hp": 10500,
+    "atk": 437.5,
+    "def": 1185.553,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1302,
     "name": "Yinlin",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 5,
+    "hp": 11000,
+    "atk": 400,
+    "def": 1283.331,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1303,
     "name": "Yuanwu",
     "rank": 4,
-    "element": 3
+    "element": 3,
+    "weaponType": 4,
+    "hp": 8525,
+    "atk": 225,
+    "def": 1637.775,
+    "forte": [
+      {
+        "stat": "electro-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "electro-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "electro-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "electro-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1304,
     "name": "Jinhsi",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 1,
+    "hp": 10825,
+    "atk": 412.5,
+    "def": 1258.887,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1305,
     "name": "Xiangli Yao",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 4,
+    "hp": 10625,
+    "atk": 425,
+    "def": 1222.22,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1306,
     "name": "Augusta",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 1,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1307,
     "name": "Buling",
     "rank": 4,
-    "element": 3
+    "element": 3,
+    "weaponType": 5,
+    "hp": 10625,
+    "atk": 225,
+    "def": 1258.887,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1308,
     "name": "Rebecca",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 3,
+    "hp": 11600,
+    "atk": 400,
+    "def": 1173.331,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1309,
     "name": "Rover: Electro",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 2,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1311,
     "name": "Hsin",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 5,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1312,
     "name": "Suoming",
     "rank": 5,
-    "element": 3
+    "element": 3,
+    "weaponType": 2,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1402,
     "name": "Yangyang",
     "rank": 4,
-    "element": 4
+    "element": 4,
+    "weaponType": 2,
+    "hp": 10200,
+    "atk": 250,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "aero-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1403,
     "name": "Aalto",
     "rank": 4,
-    "element": 4
+    "element": 4,
+    "weaponType": 3,
+    "hp": 9850,
+    "atk": 262.5,
+    "def": 1075.554,
+    "forte": [
+      {
+        "stat": "aero-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "aero-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1404,
     "name": "Jiyan",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 1,
+    "hp": 10487.5,
+    "atk": 437.5,
+    "def": 1185.553,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1405,
     "name": "Jianxin",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 4,
+    "hp": 14112.5,
+    "atk": 337.5,
+    "def": 1124.442,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1406,
     "name": "Rover: Aero",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 2,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1407,
     "name": "Ciaccona",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 3,
+    "hp": 12237.5,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1409,
     "name": "Cartethyia",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 2,
+    "hp": 14800,
+    "atk": 312.5,
+    "def": 611.11,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1410,
     "name": "Iuno",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 4,
+    "hp": 10525,
+    "atk": 450,
+    "def": 1124.442,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1411,
     "name": "Qiuyuan",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 2,
+    "hp": 12237.5,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1412,
     "name": "Sigrika",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 4,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1413,
     "name": "Qingxiao",
     "rank": 5,
-    "element": 4
+    "element": 4,
+    "weaponType": 2,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1501,
     "name": "Rover: Spectro",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 2,
+    "hp": 11400,
+    "atk": 375,
+    "def": 1368.886,
+    "forte": [
+      {
+        "stat": "spectro-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "spectro-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "spectro-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "spectro-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1503,
     "name": "Verina",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 5,
+    "hp": 14237.5,
+    "atk": 337.5,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1504,
     "name": "Lumi",
     "rank": 4,
-    "element": 3
+    "element": 3,
+    "weaponType": 1,
+    "hp": 8500,
+    "atk": 337.5,
+    "def": 879.998,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1505,
     "name": "Shorekeeper",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 5,
+    "hp": 16712.5,
+    "atk": 287.5,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "hp%",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 1.8
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "hp%",
+        "value": 4.2
+      },
+      {
+        "stat": "healing",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1506,
     "name": "Phoebe",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 5,
+    "hp": 10825,
+    "atk": 412.5,
+    "def": 1258.887,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1507,
     "name": "Zani",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 4,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1508,
     "name": "Chisa",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 1,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1509,
     "name": "Lynae",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 3,
+    "hp": 12237.5,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1510,
     "name": "Luuk Herssen",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 4,
+    "hp": 10300,
+    "atk": 462.5,
+    "def": 1112.22,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1511,
     "name": "Lucy",
     "rank": 5,
-    "element": 5
+    "element": 5,
+    "weaponType": 3,
+    "hp": 11025,
+    "atk": 425,
+    "def": 1148.887,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1601,
     "name": "Taoqi",
     "rank": 4,
-    "element": 6
+    "element": 6,
+    "weaponType": 1,
+    "hp": 8950,
+    "atk": 225,
+    "def": 1564.442,
+    "forte": [
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "def%",
+        "value": 2.28
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "def%",
+        "value": 5.32
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1602,
     "name": "Danjin",
     "rank": 4,
-    "element": 6
+    "element": 6,
+    "weaponType": 2,
+    "hp": 9437.5,
+    "atk": 262.5,
+    "def": 1148.887,
+    "forte": [
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1603,
     "name": "Camellya",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 2,
+    "hp": 10325,
+    "atk": 450,
+    "def": 1161.109,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1604,
     "name": "Rover: Havoc",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 2,
+    "hp": 10825,
+    "atk": 412.5,
+    "def": 1258.887,
+    "forte": [
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 1.8
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "havoc-dmg",
+        "value": 4.2
+      }
+    ]
   },
   {
     "id": 1606,
     "name": "Roccia",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 4,
+    "hp": 12250,
+    "atk": 375,
+    "def": 1197.776,
+    "forte": [
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 2.4
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-dmg",
+        "value": 5.6
+      }
+    ]
   },
   {
     "id": 1607,
     "name": "Cantarella",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 5,
+    "hp": 11600,
+    "atk": 400,
+    "def": 1099.998,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1608,
     "name": "Phrolova",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 5,
+    "hp": 10775,
+    "atk": 437.5,
+    "def": 1136.665,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   },
   {
     "id": 1610,
     "name": "Yangyang: Xuanling",
     "rank": 5,
-    "element": 6
+    "element": 6,
+    "weaponType": 2,
+    "hp": 11025,
+    "atk": 425,
+    "def": 1148.887,
+    "forte": [
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "atk%",
+        "value": 1.8
+      },
+      {
+        "stat": "crit-rate",
+        "value": 1.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "atk%",
+        "value": 4.2
+      },
+      {
+        "stat": "crit-rate",
+        "value": 2.8
+      }
+    ]
   }
 ]

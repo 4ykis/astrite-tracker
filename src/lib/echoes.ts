@@ -1,15 +1,32 @@
 /**
  * Resonators, echoes and sonata sets for the echo prefarm page, plus echo stat
- * tables. Data and icons come from scripts/fetch-echo-data.ts; icons live in
- * `public/icons/{characters,echoes,sonatas}/<id>.webp`.
+ * tables. Data and icons come from scripts/fetch-echo-data.ts (+ fetch-stat-data.ts);
+ * icons live in `public/icons/{characters,echoes,sonatas,weapons}/<id>.webp`.
  */
 import charactersData from "./data/characters.json";
 import echoesData from "./data/echoes.json";
 import sonatasData from "./data/sonatas.json";
+import weaponsData from "./data/weapons.json";
 
 export type EchoCost = 1 | 3 | 4;
 
-export type Character = { id: number; name: string; rank: number; element: number };
+/** A percentage bonus: `stat` is a stat key from the tables below (e.g. "atk%", "crit-rate"). */
+export type StatBonus = { stat: string; value: number };
+
+/** `hp` / `atk` / `def` are base values at level 90; `forte` are the 8 minor forte nodes. */
+export type Character = {
+  id: number;
+  name: string;
+  rank: number;
+  element: number;
+  weaponType: number;
+  hp: number;
+  atk: number;
+  def: number;
+  forte: StatBonus[];
+};
+/** `atk` and `secondary` are level-90 values. */
+export type Weapon = { id: number; name: string; rank: number; type: number; atk: number; secondary: StatBonus };
 export type Echo = { id: number; name: string; cost: EchoCost; sonatas: number[] };
 export type Sonata = { id: number; name: string };
 
@@ -20,28 +37,62 @@ export const ECHOES: Echo[] = (echoesData as Echo[])
   .slice()
   .sort((a, b) => b.cost - a.cost || a.name.localeCompare(b.name));
 export const SONATAS: Sonata[] = sonatasData;
+export const WEAPONS: Weapon[] = [...weaponsData].sort((a, b) => b.rank - a.rank || a.name.localeCompare(b.name));
 
 export const CHARACTER_BY_ID = new Map(CHARACTERS.map((c) => [c.id, c]));
 export const ECHO_BY_ID = new Map(ECHOES.map((e) => [e.id, e]));
 export const SONATA_BY_ID = new Map(SONATAS.map((s) => [s.id, s]));
+export const WEAPON_BY_ID = new Map(WEAPONS.map((w) => [w.id, w]));
 
 export const characterIcon = (id: number) => `/icons/characters/${id}.webp`;
 export const echoIcon = (id: number) => `/icons/echoes/${id}.webp`;
 export const sonataIcon = (id: number) => `/icons/sonatas/${id}.webp`;
+export const weaponIcon = (id: number) => `/icons/weapons/${id}.webp`;
+
+/** Game weapon type ids (`Character.weaponType`, `Weapon.type`). */
+export const WEAPON_TYPES: Record<number, string> = {
+  1: "Broadblade",
+  2: "Sword",
+  3: "Pistols",
+  4: "Gauntlets",
+  5: "Rectifier",
+};
 
 export const COSTS: EchoCost[] = [4, 3, 1];
 
 // Stats -------------------------------------------------------------------
 
-export type Stat = { key: string; label: string; hint: string; /** Compact label for the echo card. */ short: string };
+export type StatUnit = "%" | "flat";
 
-const stat = (key: string, label: string, hint: string, short = label): Stat => ({ key, label, hint, short });
+/** `min`–`max` is the roll range; for main stats `max` is the value at +25 and `min` is 0. */
+export type Stat = {
+  key: string;
+  label: string;
+  /** Compact label for the echo card. */
+  short: string;
+  min: number;
+  max: number;
+  unit: StatUnit;
+  /** Range as text, e.g. "6.3–10.5%" (main stats: just the max). */
+  hint: string;
+};
+
+const unitOf = (key: string): StatUnit => (["atk", "hp", "def"].includes(key) ? "flat" : "%");
+
+export const formatStatValue = (value: number, unit: StatUnit) => `${value}${unit === "%" ? "%" : ""}`;
+
+const stat = (key: string, label: string, min: number, max: number, short = label): Stat => {
+  const unit = unitOf(key);
+  const hint = min === 0 || min === max ? formatStatValue(max, unit) : `${min}–${formatStatValue(max, unit)}`;
+  return { key, label, short, min, max, unit, hint };
+};
+const main = (key: string, label: string, max: number, short = label) => stat(key, label, 0, max, short);
 
 /** The second main stat every echo gets for free, by cost (values at +25). */
 export const FIXED_MAIN: Record<EchoCost, Stat> = {
-  4: stat("atk", "ATK", "150"),
-  3: stat("atk", "ATK", "100"),
-  1: stat("hp", "HP", "2280"),
+  4: stat("atk", "ATK", 150, 150),
+  3: stat("atk", "ATK", 100, 100),
+  1: stat("hp", "HP", 2280, 2280),
 };
 
 const ELEMENTS = ["Glacio", "Fusion", "Electro", "Aero", "Spectro", "Havoc"];
@@ -49,39 +100,44 @@ const ELEMENTS = ["Glacio", "Fusion", "Electro", "Aero", "Spectro", "Havoc"];
 /** Selectable main stats by cost (max values at +25). */
 export const MAIN_STATS: Record<EchoCost, Stat[]> = {
   4: [
-    stat("crit-rate", "Crit Rate", "22%"),
-    stat("crit-dmg", "Crit DMG", "44%"),
-    stat("atk%", "ATK%", "33%"),
-    stat("hp%", "HP%", "33%"),
-    stat("def%", "DEF%", "41.8%"),
-    stat("healing", "Healing Bonus", "26.4%", "Healing"),
+    main("crit-rate", "Crit Rate", 22),
+    main("crit-dmg", "Crit DMG", 44),
+    main("atk%", "ATK%", 33),
+    main("hp%", "HP%", 33),
+    main("def%", "DEF%", 41.8),
+    main("healing", "Healing Bonus", 26.4, "Healing"),
   ],
   3: [
-    stat("atk%", "ATK%", "30%"),
-    stat("hp%", "HP%", "30%"),
-    stat("def%", "DEF%", "38%"),
-    stat("energy", "Energy Regen", "32%", "Energy"),
-    ...ELEMENTS.map((el) => stat(`${el.toLowerCase()}-dmg`, `${el} DMG`, "30%")),
+    main("atk%", "ATK%", 30),
+    main("hp%", "HP%", 30),
+    main("def%", "DEF%", 38),
+    main("energy", "Energy Regen", 32, "Energy"),
+    ...ELEMENTS.map((el) => main(`${el.toLowerCase()}-dmg`, `${el} DMG`, 30)),
   ],
-  1: [stat("atk%", "ATK%", "18%"), stat("hp%", "HP%", "22.8%"), stat("def%", "DEF%", "18%")],
+  1: [main("atk%", "ATK%", 18), main("hp%", "HP%", 22.8), main("def%", "DEF%", 18)],
 };
 
 /** Sub stats with their roll range (min–max). */
 export const SUB_STATS: Stat[] = [
-  stat("crit-rate", "Crit Rate", "6.3–10.5%"),
-  stat("crit-dmg", "Crit DMG", "12.6–21%"),
-  stat("atk%", "ATK%", "6.4–11.6%"),
-  stat("atk", "ATK", "30–60"),
-  stat("hp%", "HP%", "6.4–11.6%"),
-  stat("hp", "HP", "320–580"),
-  stat("def%", "DEF%", "8.1–14.7%"),
-  stat("def", "DEF", "40–70"),
-  stat("energy", "Energy Regen", "6.8–12.4%", "Energy"),
-  stat("basic", "Basic Attack DMG", "6.4–11.6%", "Basic DMG"),
-  stat("heavy", "Heavy Attack DMG", "6.4–11.6%", "Heavy DMG"),
-  stat("skill", "Resonance Skill DMG", "6.4–11.6%", "Skill DMG"),
-  stat("liberation", "Resonance Liberation DMG", "6.4–11.6%", "Lib. DMG"),
+  stat("crit-rate", "Crit Rate", 6.3, 10.5),
+  stat("crit-dmg", "Crit DMG", 12.6, 21),
+  stat("atk%", "ATK%", 6.4, 11.6),
+  stat("atk", "ATK", 30, 60),
+  stat("hp%", "HP%", 6.4, 11.6),
+  stat("hp", "HP", 320, 580),
+  stat("def%", "DEF%", 8.1, 14.7),
+  stat("def", "DEF", 40, 70),
+  stat("energy", "Energy Regen", 6.8, 12.4, "Energy"),
+  stat("basic", "Basic Attack DMG", 6.4, 11.6, "Basic DMG"),
+  stat("heavy", "Heavy Attack DMG", 6.4, 11.6, "Heavy DMG"),
+  stat("skill", "Resonance Skill DMG", 6.4, 11.6, "Skill DMG"),
+  stat("liberation", "Resonance Liberation DMG", 6.4, 11.6, "Lib. DMG"),
 ];
+
+/** Every stat key with a readable label (echo stats plus forte-only ones). */
+export const STAT_LABELS: Record<string, string> = Object.fromEntries(
+  [...Object.values(MAIN_STATS).flat(), ...SUB_STATS].map((s) => [s.key, s.label]),
+);
 
 export const SUB_STAT_BY_KEY = new Map(SUB_STATS.map((s) => [s.key, s]));
 

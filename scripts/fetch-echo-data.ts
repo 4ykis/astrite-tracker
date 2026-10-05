@@ -1,9 +1,11 @@
 /**
  * Downloads resonator / echo / sonata data and icons for the echo prefarm page.
  * Writes trimmed JSON to src/lib/data/ and icons to public/icons/{characters,echoes,sonatas}/<id>.webp.
+ * Then adds character stats and weapons via fetch-stat-data.ts.
  * Run: npx tsx scripts/fetch-echo-data.ts
  */
 import { mkdir, writeFile } from "node:fs/promises";
+import { fetchStatData } from "./fetch-stat-data";
 
 const VERSION = "3.7.3";
 const DATA = `https://static.nanoka.cc/ww/${VERSION}/`;
@@ -70,6 +72,8 @@ async function main() {
     const trimmed = list.map((item) => ({ ...item, icon: undefined }));
     await writeFile(new URL(`${folder}.json`, dataDir), JSON.stringify(trimmed, null, 2) + "\n");
   }
+
+  await fetchStatData();
 }
 
 main().catch((error) => {
