@@ -444,7 +444,7 @@ function ForteChip({ mask, onClick }: { mask: number; onClick: () => void }) {
           : "border-slate-600 bg-slate-900/60 text-slate-300 hover:border-slate-400"
       }`}
     >
-      Форте {count}/{FORTE_NODE_COUNT} ▾
+      Forte {count}/{FORTE_NODE_COUNT} ▾
     </button>
   );
 }
@@ -461,11 +461,11 @@ function StatsGrid({ stats, className }: { stats: CharacterStats; className: str
     ["HP", "HP", formatFlat(stats.hp)],
   ];
   return (
-    <dl className={`max-w-xl grid-flow-col grid-cols-3 grid-rows-2 gap-x-2 gap-y-0.5 text-xs sm:gap-x-3 sm:text-sm ${className}`}>
+    <dl className={`grid-flow-col grid-cols-3 grid-rows-2 gap-x-2 gap-y-0.5 text-xs sm:grid-cols-[repeat(3,max-content)] sm:gap-x-4 sm:text-sm ${className}`}>
       {cells.map(([label, short, value], i) => (
         <div
           key={label}
-          className={`flex min-w-0 items-baseline justify-between gap-1.5 ${i >= 2 ? "border-l border-slate-700/70 pl-2 sm:pl-3" : ""}`}
+          className={`flex min-w-0 items-baseline justify-between gap-1.5 sm:gap-4 ${i >= 2 ? "border-l border-slate-700/70 pl-2 sm:pl-3" : ""}`}
         >
           <dt className="truncate text-slate-400" title={label}>
             <span className="sm:hidden">{short}</span>

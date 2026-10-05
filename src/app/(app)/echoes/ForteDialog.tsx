@@ -26,7 +26,7 @@ export default function ForteDialog({
   onClose: () => void;
 }) {
   return (
-    <Modal title={`Вузли форте — ${character.name}`} onClose={onClose}>
+    <Modal title={`Forte — ${character.name}`} onClose={onClose}>
       {/* One column per bonus type, smaller node first; bits still follow the data order. */}
       <div className="grid grid-flow-col grid-cols-2 grid-rows-4 gap-1.5">
         {byStat(character).map((i) => {
