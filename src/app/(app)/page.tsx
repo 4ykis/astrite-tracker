@@ -18,6 +18,7 @@ const SITE_LINKS = [
   { href: "https://wuwatracker.com/", label: "WuWa Tracker" },
   { href: "https://wuthering.gg/map", label: "Wuthering.gg Map" },
   { href: "https://wuthering.th.gl/", label: "Wuthering Waves Map (th.gl)" },
+  { href: "https://wuwaflex.com/", label: "WuWa Flex" },
 ];
 
 const VIDEO_LINKS = [
