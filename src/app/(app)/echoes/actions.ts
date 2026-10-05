@@ -3,7 +3,22 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/session";
-import { CHARACTER_BY_ID, EchoSlot, emptySlot, ECHO_COUNT, normalizeSlots } from "@/lib/echoes";
+import {
+  CHARACTER_BY_ID,
+  EchoSlot,
+  emptySlot,
+  ECHO_COUNT,
+  normalizeSlots,
+  validForteNodes,
+  validWeaponId,
+} from "@/lib/echoes";
+
+export type BuildData = {
+  characterId: number | null;
+  weaponId: number | null;
+  forteNodes: number;
+  slots: EchoSlot[];
+};
 
 export async function createBuild() {
   const userId = await requireUserId();
@@ -18,12 +33,17 @@ export async function createBuild() {
   revalidatePath("/echoes");
 }
 
-export async function updateBuild(id: string, characterId: number | null, slots: EchoSlot[]) {
+export async function updateBuild(id: string, build: BuildData) {
   const userId = await requireUserId();
-  const character = characterId === null ? null : (CHARACTER_BY_ID.get(characterId)?.id ?? null);
+  const characterId = build.characterId === null ? null : (CHARACTER_BY_ID.get(build.characterId)?.id ?? null);
   await prisma.echoBuild.update({
     where: { id, userId },
-    data: { characterId: character, slots: normalizeSlots(slots) },
+    data: {
+      characterId,
+      weaponId: validWeaponId(characterId, build.weaponId),
+      forteNodes: validForteNodes(build.forteNodes),
+      slots: normalizeSlots(build.slots),
+    },
   });
   revalidatePath("/echoes");
 }

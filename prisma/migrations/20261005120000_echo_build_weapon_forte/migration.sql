@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "EchoBuild" ADD COLUMN "forteNodes" INTEGER NOT NULL DEFAULT 255,
+ADD COLUMN "weaponId" INTEGER;

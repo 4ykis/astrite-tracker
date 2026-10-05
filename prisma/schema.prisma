@@ -110,6 +110,9 @@ model EchoBuild {
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   characterId Int?
+  weaponId    Int?
+  /// Bitmask of the 8 minor forte nodes (bit i = Character.forte[i]); all unlocked by default.
+  forteNodes  Int      @default(255)
   slots       Json
   position    Int      @default(0)
   collapsed   Boolean  @default(false)

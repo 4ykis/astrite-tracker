@@ -60,6 +60,29 @@ export const WEAPON_TYPES: Record<number, string> = {
 
 export const COSTS: EchoCost[] = [4, 3, 1];
 
+/** Weapons the character can hold (all of them while no character is chosen). */
+export const weaponsFor = (character: Character | undefined) =>
+  character ? WEAPONS.filter((w) => w.type === character.weaponType) : WEAPONS;
+
+/** The weapon id if it exists and fits the character's weapon type, otherwise null. */
+export function validWeaponId(characterId: number | null, weaponId: number | null): number | null {
+  const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
+  const character = characterId !== null ? CHARACTER_BY_ID.get(characterId) : undefined;
+  return weapon && (!character || character.weaponType === weapon.type) ? weapon.id : null;
+}
+
+/** `EchoBuild.forteNodes`: bit i set = minor forte node `Character.forte[i]` is unlocked. */
+export const FORTE_NODE_COUNT = 8;
+export const FORTE_ALL = (1 << FORTE_NODE_COUNT) - 1;
+
+export const validForteNodes = (mask: number) =>
+  Number.isInteger(mask) && mask >= 0 && mask <= FORTE_ALL ? mask : FORTE_ALL;
+
+export const isForteOn = (mask: number, index: number) => (mask & (1 << index)) !== 0;
+
+export const forteCount = (mask: number) =>
+  Array.from({ length: FORTE_NODE_COUNT }, (_, i) => i).filter((i) => isForteOn(mask, i)).length;
+
 // Stats -------------------------------------------------------------------
 
 export type StatUnit = "%" | "flat";
@@ -80,6 +103,16 @@ export type Stat = {
 const unitOf = (key: string): StatUnit => (["atk", "hp", "def"].includes(key) ? "flat" : "%");
 
 export const formatStatValue = (value: number, unit: StatUnit) => `${value}${unit === "%" ? "%" : ""}`;
+
+// The game truncates displayed stats (a 587.5 ATK weapon shows 587); the epsilon guards float noise.
+const truncate = (value: number, decimals: number) => {
+  const factor = 10 ** decimals;
+  return Math.floor(value * factor + 1e-6) / factor;
+};
+
+/** Display format for computed stats: "2 140" for flat values, "54.3%" for percentages. */
+export const formatFlat = (value: number) => truncate(value, 0).toLocaleString("uk-UA");
+export const formatPercent = (value: number) => `${truncate(value, 1).toFixed(1)}%`;
 
 const stat = (key: string, label: string, min: number, max: number, short = label): Stat => {
   const unit = unitOf(key);

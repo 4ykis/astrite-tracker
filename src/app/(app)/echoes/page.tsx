@@ -22,6 +22,8 @@ export default async function EchoesPage() {
           key={build.id}
           id={build.id}
           characterId={build.characterId}
+          weaponId={build.weaponId}
+          forteNodes={build.forteNodes}
           slots={normalizeSlots(build.slots)}
           collapsed={build.collapsed}
           isFirst={index === 0}

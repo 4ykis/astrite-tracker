@@ -4,7 +4,12 @@ import Image from "next/image";
 import { useState, useTransition } from "react";
 import Card from "@/components/Card";
 import {
+  Character,
   CHARACTER_BY_ID,
+  forteCount,
+  FORTE_NODE_COUNT,
+  validWeaponId,
+  WEAPON_BY_ID,
   characterIcon,
   DEFAULT_SUBS,
   defaultMain,
@@ -19,14 +24,19 @@ import {
   SUB_STAT_BY_KEY,
   SUB_STATS,
 } from "@/lib/echoes";
-import { deleteBuild, moveBuild, setBuildCollapsed, updateBuild } from "./actions";
+import { BuildData, deleteBuild, moveBuild, setBuildCollapsed, updateBuild } from "./actions";
 import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
+import ForteDialog from "./ForteDialog";
 import StatPicker from "./StatPicker";
 import StatRow from "./StatRow";
+import WeaponIcon from "./WeaponIcon";
+import WeaponPicker from "./WeaponPicker";
 
 type Picker =
   | { kind: "character" }
+  | { kind: "weapon" }
+  | { kind: "forte" }
   | { kind: "echo"; slot: number }
   | { kind: "main"; slot: number }
   | { kind: "sub"; slot: number; index: number };
@@ -36,6 +46,8 @@ const cell = "relative flex min-h-72 flex-col overflow-hidden rounded-xl border 
 export default function BuildCard({
   id,
   characterId: initialCharacterId,
+  weaponId: initialWeaponId,
+  forteNodes: initialForteNodes,
   slots: initialSlots,
   collapsed: initialCollapsed,
   isFirst,
@@ -43,32 +55,38 @@ export default function BuildCard({
 }: {
   id: string;
   characterId: number | null;
+  weaponId: number | null;
+  forteNodes: number;
   slots: EchoSlot[];
   collapsed: boolean;
   isFirst: boolean;
   isLast: boolean;
 }) {
-  const [characterId, setCharacterId] = useState(initialCharacterId);
-  const [slots, setSlots] = useState(initialSlots);
+  const [build, setBuild] = useState<BuildData>({
+    characterId: initialCharacterId,
+    weaponId: initialWeaponId,
+    forteNodes: initialForteNodes,
+    slots: initialSlots,
+  });
+  const { characterId, weaponId, forteNodes, slots } = build;
   const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [picker, setPicker] = useState<Picker | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const save = (nextCharacterId: number | null, nextSlots: EchoSlot[]) => {
-    setCharacterId(nextCharacterId);
-    setSlots(nextSlots);
-    setPicker(null);
-    startTransition(() => updateBuild(id, nextCharacterId, nextSlots));
+  /** Saves the whole build; pickers close unless `keepPicker` (e.g. the forte toggles). */
+  const save = (patch: Partial<BuildData>, keepPicker = false) => {
+    const next = { ...build, ...patch };
+    setBuild(next);
+    if (!keepPicker) setPicker(null);
+    startTransition(() => updateBuild(id, next));
   };
 
   const patchSlot = (index: number, patch: (slot: EchoSlot) => EchoSlot) =>
-    save(
-      characterId,
-      slots.map((slot, i) => (i === index ? patch(slot) : slot)),
-    );
+    save({ slots: slots.map((slot, i) => (i === index ? patch(slot) : slot)) });
 
   const character = characterId !== null ? CHARACTER_BY_ID.get(characterId) : undefined;
-  const pickedEchoId = picker && picker.kind !== "character" ? slots[picker.slot].echoId : null;
+  const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
+  const pickedEchoId = picker && "slot" in picker ? slots[picker.slot].echoId : null;
   const pickedEcho = pickedEchoId !== null ? ECHO_BY_ID.get(pickedEchoId) : undefined;
 
   const allEchoesChosen = slots.every((slot) => slot.echoId !== null);
@@ -130,41 +148,63 @@ export default function BuildCard({
         </button>
       ) : (
         <div className="flex gap-2">
-          <div
-            className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 px-2 ${
-              isCollapsed ? "h-[72px]" : "h-20"
-            }`}
-          >
-            {moveButtons}
-            <button
-              type="button"
-              onClick={() => (isCollapsed ? toggleCollapsed() : setPicker({ kind: "character" }))}
-              className="group flex min-w-0 flex-1 items-center gap-3 self-stretch text-left"
-            >
-              <Image
-                src={characterIcon(character.id)}
-                alt={character.name}
-                width={64}
-                height={64}
-                unoptimized
-                className={`shrink-0 rounded-lg ${isCollapsed ? "size-10" : "size-16"} ${
-                  character.rank === 5 ? "bg-amber-400/15" : "bg-violet-500/15"
-                }`}
-              />
-              <span className={`flex-1 truncate font-semibold text-amber-300 ${isCollapsed ? "" : "text-lg"}`}>
-                {character.name}
-              </span>
-              {isCollapsed ? (
-                allEchoesChosen && (
+          {isCollapsed ? (
+            <div className="flex h-[72px] min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 px-2">
+              {moveButtons}
+              <button
+                type="button"
+                onClick={toggleCollapsed}
+                className="flex min-w-0 flex-1 items-center gap-3 self-stretch text-left"
+              >
+                <CharacterIcon character={character} className="size-10" />
+                <span className="flex-1 truncate font-semibold text-amber-300">{character.name}</span>
+                {allEchoesChosen && (
                   <span className="text-xs text-slate-400">
                     {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
                   </span>
-                )
-              ) : (
-                <span className="text-xl text-slate-400 transition group-hover:text-amber-300">›</span>
-              )}
-            </button>
-          </div>
+                )}
+                {weapon && <WeaponIcon weapon={weapon} className="size-10 shrink-0 text-xs" />}
+              </button>
+            </div>
+          ) : (
+            <div className="flex min-h-20 min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
+              {moveButtons}
+              <button
+                type="button"
+                title="Змінити героя"
+                onClick={() => setPicker({ kind: "character" })}
+                className="shrink-0 rounded-lg transition hover:ring-2 hover:ring-amber-400/70"
+              >
+                <CharacterIcon character={character} className="size-16" />
+              </button>
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <div className="flex min-w-0 items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPicker({ kind: "character" })}
+                    className="truncate text-left text-lg font-semibold text-amber-300 transition hover:text-amber-200"
+                  >
+                    {character.name}
+                  </button>
+                  <ForteChip mask={forteNodes} onClick={() => setPicker({ kind: "forte" })} />
+                </div>
+              </div>
+              <button
+                type="button"
+                title={weapon ? `${weapon.name} — змінити` : "Обрати зброю"}
+                onClick={() => setPicker({ kind: "weapon" })}
+                className="shrink-0 rounded-lg transition hover:ring-2 hover:ring-amber-400/70"
+              >
+                {weapon ? (
+                  <WeaponIcon weapon={weapon} className="size-16 text-base" />
+                ) : (
+                  <span className="flex size-16 items-center justify-center rounded-lg border border-dashed border-amber-400/60 bg-amber-400/10 text-center text-xs leading-tight text-amber-200">
+                    + зброя
+                  </span>
+                )}
+              </button>
+            </div>
+          )}
           {collapseButton}
         </div>
       )}
@@ -310,7 +350,24 @@ export default function BuildCard({
         <CharacterPicker
           selected={characterId}
           onClose={() => setPicker(null)}
-          onSelect={(next) => save(next, slots)}
+          // A weapon of another type can't stay with the new character.
+          onSelect={(next) => save({ characterId: next, weaponId: validWeaponId(next, weaponId) })}
+        />
+      )}
+      {picker?.kind === "weapon" && (
+        <WeaponPicker
+          character={character}
+          selected={weaponId}
+          onClose={() => setPicker(null)}
+          onSelect={(next) => save({ weaponId: next })}
+        />
+      )}
+      {picker?.kind === "forte" && character && (
+        <ForteDialog
+          character={character}
+          mask={forteNodes}
+          onClose={() => setPicker(null)}
+          onChange={(mask) => save({ forteNodes: mask }, true)}
         />
       )}
       {picker?.kind === "echo" && (
@@ -351,6 +408,37 @@ export default function BuildCard({
         />
       )}
     </Card>
+  );
+}
+
+function CharacterIcon({ character, className }: { character: Character; className: string }) {
+  return (
+    <Image
+      src={characterIcon(character.id)}
+      alt={character.name}
+      width={64}
+      height={64}
+      unoptimized
+      className={`shrink-0 rounded-lg ${className} ${character.rank === 5 ? "bg-amber-400/15" : "bg-violet-500/15"}`}
+    />
+  );
+}
+
+function ForteChip({ mask, onClick }: { mask: number; onClick: () => void }) {
+  const count = forteCount(mask);
+  const all = count === FORTE_NODE_COUNT;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`shrink-0 rounded-full border px-2 py-0.5 text-xs transition ${
+        all
+          ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-200 hover:border-emerald-400"
+          : "border-slate-600 bg-slate-900/60 text-slate-300 hover:border-slate-400"
+      }`}
+    >
+      Форте {count}/{FORTE_NODE_COUNT} ▾
+    </button>
   );
 }
 
