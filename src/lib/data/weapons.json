@@ -173,6 +173,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 14.85
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 5
     }
   },
   {
@@ -184,6 +188,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 14.85
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 5
     }
   },
   {
@@ -195,6 +203,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 14.85
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 5
     }
   },
   {
@@ -206,6 +218,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 14.85
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 5
     }
   },
   {
@@ -217,6 +233,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 14.85
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 5
     }
   },
   {
@@ -228,6 +248,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 11.475
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 4
     }
   },
   {
@@ -239,6 +263,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 11.475
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 4
     }
   },
   {
@@ -250,6 +278,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 11.475
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 4
     }
   },
   {
@@ -261,6 +293,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 11.475
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 4
     }
   },
   {
@@ -272,6 +308,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 11.475
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 4
     }
   },
   {
@@ -613,6 +653,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 36.45
+    },
+    "passive": {
+      "stat": "energy",
+      "value": 12.8
     }
   },
   {
@@ -624,6 +668,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "energy",
+      "value": 12.8
     }
   },
   {
@@ -635,6 +683,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "energy",
+      "value": 12.8
     }
   },
   {
@@ -646,6 +698,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 36.45
+    },
+    "passive": {
+      "stat": "energy",
+      "value": 12.8
     }
   },
   {
@@ -657,6 +713,10 @@
     "secondary": {
       "stat": "atk%",
       "value": 54
+    },
+    "passive": {
+      "stat": "energy",
+      "value": 12.8
     }
   },
   {
@@ -701,6 +761,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -723,6 +787,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 72
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -745,6 +813,10 @@
     "secondary": {
       "stat": "energy",
       "value": 77.04
+    },
+    "passive": {
+      "stat": "hp%",
+      "value": 12
     }
   },
   {
@@ -822,6 +894,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -899,6 +975,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -910,6 +990,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 72
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -921,6 +1005,10 @@
     "secondary": {
       "stat": "energy",
       "value": 77.04
+    },
+    "passive": {
+      "stat": "crit-rate",
+      "value": 8
     }
   },
   {
@@ -932,6 +1020,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -954,6 +1046,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 72
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -976,6 +1072,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -987,6 +1087,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -998,6 +1102,10 @@
     "secondary": {
       "stat": "hp%",
       "value": 72.225
+    },
+    "passive": {
+      "stat": "hp%",
+      "value": 12
     }
   },
   {
@@ -1009,6 +1117,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1020,6 +1132,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1031,6 +1147,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1042,6 +1162,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 12.15
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1108,6 +1232,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1119,6 +1247,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1130,6 +1262,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1141,6 +1277,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1152,6 +1292,10 @@
     "secondary": {
       "stat": "energy",
       "value": 77.04
+    },
+    "passive": {
+      "stat": "def%",
+      "value": 16
     }
   },
   {
@@ -1163,6 +1307,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1174,6 +1322,10 @@
     "secondary": {
       "stat": "energy",
       "value": 38.88
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1185,6 +1337,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1196,6 +1352,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1207,6 +1367,10 @@
     "secondary": {
       "stat": "energy",
       "value": 38.88
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1229,6 +1393,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1240,6 +1408,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1251,6 +1423,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1262,6 +1438,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1273,6 +1453,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 48.6
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1284,6 +1468,10 @@
     "secondary": {
       "stat": "crit-dmg",
       "value": 72
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1295,6 +1483,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1317,6 +1509,10 @@
     "secondary": {
       "stat": "energy",
       "value": 77.04
+    },
+    "passive": {
+      "stat": "hp%",
+      "value": 12
     }
   },
   {
@@ -1339,6 +1535,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 36
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {
@@ -1350,6 +1550,10 @@
     "secondary": {
       "stat": "crit-rate",
       "value": 24.3
+    },
+    "passive": {
+      "stat": "atk%",
+      "value": 12
     }
   },
   {

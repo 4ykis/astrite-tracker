@@ -1,6 +1,7 @@
 /**
  * Adds level-90 base stats, weapon type and minor forte nodes to src/lib/data/characters.json
- * and writes src/lib/data/weapons.json (+ icons to public/icons/weapons/<id>.webp).
+ * and writes src/lib/data/weapons.json (+ icons to public/icons/weapons/<id>.webp),
+ * plus element icons for the picker filters (public/icons/elements/<element id>.webp).
  * Source: the game's own tables mirrored at github.com/Arikatsu/WutheringWaves_Data.
  * Runs at the end of fetch-echo-data.ts; standalone: npx tsx scripts/fetch-stat-data.ts
  */
@@ -36,9 +37,13 @@ type RawWeapon = {
   FirstCurve: number;
   SecondPropId: Prop;
   SecondCurve: number;
-  IconMiddle: string;
+  Desc: string;
+  DescParams: { ArrayString: string[] }[];
+  // The CDN only mirrors the base "Icon" size, not IconMiddle/IconSmall/IconBig.
+  Icon: string;
 };
 type RawText = { Id: string; Content: string };
+type RawElement = { Id: number; Icon3: string };
 
 /** Game property id -> stat key used in lib/echoes.ts (all of these are percentages). */
 const STAT_BY_PROPERTY: Record<number, string> = {
@@ -56,6 +61,26 @@ const STAT_BY_PROPERTY: Record<number, string> = {
   10007: "atk%",
   10010: "def%",
 };
+
+/** Passive wording -> stat key, for passives whose first sentence is an unconditional stat bonus. */
+const PASSIVE_STAT: Record<string, string> = {
+  ATK: "atk%",
+  HP: "hp%",
+  "Max HP": "hp%",
+  DEF: "def%",
+  "Energy Regen": "energy",
+  "Crit. Rate": "crit-rate",
+};
+const PASSIVE_RE = /^(?:Increases?|Increase) (ATK|Max HP|HP|DEF|Energy Regen|Crit\. Rate) by \{0\}\.|^(ATK|Max HP|HP|DEF) (?:is )?increased by \{0\}\./;
+
+/** The always-on stat bonus at the start of a weapon passive (refinement 1), e.g. "Increases ATK by 12%." */
+function passiveStat(w: RawWeapon, text: Map<string, string>) {
+  const match = text.get(w.Desc)?.match(PASSIVE_RE);
+  if (!match) return undefined;
+  const value = parseFloat(w.DescParams[0]?.ArrayString[0] ?? "");
+  if (!Number.isFinite(value)) throw new Error(`Weapon ${w.ItemId} passive has no value`);
+  return { stat: PASSIVE_STAT[match[1] ?? match[2]], value };
+}
 
 /** Node type of the minor (stat) forte nodes in skilltree.json. */
 const STAT_NODE = 4;
@@ -81,7 +106,7 @@ function iconPath(gamePath: string): string {
 }
 
 export async function fetchStatData() {
-  const [roles, baseProps, roleGrowth, weaponGrowth, skillTree, rawWeapons, texts] = await Promise.all([
+  const [roles, baseProps, roleGrowth, weaponGrowth, skillTree, rawWeapons, texts, elements] = await Promise.all([
     getJson<RawRole[]>("BinData/role/roleinfo.json"),
     getJson<RawBaseProperty[]>("BinData/property/baseproperty.json"),
     getJson<RawRoleGrowth[]>("BinData/property/rolepropertygrowth.json"),
@@ -89,6 +114,7 @@ export async function fetchStatData() {
     getJson<RawSkillNode[]>("BinData/skillTree/skilltree.json"),
     getJson<RawWeapon[]>("BinData/weapon/weaponconf.json"),
     getJson<RawText[]>("Textmaps/en/multi_text/MultiText.json"),
+    getJson<RawElement[]>("BinData/element_info/elementinfo.json"),
   ]);
 
   const isMax = (row: { Level: number; BreachLevel: number }) => row.Level === MAX_LEVEL && row.BreachLevel === MAX_BREACH;
@@ -140,7 +166,8 @@ export async function fetchStatData() {
       type: w.WeaponType,
       atk: round(w.FirstPropId.Value * curve(w.FirstCurve)),
       secondary: percentStat(w.SecondPropId, curve(w.SecondCurve)),
-      icon: w.IconMiddle,
+      passive: passiveStat(w, text),
+      icon: w.Icon,
     }));
 
   const iconDir = new URL("../public/icons/weapons/", import.meta.url);
@@ -154,6 +181,16 @@ export async function fetchStatData() {
   const trimmed = weapons.map((w) => ({ ...w, icon: undefined }));
   await writeFile(new URL("weapons.json", dataDir), JSON.stringify(trimmed, null, 2) + "\n");
   console.log(`✓ stats for ${withStats.length} characters, ${weapons.length} weapons`);
+
+  // White 128px glyphs; ids 1–6 match Character.element (0 is "no element").
+  const elementDir = new URL("../public/icons/elements/", import.meta.url);
+  await mkdir(elementDir, { recursive: true });
+  for (const e of elements.filter((e) => e.Id >= 1 && e.Id <= 6)) {
+    const res = await fetch(CDN + iconPath(e.Icon3));
+    if (!res.ok) throw new Error(`${res.status} for element icon ${e.Id}`);
+    await writeFile(new URL(`${e.Id}.webp`, elementDir), Buffer.from(await res.arrayBuffer()));
+    console.log(`✓ elements/${e.Id}`);
+  }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

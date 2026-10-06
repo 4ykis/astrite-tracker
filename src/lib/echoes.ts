@@ -25,8 +25,16 @@ export type Character = {
   def: number;
   forte: StatBonus[];
 };
-/** `atk` and `secondary` are level-90 values. */
-export type Weapon = { id: number; name: string; rank: number; type: number; atk: number; secondary: StatBonus };
+/** `atk` and `secondary` are level-90 values; `passive` is the always-on stat from the passive at refinement 1. */
+export type Weapon = {
+  id: number;
+  name: string;
+  rank: number;
+  type: number;
+  atk: number;
+  secondary: StatBonus;
+  passive?: StatBonus;
+};
 export type Echo = { id: number; name: string; cost: EchoCost; sonatas: number[] };
 export type Sonata = { id: number; name: string };
 
@@ -48,6 +56,10 @@ export const characterIcon = (id: number) => `/icons/characters/${id}.webp`;
 export const echoIcon = (id: number) => `/icons/echoes/${id}.webp`;
 export const sonataIcon = (id: number) => `/icons/sonatas/${id}.webp`;
 export const weaponIcon = (id: number) => `/icons/weapons/${id}.webp`;
+/** `element` is `Character.element` (1–6). */
+export const elementIcon = (element: number) => `/icons/elements/${element}.webp`;
+/** Weapon type glyphs (`Weapon.type`), added by hand from the Wuthering Waves wiki: the game tables have none. */
+export const weaponTypeIcon = (type: number) => `/icons/weapon-types/${type}.webp`;
 
 /** Game weapon type ids (`Character.weaponType`, `Weapon.type`). */
 export const WEAPON_TYPES: Record<number, string> = {
@@ -59,10 +71,6 @@ export const WEAPON_TYPES: Record<number, string> = {
 };
 
 export const COSTS: EchoCost[] = [4, 3, 1];
-
-/** Weapons the character can hold (all of them while no character is chosen). */
-export const weaponsFor = (character: Character | undefined) =>
-  character ? WEAPONS.filter((w) => w.type === character.weaponType) : WEAPONS;
 
 /** The weapon id if it exists and fits the character's weapon type, otherwise null. */
 export function validWeaponId(characterId: number | null, weaponId: number | null): number | null {
@@ -121,14 +129,17 @@ const stat = (key: string, label: string, min: number, max: number, short = labe
 };
 const main = (key: string, label: string, max: number, short = label) => stat(key, label, 0, max, short);
 
-/** The second main stat every echo gets for free, by cost (values at +25). */
+/** The second main stat every echo gets for free, by cost (max values at +25). */
 export const FIXED_MAIN: Record<EchoCost, Stat> = {
-  4: stat("atk", "ATK", 150, 150),
-  3: stat("atk", "ATK", 100, 100),
-  1: stat("hp", "HP", 2280, 2280),
+  4: main("atk", "ATK", 150),
+  3: main("atk", "ATK", 100),
+  1: main("hp", "HP", 2280),
 };
 
-const ELEMENTS = ["Glacio", "Fusion", "Electro", "Aero", "Spectro", "Havoc"];
+/** Element names; `Character.element` is the 1-based index into this list. */
+export const ELEMENTS = ["Glacio", "Fusion", "Electro", "Aero", "Spectro", "Havoc"];
+/** In-game element colours (`ElementColor` in the game's elementinfo.json), same order as ELEMENTS. */
+export const ELEMENT_COLORS = ["#41AEFB", "#F0744E", "#B46BFF", "#55FFB5", "#F8E56C", "#E649A6"];
 
 /** Selectable main stats by cost (max values at +25). */
 export const MAIN_STATS: Record<EchoCost, Stat[]> = {
@@ -185,17 +196,23 @@ export const ECHO_COUNT = 5;
 
 /**
  * `mainGot` / `subsGot` mark stats that are already rolled on the real echo;
- * `mainValue` / `subValues` hold the rolled number, kept only while that stat is set and marked.
+ * `mainValue` / `subValues` hold the rolled number, kept only while that stat is set and marked;
+ * `fixedValue` is the free second main stat (FIXED_MAIN), kept together with `mainValue`.
+ * `extras` are rolled sub stats outside the plan (e.g. flat HP), only for the computed stats.
  */
 export type EchoSlot = {
   echoId: number | null;
   main: string | null;
   mainGot: boolean;
   mainValue: number | null;
+  fixedValue: number | null;
   subs: (string | null)[];
   subsGot: boolean[];
   subValues: (number | null)[];
+  extras: ExtraSub[];
 };
+
+export type ExtraSub = { key: string; value: number | null };
 
 /** Sub stats pre-filled when an echo is put into an empty slot (the rest stay free). */
 export const DEFAULT_SUBS = ["crit-rate", "crit-dmg", "atk%", "energy"];
@@ -208,10 +225,29 @@ export const emptySlot = (): EchoSlot => ({
   main: null,
   mainGot: false,
   mainValue: null,
+  fixedValue: null,
   subs: Array(SUB_COUNT).fill(null),
   subsGot: Array(SUB_COUNT).fill(false),
   subValues: Array(SUB_COUNT).fill(null),
+  extras: [],
 });
+
+/**
+ * Keeps `extras` consistent with the plan: known sub stats only, none repeated or already planned,
+ * and no more than the game's SUB_COUNT rolled subs together with the checked planned ones.
+ */
+export function fitExtras(slot: EchoSlot): EchoSlot {
+  const used = new Set(slot.subs.filter((key) => key !== null));
+  const room = SUB_COUNT - slot.subsGot.filter(Boolean).length;
+  const extras: ExtraSub[] = [];
+  for (const extra of slot.extras) {
+    const def = SUB_STAT_BY_KEY.get(extra.key);
+    if (!def || used.has(extra.key) || extras.length >= room) continue;
+    used.add(extra.key);
+    extras.push({ key: extra.key, value: validValue(def, extra.value) });
+  }
+  return { ...slot, extras };
+}
 
 /** Whether `value` is a number this stat can actually have. */
 export const isValidStatValue = (stat: Stat, value: unknown): value is number =>
@@ -236,11 +272,25 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
     const subsGot = subs.map((key, j) => key !== null && Array.isArray(slot?.subsGot) && slot.subsGot[j] === true);
     // Values are newer still; an out-of-range or non-numeric value is dropped.
     const mainValue = mainGot ? validValue(mainDef, slot?.mainValue) : null;
+    // Rows saved before the fixed stat was editable count it as fully levelled.
+    const fixedDef = echo && FIXED_MAIN[echo.cost];
+    const fixedValue = mainGot && fixedDef ? (validValue(fixedDef, slot?.fixedValue) ?? fixedDef.max) : null;
     const subValues = subs.map((key, j) =>
       subsGot[j] && key !== null && Array.isArray(slot?.subValues)
         ? validValue(SUB_STAT_BY_KEY.get(key), slot.subValues[j])
         : null,
     );
-    return { echoId: echo?.id ?? null, main, mainGot, mainValue, subs, subsGot, subValues };
+    const extras = echo && Array.isArray(slot?.extras) ? (slot.extras as Partial<ExtraSub>[]) : [];
+    return fitExtras({
+      echoId: echo?.id ?? null,
+      main,
+      mainGot,
+      mainValue,
+      fixedValue,
+      subs,
+      subsGot,
+      subValues,
+      extras: extras.map((e) => ({ key: String(e?.key), value: e?.value ?? null })),
+    });
   });
 }

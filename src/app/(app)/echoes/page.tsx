@@ -15,7 +15,7 @@ export default async function EchoesPage() {
 
   return (
     // Breaks out of the layout's max-w-3xl so five echo columns stay readable.
-    <div className="ml-[calc(50%-min(36rem,50vw-1rem))] flex w-[min(72rem,100vw-2rem)] flex-col gap-5">
+    <div className="ml-[calc(50%-min(36rem,50vw-1rem))] flex w-[min(72rem,100vw-2rem)] flex-col gap-5 p-[10px]">
       <h1 className="text-lg font-semibold text-slate-100">Префарм ехо</h1>
       {builds.map((build, index) => (
         <BuildCard

@@ -18,6 +18,7 @@ import {
   echoIcon,
   ECHO_COUNT,
   EchoSlot,
+  fitExtras,
   FIXED_MAIN,
   formatFlat,
   formatPercent,
@@ -32,7 +33,7 @@ import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
 import ForteDialog from "./ForteDialog";
 import StatPicker from "./StatPicker";
-import StatRow from "./StatRow";
+import StatRow, { ValueInput } from "./StatRow";
 import WeaponIcon from "./WeaponIcon";
 import WeaponPicker from "./WeaponPicker";
 
@@ -42,7 +43,8 @@ type Picker =
   | { kind: "forte" }
   | { kind: "echo"; slot: number }
   | { kind: "main"; slot: number }
-  | { kind: "sub"; slot: number; index: number };
+  | { kind: "sub"; slot: number; index: number }
+  | { kind: "extra"; slot: number };
 
 const cell = "relative flex min-h-72 flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-950";
 
@@ -85,7 +87,7 @@ export default function BuildCard({
   };
 
   const patchSlot = (index: number, patch: (slot: EchoSlot) => EchoSlot) =>
-    save({ slots: slots.map((slot, i) => (i === index ? patch(slot) : slot)) });
+    save({ slots: slots.map((slot, i) => (i === index ? fitExtras(patch(slot)) : slot)) });
 
   const character = characterId !== null ? CHARACTER_BY_ID.get(characterId) : undefined;
   const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
@@ -264,9 +266,19 @@ export default function BuildCard({
                   </span>
                 </button>
 
-                <div className="flex items-center justify-between px-1.5 py-1 text-xs text-slate-300 lg:text-sm">
+                <div className="flex items-center justify-between gap-1 px-1.5 py-1 text-xs text-slate-300 lg:text-sm">
                   <span>{FIXED_MAIN[echo.cost].label}</span>
-                  <span className="text-slate-500">{FIXED_MAIN[echo.cost].hint}</span>
+                  {slot.mainGot ? (
+                    <ValueInput
+                      key={echo.cost}
+                      stat={FIXED_MAIN[echo.cost]}
+                      value={slot.fixedValue}
+                      autoFocus={false}
+                      onValue={(value) => patchSlot(index, (s) => ({ ...s, fixedValue: value }))}
+                    />
+                  ) : (
+                    <span className="text-slate-500">{FIXED_MAIN[echo.cost].hint}</span>
+                  )}
                 </div>
                 <StatRow
                   stat={mainStat(echo.cost, slot.main)}
@@ -279,6 +291,7 @@ export default function BuildCard({
                       mainGot: !s.mainGot,
                       // A freshly checked main stat is almost always fully levelled.
                       mainValue: s.mainGot ? null : (mainStat(echo.cost, s.main)?.max ?? null),
+                      fixedValue: s.mainGot ? null : FIXED_MAIN[echo.cost].max,
                     }))
                   }
                   onValue={(value) => patchSlot(index, (s) => ({ ...s, mainValue: value }))}
@@ -309,6 +322,53 @@ export default function BuildCard({
                   />
                 ))}
 
+                {slot.extras.map((extra) => {
+                  const def = SUB_STAT_BY_KEY.get(extra.key);
+                  if (!def) return null;
+                  return (
+                    <div
+                      key={extra.key}
+                      className="group flex items-center gap-1.5 px-1.5 py-0.5 text-xs text-slate-400 lg:text-sm"
+                    >
+                      <button
+                        type="button"
+                        aria-label={`Прибрати ${def.label}`}
+                        title="Прибрати"
+                        onClick={() =>
+                          patchSlot(index, (s) => ({ ...s, extras: s.extras.filter((e) => e.key !== extra.key) }))
+                        }
+                        className="w-3.5 shrink-0 text-center text-slate-600 transition hover:text-red-300"
+                      >
+                        ×
+                      </button>
+                      <span className="min-w-0 flex-1 truncate" title={def.label}>
+                        <span className="lg:hidden">{def.short}</span>
+                        <span className="hidden lg:inline">{def.label}</span>
+                      </span>
+                      <ValueInput
+                        stat={def}
+                        value={extra.value}
+                        autoFocus={extra.value === null}
+                        onValue={(value) =>
+                          patchSlot(index, (s) => ({
+                            ...s,
+                            extras: s.extras.map((e) => (e.key === extra.key ? { ...e, value } : e)),
+                          }))
+                        }
+                      />
+                    </div>
+                  );
+                })}
+                {slot.subsGot.filter(Boolean).length + slot.extras.length < SUB_COUNT && (
+                  <button
+                    type="button"
+                    onClick={() => setPicker({ kind: "extra", slot: index })}
+                    className="self-start px-1.5 py-0.5 text-[11px] text-slate-500 transition hover:text-amber-300"
+                  >
+                    + інший сабстат
+                  </button>
+                )}
+
                 <GotProgress slot={slot} />
               </div>
             </div>
@@ -331,6 +391,7 @@ export default function BuildCard({
               main: key,
               mainGot: key === s.main && s.mainGot,
               mainValue: key === s.main ? s.mainValue : null,
+              fixedValue: key === s.main ? s.fixedValue : null,
             }))
           }
         />
@@ -340,7 +401,12 @@ export default function BuildCard({
           title={`Сабстат ${picker.index + 1} — ${pickedEcho.name}`}
           stats={SUB_STATS}
           selected={slots[picker.slot].subs[picker.index]}
-          taken={new Set(slots[picker.slot].subs.filter((s): s is string => s !== null))}
+          taken={
+            new Set([
+              ...slots[picker.slot].subs.filter((s): s is string => s !== null),
+              ...slots[picker.slot].extras.map((e) => e.key),
+            ])
+          }
           onClose={() => setPicker(null)}
           onSelect={(key) =>
             patchSlot(picker.slot, (s) => ({
@@ -349,6 +415,24 @@ export default function BuildCard({
               subsGot: s.subsGot.map((got, i) => (i === picker.index ? key === s.subs[i] && got : got)),
               subValues: s.subValues.map((v, i) => (i === picker.index && key !== s.subs[i] ? null : v)),
             }))
+          }
+        />
+      )}
+
+      {pickedEcho && picker?.kind === "extra" && (
+        <StatPicker
+          title={`Інший сабстат — ${pickedEcho.name}`}
+          stats={SUB_STATS}
+          selected={null}
+          taken={
+            new Set([
+              ...slots[picker.slot].subs.filter((s): s is string => s !== null),
+              ...slots[picker.slot].extras.map((e) => e.key),
+            ])
+          }
+          onClose={() => setPicker(null)}
+          onSelect={(key) =>
+            key && patchSlot(picker.slot, (s) => ({ ...s, extras: [...s.extras, { key, value: null }] }))
           }
         />
       )}
@@ -394,9 +478,11 @@ export default function BuildCard({
                   main: defaultMain(cost),
                   mainGot: false,
                   mainValue: null,
+                  fixedValue: null,
                   subs: s.subs.map((_, i) => DEFAULT_SUBS[i] ?? null),
                   subsGot: s.subsGot.map(() => false),
                   subValues: s.subValues.map(() => null),
+                  extras: [],
                 };
               }
               // A different echo means a different real piece: keep the plan, drop the got-marks and values.
@@ -407,8 +493,10 @@ export default function BuildCard({
                 main: sameCost ? s.main : defaultMain(cost),
                 mainGot: false,
                 mainValue: null,
+                fixedValue: null,
                 subsGot: s.subsGot.map(() => false),
                 subValues: s.subValues.map(() => null),
+                extras: [],
               };
             })
           }

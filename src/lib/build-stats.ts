@@ -1,8 +1,9 @@
 /**
  * Character stats for an echo build header, the way the game's character screen adds them up.
- * Counted: level-90 base, weapon base ATK + secondary stat, unlocked minor forte nodes and echo
- * stats that are marked as rolled and have a value. Not counted: sonata set bonuses, weapon
- * passives, element / healing / skill-type DMG.
+ * Counted: level-90 base, weapon base ATK + secondary stat + the always-on stat of its passive
+ * (refinement 1), unlocked minor forte nodes, echo stats that are marked as rolled and have a
+ * value, and the echoes' extra (unplanned) sub stats. Not counted: sonata set bonuses, conditional passive effects, element / healing /
+ * skill-type DMG.
  */
 import { Character, ECHO_BY_ID, EchoSlot, FIXED_MAIN, isForteOn, Weapon } from "./echoes";
 
@@ -32,6 +33,7 @@ export function computeStats(
   const total = (stat: string) => sum.get(stat) ?? 0;
 
   if (weapon) add(weapon.secondary.stat, weapon.secondary.value);
+  if (weapon?.passive) add(weapon.passive.stat, weapon.passive.value);
   character.forte.forEach((node, i) => {
     if (isForteOn(forteNodes, i)) add(node.stat, node.value);
   });
@@ -42,13 +44,14 @@ export function computeStats(
     if (slot.main && slot.mainGot) {
       // The free second main stat comes with any rolled main stat.
       const fixed = FIXED_MAIN[echo.cost];
-      add(fixed.key, fixed.max);
+      add(fixed.key, slot.fixedValue ?? fixed.max);
       if (slot.mainValue !== null) add(slot.main, slot.mainValue);
     }
     slot.subs.forEach((key, i) => {
       const value = slot.subValues[i];
       if (key && slot.subsGot[i] && value !== null) add(key, value);
     });
+    for (const extra of slot.extras) if (extra.value !== null) add(extra.key, extra.value);
   }
 
   return {

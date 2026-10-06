@@ -76,7 +76,7 @@ export default function StatRow({
 }
 
 /** Saves on blur / Enter; an out-of-range number is highlighted and not saved. */
-function ValueInput({
+export function ValueInput({
   stat,
   value,
   autoFocus,
