@@ -501,7 +501,7 @@ function CharacterIcon({ character, className }: { character: Character; classNa
       width={64}
       height={64}
       unoptimized
-      className={`shrink-0 rounded-lg ${className} ${character.rank === 5 ? "bg-amber-400/15" : "bg-violet-500/15"}`}
+      className={`shrink-0 rounded-lg border ${className} ${character.rank === 5 ? "border-amber-400/50 bg-amber-400/15" : "border-violet-400/50 bg-violet-500/15"}`}
     />
   );
 }
