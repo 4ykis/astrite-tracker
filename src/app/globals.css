@@ -65,12 +65,18 @@ html {
   .stat-roll[data-roll="min"] {
     --roll: #f85149;
   }
-  /* Opaque inner fill on the padding box so the gradient only shows as the border. */
+  /* Max roll: magenta -> cyan -> green border; the opaque tinted fill on the padding box keeps it to the edge. */
   .stat-roll[data-roll="max"] {
     border-color: transparent;
     background:
-      linear-gradient(90deg, color-mix(in srgb, #10b981 20%, #020617), color-mix(in srgb, #fbbf24 20%, #020617)) padding-box,
-      linear-gradient(90deg, #10b981, #fbbf24) border-box;
+      linear-gradient(
+          90deg,
+          color-mix(in srgb, #e438ff 18%, #020617) 0%,
+          color-mix(in srgb, #1fbbcc 18%, #020617) 54%,
+          color-mix(in srgb, #53ed60 18%, #020617) 100%
+        )
+        padding-box,
+      linear-gradient(90deg, #e438ff 0%, #1fbbcc 54%, #53ed60 100%) border-box;
   }
 }
 
