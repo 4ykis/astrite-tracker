@@ -18,7 +18,7 @@ Read this first: it is a map of the repo, so you do not need to scan it. If it d
 
 - Personal Wuthering Waves tracker: Astrite balance, gacha pity log, weapon/skill materials, echo prefarm builds. **Multi-user** (Google login); every user sees only their own data.
 - Next 16.3.5 (App Router) · React 19.2 · Prisma 6 + Postgres · Tailwind 4 (dark theme only) · Recharts 3 · TypeScript strict. Alias `@/` → `src/`. `src/` is ~70 files.
-- **No test suite.** Verify with `npx tsc --noEmit`, `npm run lint` and the dev server (preview config `wuwa`, port 3000).
+- Tests: only `src/**/*.test.ts` on `node:test` (`npm test`, via tsx) — currently `lib/targets.test.ts`. Otherwise verify with `npx tsc --noEmit`, `npm run lint` and the dev server (preview config `wuwa`, port 3000).
 - Language: talk to the user in Ukrainian. UI copy is Ukrainian; code, comments and commit messages are English (`feat:` / `fix:` / `refactor:` / `chore:`).
 - Repo: `origin` = `git@github.com:4ykis/astrite-tracker.git`, default branch `master`. Vercel project: `astrite-tracker-v547`.
 
@@ -31,7 +31,7 @@ Route folder = URL; `(app)` is a route group (not in the URL). Paths below are r
 | `/` dashboard | `page.tsx`, `BalanceForm`, `IncomeStats`, `SpendStats`, `actions.ts` (balance CRUD) | `lib/balance.ts`, `lib/income.ts`, `lib/spending.ts` | BalanceEntry, SpendEntry |
 | `/gacha` | `gacha/page.tsx`, `PityBlock`, `PullList`, `gacha/actions.ts` | `lib/gacha.ts` | PityCounter, PullEntry, SpendEntry |
 | `/resources` | `resources/page.tsx`, `ResourcesForm`, `resources/actions.ts` | `lib/materials.ts` (catalogue), `lib/resources.ts` | ResourceEntry |
-| `/echoes` | `echoes/page.tsx`, `BuildCard.tsx` (biggest file, editing UI + stats header) + `*Picker`/`StatRow`/`SonataSelect`/`ForteDialog`/`WeaponIcon`/`PickerFilters`, `echoes/actions.ts` | `lib/echoes.ts`, `lib/build-stats.ts` (`computeStats`), `lib/data/*.json` | EchoBuild |
+| `/echoes` | `echoes/page.tsx`, `BuildCard.tsx` (biggest file, editing UI + stats header) + `*Picker`/`StatRow`/`SonataSelect`/`ForteDialog`/`WeaponIcon`/`PickerFilters`, `echoes/actions.ts` | `lib/echoes.ts`, `lib/build-stats.ts` (`computeStats`, `compareWithTargets`), `lib/targets.ts` (endgame-target `compare`, header colour thresholds), `lib/data/*.json` | EchoBuild |
 | `/history` | `history/page.tsx` (queries prisma directly, paginated) composing `BalanceHistory`, `spending/SpendList`, `gacha/PullList`, `ResourceHistory`; `spending/actions.ts` (edit/delete spend) | `lib/resources.ts` (timeline) | Balance/Spend/Pull/Resource |
 | `/stats` | `stats/page.tsx`, `StatsChart`, `SpendByCategoryChart` | `lib/income.ts` (`getIncomeSeries`) | BalanceEntry, SpendEntry |
 | `/login`, `/login/google`, `/login/google/callback`, `/logout` | `src/app/login/**`, `src/app/logout/route.ts` | `lib/google.ts` (OAuth + PKCE), `lib/auth.ts` (HMAC session token), `lib/session.ts` | User |
@@ -42,7 +42,7 @@ Cross-cutting:
 - `src/lib/session.ts` — `requireUserId()` (redirects to `/login`) and `getCurrentUser()`. `(app)/layout.tsx` renders `NavBar` for the current user.
 - `src/lib/prisma.ts` singleton client · `src/lib/date.ts` all day/timezone logic.
 - `src/components/` — `Card`, `Modal` (client), `MaterialIcon`, `NavBar` (the list of nav links lives here).
-- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `fetch-echo-data.ts` (calls `fetch-stat-data.ts`), `fetch-material-icons.ts`.
+- `prisma/schema.prisma` + `prisma/migrations/` · `scripts/` — `local-db.mjs` (embedded Postgres), `fetch-echo-data.ts` (calls `fetch-stat-data.ts`), `fetch-material-icons.ts`, `fetch-targets.ts`.
 
 Finding things fast:
 
@@ -58,7 +58,7 @@ Finding things fast:
 4. **Gacha.** `PULL_COST` 160, soft pity 66, hard pity 80 (`lib/gacha.ts`). Pity buttons create `SpendEntry` rows in the same `prisma.$transaction` as the pity/pull change — keep that atomic.
 5. **Resources are sparse.** A `ResourceEntry` row exists only when an item's amount changed that day (`saveResources` drops rows equal to the carried-forward value). Current amounts = `getResourcesAsOf()`, history = `getResourceTimeline()`. Item ids are in-game ids from `lib/materials.ts`; changing an id orphans stored rows.
 6. **Echo builds.** `EchoBuild.slots` is a Json column, read and written as a whole and always through `normalizeSlots()` (shape: `EchoSlot` in `lib/echoes.ts`; `mainValue`/`subValues` are kept only while the stat is set and its got-flag is on; `fixedValue` = the free second main stat, kept while `mainGot`, defaults to its +25 max; `extras` = rolled subs outside the plan, kept consistent by `fitExtras()`, which `patchSlot` in `BuildCard` also applies). `weaponId` must fit the character's weapon type (`validWeaponId`); `forteNodes` is a bitmask over `Character.forte` (255 = all 8). Order = `position`, then `createdAt`.
-7. **Generated data.** `src/lib/data/*.json`, `public/icons/**`, `public/materials/**` come from `scripts/` (characters/echoes/sonatas + icons: static.nanoka.cc, game version is a constant in `fetch-echo-data.ts`; character base stats/forte and `weapons.json`: the game tables at github.com/Arikatsu/WutheringWaves_Data, branch constant in `fetch-stat-data.ts`, which merges into `characters.json` and tolerates missing weapon icons). Re-run the script instead of hand-editing. Exception: `public/icons/weapon-types/<type>.webp` were added by hand (from the wiki), no script makes them.
+7. **Generated data.** `src/lib/data/*.json`, `public/icons/**`, `public/materials/**` come from `scripts/` (characters/echoes/sonatas + icons: static.nanoka.cc, game version is a constant in `fetch-echo-data.ts`; character base stats/forte and `weapons.json`: the game tables at github.com/Arikatsu/WutheringWaves_Data, branch constant in `fetch-stat-data.ts`, which merges into `characters.json` and tolerates missing weapon icons). `wuwa_targets.json` (Prydwen endgame stat targets keyed by source slug; app name → slug via `targetSlug()` in `lib/targets.ts`, overrides there) comes from `fetch-targets.ts` (github.com/TheInternetUse7/wuwa-character-build-db), which warns on unparsed lines and fails its Hiyuki sanity check if parsing drifts. Re-run the script instead of hand-editing. Exception: `public/icons/weapon-types/<type>.webp` were added by hand (from the wiki), no script makes them.
 8. **Cache.** Every `(app)` page is `export const dynamic = "force-dynamic"`. After a mutation call `revalidatePath` for every page that shows the data (current convention: balance → `/`, `/history`; spend edit/delete → `/`, `/stats`, `/history`; pity/5★ → `/gacha`, `/`, `/history`, `/stats`; pull edit/delete → `/gacha`, `/`, `/history`; resources → `/resources`, `/history`; echoes → `/echoes`).
 9. **Public assets vs auth.** A new folder under `public/` that must load without a session (like `icons`, `materials`) has to be added to the `src/proxy.ts` matcher exclusions, otherwise it redirects to `/login`.
 10. **UI.** Dark only (slate-950/900 surfaces, amber accents, `color-scheme: dark` in `globals.css`), Tailwind utilities inline, no CSS modules. Reuse `Card`, `Modal`, `MaterialIcon`. Server components by default; `"use client"` only for interactive parts (currently: forms, lists with inline editing, pickers, charts, `Modal`). Form actions take `(…args, _prevState, formData)` and return `{ error?: string }` with a Ukrainian message.
@@ -76,6 +76,8 @@ npx tsc --noEmit && npm run lint
 npx tsx scripts/fetch-echo-data.ts        # refresh characters/echoes/sonatas + icons, then stats/weapons (needs network)
 npx tsx scripts/fetch-stat-data.ts        # only character stats, forte nodes, weapons.json + weapon icons
 npx tsx scripts/fetch-material-icons.ts
+npm run fetch:targets                     # Prydwen endgame stat targets -> src/lib/data/wuwa_targets.json
+npm test                                  # node:test unit tests
 ```
 
 `npm run build` = `prisma migrate deploy && next build`: it **applies pending migrations to whatever DB the env vars point at**. The local `.env` points at local Postgres (`localhost:51218`), so local builds are safe; never run it with production URLs in the environment.
