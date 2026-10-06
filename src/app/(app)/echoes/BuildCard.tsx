@@ -137,10 +137,13 @@ export default function BuildCard({
   // "Finished" checkbox above the collapse button, each half the header's height.
   const sideButtons = (
     <div className="flex w-10 shrink-0 flex-col gap-1 self-stretch">
+      {/* The whole block is the checkbox: the real input is visually hidden, the block shows its state. */}
       <label
         title={finished ? "Готовий — зняти позначку" : "Позначити персонажа готовим"}
-        className={`flex flex-1 items-center justify-center rounded-xl border transition ${
-          finished ? "border-emerald-500/60 bg-emerald-500/15" : "border-slate-800 hover:border-slate-600"
+        className={`flex flex-1 items-center justify-center rounded-xl border text-lg font-bold transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-amber-400/70 ${
+          finished
+            ? "border-emerald-500/70 bg-emerald-500/25 text-emerald-200 hover:bg-emerald-500/35"
+            : "border-slate-700 text-transparent hover:border-slate-500 hover:text-slate-600"
         }`}
       >
         <input
@@ -148,8 +151,9 @@ export default function BuildCard({
           checked={finished}
           onChange={toggleFinished}
           aria-label="Персонаж готовий"
-          className="size-4 accent-emerald-500"
+          className="sr-only"
         />
+        <span aria-hidden>✓</span>
       </label>
       <button
         type="button"
@@ -199,16 +203,18 @@ export default function BuildCard({
                 onClick={toggleCollapsed}
                 className="flex min-w-0 flex-1 items-center gap-3 self-stretch text-left"
               >
-                <CharacterIcon character={character} className="size-10" />
-                <span className="flex-1 truncate font-semibold text-amber-300">{character.name}</span>
+                <CharacterIcon character={character} className="size-14" />
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate font-semibold text-amber-300">{character.name}</span>
+                  {allEchoesChosen && (
+                    <span className="text-xs text-slate-400">
+                      {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
+                    </span>
+                  )}
+                </span>
               </button>
               {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="hidden sm:grid" />}
-              {allEchoesChosen && (
-                <span className="text-xs text-slate-400">
-                  {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
-                </span>
-              )}
-              {weapon && <WeaponIcon weapon={weapon} className="size-10 shrink-0 text-xs" />}
+              {weapon && <WeaponIcon weapon={weapon} className="size-14 shrink-0 text-sm" />}
               {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="grid basis-full sm:hidden" />}
             </div>
           ) : (
