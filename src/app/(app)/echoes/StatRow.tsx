@@ -11,7 +11,7 @@ const GREEN = [140, 60, 45];
  * Frame of a rolled sub stat row (styles: .stat-roll in globals.css): grey while the value is
  * missing, red for the min roll, an emerald-gold gradient for the max, orange -> green between.
  */
-export function rollFrame(stat: Stat, value: number | null) {
+function rollFrame(stat: Stat, value: number | null) {
   const quality = rollQuality(stat, value);
   if (typeof quality !== "number") return { "data-roll": quality };
   const [h, s, l] = ORANGE.map((v, i) => Math.round(v + (GREEN[i] - v) * quality));
