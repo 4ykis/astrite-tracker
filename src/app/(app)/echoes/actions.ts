@@ -54,6 +54,12 @@ export async function setBuildCollapsed(id: string, collapsed: boolean) {
   revalidatePath("/echoes");
 }
 
+export async function setBuildFinished(id: string, finished: boolean) {
+  const userId = await requireUserId();
+  await prisma.echoBuild.update({ where: { id, userId }, data: { finished } });
+  revalidatePath("/echoes");
+}
+
 /** Swaps the build with its neighbour above (-1) or below (+1). */
 export async function moveBuild(id: string, direction: -1 | 1) {
   const userId = await requireUserId();

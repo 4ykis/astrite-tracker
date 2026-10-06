@@ -116,6 +116,8 @@ model EchoBuild {
   slots       Json
   position    Int      @default(0)
   collapsed   Boolean  @default(false)
+  /// Marked done by hand: the header border goes green regardless of the stat targets.
+  finished    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
