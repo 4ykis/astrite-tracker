@@ -99,10 +99,10 @@ export default function BuildCard({
 
   const allEchoesChosen = slots.every((slot) => slot.echoId !== null);
   const totalGot = slots.reduce((sum, slot) => sum + gotCount(slot), 0);
-  const border = allEchoesChosen ? TOTAL_BORDER[level(totalGot, 20, 13)] : "";
-
   // Ordering and collapsing only make sense once the setup has a resonator.
   const isCollapsed = collapsed && character !== undefined;
+  // Collapsed, the header's stat-target border speaks for the build instead.
+  const border = allEchoesChosen && !isCollapsed ? TOTAL_BORDER[level(totalGot, 20, 13)] : "";
 
   const toggleCollapsed = () => {
     setCollapsed(!isCollapsed);
@@ -157,7 +157,10 @@ export default function BuildCard({
       ) : (
         <div className="flex gap-2">
           {isCollapsed ? (
-            <div className="flex h-[72px] min-w-0 flex-1 items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 px-2">
+            <div
+              data-status={comparison?.status ?? "none"}
+              className="build-header flex min-h-[72px] min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2"
+            >
               {moveButtons}
               <button
                 type="button"
@@ -166,13 +169,15 @@ export default function BuildCard({
               >
                 <CharacterIcon character={character} className="size-10" />
                 <span className="flex-1 truncate font-semibold text-amber-300">{character.name}</span>
-                {allEchoesChosen && (
-                  <span className="text-xs text-slate-400">
-                    {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
-                  </span>
-                )}
-                {weapon && <WeaponIcon weapon={weapon} className="size-10 shrink-0 text-xs" />}
               </button>
+              {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="hidden sm:grid" />}
+              {allEchoesChosen && (
+                <span className="text-xs text-slate-400">
+                  {totalGot}/{ECHO_COUNT * STATS_PER_ECHO}
+                </span>
+              )}
+              {weapon && <WeaponIcon weapon={weapon} className="size-10 shrink-0 text-xs" />}
+              {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="grid basis-full sm:hidden" />}
             </div>
           ) : (
             <div
