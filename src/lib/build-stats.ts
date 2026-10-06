@@ -5,7 +5,9 @@
  * value, and the echoes' extra (unplanned) sub stats. Not counted: sonata set bonuses, conditional passive effects, element / healing /
  * skill-type DMG.
  */
+import targetData from "./data/wuwa_targets.json";
 import { Character, ECHO_BY_ID, EchoSlot, FIXED_MAIN, isForteOn, Weapon } from "./echoes";
+import { compare, TargetFile, targetSlug } from "./targets";
 
 export type CharacterStats = {
   atk: number;
@@ -62,4 +64,21 @@ export function computeStats(
     critDmg: BASE_CRIT_DMG + total("crit-dmg"),
     energy: BASE_ENERGY + total("energy"),
   };
+}
+
+const TARGETS: TargetFile = targetData;
+
+/** The header stats against the resonator's Prydwen endgame targets (lib/targets.ts). */
+export function compareWithTargets(character: Character, stats: CharacterStats) {
+  return compare(
+    {
+      atk: stats.atk,
+      hp: stats.hp,
+      def: stats.def,
+      crit_rate: stats.critRate,
+      crit_dmg: stats.critDmg,
+      energy_regen: stats.energy,
+    },
+    TARGETS.heroes[targetSlug(character.name)]?.targets,
+  );
 }

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import Card from "@/components/Card";
-import { CharacterStats, computeStats } from "@/lib/build-stats";
+import { CharacterStats, compareWithTargets, computeStats } from "@/lib/build-stats";
 import {
   Character,
   CHARACTER_BY_ID,
@@ -28,6 +28,7 @@ import {
   SUB_STAT_BY_KEY,
   SUB_STATS,
 } from "@/lib/echoes";
+import { TargetKey, TargetRow } from "@/lib/targets";
 import { BuildData, deleteBuild, moveBuild, setBuildCollapsed, updateBuild } from "./actions";
 import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
@@ -92,6 +93,7 @@ export default function BuildCard({
   const character = characterId !== null ? CHARACTER_BY_ID.get(characterId) : undefined;
   const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
   const stats = character && computeStats(character, weapon, forteNodes, slots);
+  const comparison = character && stats && compareWithTargets(character, stats);
   const pickedEchoId = picker && "slot" in picker ? slots[picker.slot].echoId : null;
   const pickedEcho = pickedEchoId !== null ? ECHO_BY_ID.get(pickedEchoId) : undefined;
 
@@ -173,7 +175,9 @@ export default function BuildCard({
               </button>
             </div>
           ) : (
-            <div className="flex min-h-20 min-w-0 flex-1 flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
+            <div
+              data-status={comparison?.status ?? "none"}
+              className="build-header flex min-h-20 min-w-0 flex-1 flex-wrap items-center gap-3 rounded-xl bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
               {moveButtons}
               <button
                 type="button"
@@ -194,7 +198,7 @@ export default function BuildCard({
                   </button>
                   <ForteChip mask={forteNodes} onClick={() => setPicker({ kind: "forte" })} />
                 </div>
-                {stats && <StatsGrid stats={stats} className="hidden sm:grid" />}
+                {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="hidden sm:grid" />}
               </div>
               <button
                 type="button"
@@ -211,7 +215,7 @@ export default function BuildCard({
                 )}
               </button>
               {/* Narrow screens: the stats get their own full-width row under the icons. */}
-              {stats && <StatsGrid stats={stats} className="grid basis-full sm:hidden" />}
+              {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="grid basis-full sm:hidden" />}
             </div>
           )}
           {collapseButton}
@@ -537,20 +541,25 @@ function ForteChip({ mask, onClick }: { mask: number; onClick: () => void }) {
   );
 }
 
-/** Columns: (ATK, Energy) · (Crit Rate, Crit DMG) · (DEF, HP). */
-function StatsGrid({ stats, className }: { stats: CharacterStats; className: string }) {
-  // [label, short label for phones, value]
-  const cells: [string, string, string][] = [
-    ["ATK", "ATK", formatFlat(stats.atk)],
-    ["Energy", "ER", formatPercent(stats.energy)],
-    ["Crit Rate", "CR", formatPercent(stats.critRate)],
-    ["Crit DMG", "CD", formatPercent(stats.critDmg)],
-    ["DEF", "DEF", formatFlat(stats.def)],
-    ["HP", "HP", formatFlat(stats.hp)],
+/**
+ * Columns: (ATK, Energy) · (Crit Rate, Crit DMG) · (DEF, HP). A stat below its endgame target
+ * gets the target in brackets; the target's note goes in the tooltip.
+ */
+function StatsGrid({ stats, rows, className }: { stats: CharacterStats; rows: TargetRow[]; className: string }) {
+  // [label, short label for phones, target key, value, formatter]
+  const cells: [string, string, TargetKey, number, (value: number) => string][] = [
+    ["ATK", "ATK", "atk", stats.atk, formatFlat],
+    ["Energy", "ER", "energy_regen", stats.energy, formatPercent],
+    ["Crit Rate", "CR", "crit_rate", stats.critRate, formatPercent],
+    ["Crit DMG", "CD", "crit_dmg", stats.critDmg, formatPercent],
+    ["DEF", "DEF", "def", stats.def, formatFlat],
+    ["HP", "HP", "hp", stats.hp, formatFlat],
   ];
   return (
     <dl className={`grid-flow-col grid-cols-3 grid-rows-2 gap-x-2 gap-y-0.5 text-xs sm:grid-cols-[repeat(3,max-content)] sm:gap-x-4 sm:text-sm ${className}`}>
-      {cells.map(([label, short, value], i) => (
+      {cells.map(([label, short, key, value, format], i) => {
+        const row = rows.find((r) => r.key === key);
+        return (
         <div
           key={label}
           className={`flex min-w-0 items-baseline justify-between gap-1.5 sm:gap-4 ${i >= 2 ? "border-l border-slate-700/70 pl-2 sm:pl-3" : ""}`}
@@ -559,9 +568,13 @@ function StatsGrid({ stats, className }: { stats: CharacterStats; className: str
             <span className="sm:hidden">{short}</span>
             <span className="hidden sm:inline">{label}</span>
           </dt>
-          <dd className="tabular-nums text-slate-100">{value}</dd>
+          <dd className="tabular-nums whitespace-nowrap text-slate-100" title={row?.note}>
+            {format(value)}
+            {row?.rec != null && <span className="ml-1 text-[0.85em] text-slate-500">({format(row.rec)})</span>}
+          </dd>
         </div>
-      ))}
+        );
+      })}
     </dl>
   );
 }

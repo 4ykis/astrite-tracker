@@ -34,6 +34,23 @@ html {
   }
 }
 
+/* Echo build header: border colour from its stats vs the endgame targets (lib/targets.ts). */
+@layer components {
+  .build-header {
+    --bn: var(--color-slate-800);
+    border: 2px solid var(--bn);
+  }
+  .build-header[data-status="green"] {
+    --bn: #3fb950;
+  }
+  .build-header[data-status="yellow"] {
+    --bn: #d29922;
+  }
+  .build-header[data-status="red"] {
+    --bn: #f85149;
+  }
+}
+
 body {
   /* no-repeat: on pages taller than the viewport the gradient would restart and leave a seam. */
   background: var(--background) radial-gradient(circle at top, #1a1642 0%, var(--background) 55%) no-repeat;
