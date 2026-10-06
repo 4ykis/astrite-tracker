@@ -72,11 +72,11 @@ html {
       linear-gradient(
           90deg,
           color-mix(in srgb, #e438ff 18%, #020617) 0%,
-          color-mix(in srgb, #1fbbcc 18%, #020617) 54%,
+          color-mix(in srgb, #1fbbcc 18%, #020617) 74%,
           color-mix(in srgb, #53ed60 18%, #020617) 100%
         )
         padding-box,
-      linear-gradient(90deg, #e438ff 0%, #1fbbcc 54%, #53ed60 100%) border-box;
+      linear-gradient(90deg, #e438ff 0%, #1fbbcc 74%, #53ed60 100%) border-box;
   }
 }
 
