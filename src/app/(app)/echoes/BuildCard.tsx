@@ -28,8 +28,8 @@ import {
   SUB_STAT_BY_KEY,
   SUB_STATS,
 } from "@/lib/echoes";
-import { TargetKey, TargetRow } from "@/lib/targets";
-import { BuildData, deleteBuild, moveBuild, setBuildCollapsed, updateBuild } from "./actions";
+import { targetColor, TargetKey, TargetRow } from "@/lib/targets";
+import { BuildData, deleteBuild, moveBuild, setBuildCollapsed, setBuildFinished, updateBuild } from "./actions";
 import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
 import ForteDialog from "./ForteDialog";
@@ -56,6 +56,7 @@ export default function BuildCard({
   forteNodes: initialForteNodes,
   slots: initialSlots,
   collapsed: initialCollapsed,
+  finished: initialFinished,
   isFirst,
   isLast,
 }: {
@@ -65,6 +66,7 @@ export default function BuildCard({
   forteNodes: number;
   slots: EchoSlot[];
   collapsed: boolean;
+  finished: boolean;
   isFirst: boolean;
   isLast: boolean;
 }) {
@@ -76,6 +78,7 @@ export default function BuildCard({
   });
   const { characterId, weaponId, forteNodes, slots } = build;
   const [collapsed, setCollapsed] = useState(initialCollapsed);
+  const [finished, setFinished] = useState(initialFinished);
   const [picker, setPicker] = useState<Picker | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -94,6 +97,12 @@ export default function BuildCard({
   const weapon = weaponId !== null ? WEAPON_BY_ID.get(weaponId) : undefined;
   const stats = character && computeStats(character, weapon, forteNodes, slots);
   const comparison = character && stats && compareWithTargets(character, stats);
+  // Header border: green once marked finished, else a colour from the stat targets (none: neutral).
+  const headerStatus = finished ? "finished" : (comparison?.status ?? "none");
+  const headerStyle =
+    !finished && comparison?.average != null
+      ? ({ "--bn": targetColor(comparison.average) } as React.CSSProperties)
+      : undefined;
   const pickedEchoId = picker && "slot" in picker ? slots[picker.slot].echoId : null;
   const pickedEcho = pickedEchoId !== null ? ECHO_BY_ID.get(pickedEchoId) : undefined;
 
@@ -120,16 +129,38 @@ export default function BuildCard({
     </div>
   );
 
-  const collapseButton = (
-    <button
-      type="button"
-      aria-label={isCollapsed ? "Розгорнути" : "Згорнути"}
-      title={isCollapsed ? "Розгорнути" : "Згорнути"}
-      onClick={toggleCollapsed}
-      className="flex w-10 shrink-0 items-center justify-center self-stretch rounded-xl border border-slate-800 text-slate-400 transition hover:border-slate-600 hover:text-amber-300"
-    >
-      <span className={`inline-block transition ${isCollapsed ? "" : "rotate-180"}`}>▾</span>
-    </button>
+  const toggleFinished = () => {
+    setFinished(!finished);
+    startTransition(() => setBuildFinished(id, !finished));
+  };
+
+  // "Finished" checkbox above the collapse button, each half the header's height.
+  const sideButtons = (
+    <div className="flex w-10 shrink-0 flex-col gap-1 self-stretch">
+      <label
+        title={finished ? "Готовий — зняти позначку" : "Позначити персонажа готовим"}
+        className={`flex flex-1 items-center justify-center rounded-xl border transition ${
+          finished ? "border-emerald-500/60 bg-emerald-500/15" : "border-slate-800 hover:border-slate-600"
+        }`}
+      >
+        <input
+          type="checkbox"
+          checked={finished}
+          onChange={toggleFinished}
+          aria-label="Персонаж готовий"
+          className="size-4 accent-emerald-500"
+        />
+      </label>
+      <button
+        type="button"
+        aria-label={isCollapsed ? "Розгорнути" : "Згорнути"}
+        title={isCollapsed ? "Розгорнути" : "Згорнути"}
+        onClick={toggleCollapsed}
+        className="flex flex-1 items-center justify-center rounded-xl border border-slate-800 text-slate-400 transition hover:border-slate-600 hover:text-amber-300"
+      >
+        <span className={`inline-block transition ${isCollapsed ? "" : "rotate-180"}`}>▾</span>
+      </button>
+    </div>
   );
 
   return (
@@ -158,7 +189,8 @@ export default function BuildCard({
         <div className="flex gap-2">
           {isCollapsed ? (
             <div
-              data-status={comparison?.status ?? "none"}
+              data-status={headerStatus}
+              style={headerStyle}
               className="build-header flex min-h-[72px] min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2"
             >
               {moveButtons}
@@ -181,7 +213,8 @@ export default function BuildCard({
             </div>
           ) : (
             <div
-              data-status={comparison?.status ?? "none"}
+              data-status={headerStatus}
+              style={headerStyle}
               className="build-header flex min-h-20 min-w-0 flex-1 flex-wrap items-center gap-3 rounded-xl bg-gradient-to-r from-slate-950 via-indigo-950/80 to-indigo-400/40 p-2">
               {moveButtons}
               <button
@@ -223,7 +256,7 @@ export default function BuildCard({
               {stats && <StatsGrid stats={stats} rows={comparison?.rows ?? []} className="grid basis-full sm:hidden" />}
             </div>
           )}
-          {collapseButton}
+          {sideButtons}
         </div>
       )}
 

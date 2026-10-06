@@ -18,6 +18,31 @@ export const YELLOW_FROM = 0.9;
 
 export type TargetStatus = "green" | "yellow" | "red" | "none";
 
+/**
+ * Header border colour, continuous over the average gap below the targets (1 - average ratio):
+ * green at 0, yellow at YELLOW_AT, red from RED_AT on. HUE_EASING > 1 keeps small gaps
+ * (a few percent) close to green; 1 is linear.
+ */
+export const YELLOW_AT = 0.1;
+export const RED_AT = 0.2;
+export const HUE_EASING = 1.5;
+
+// [hue, saturation %, lightness %] of the theme's green #3fb950, yellow #d29922 and red #f85149.
+type Hsl = [number, number, number];
+const GREEN: Hsl = [128, 49, 49];
+const YELLOW: Hsl = [40, 72, 48];
+const RED: Hsl = [3, 92, 63];
+
+export function targetColor(average: number): string {
+  const gap = Math.max(0, 1 - average);
+  const [from, to, t] =
+    gap <= YELLOW_AT
+      ? [GREEN, YELLOW, (gap / YELLOW_AT) ** HUE_EASING]
+      : [YELLOW, RED, Math.min((gap - YELLOW_AT) / (RED_AT - YELLOW_AT), 1)];
+  const [h, s, l] = from.map((v, i) => Math.round(v + (to[i] - v) * t));
+  return `hsl(${h} ${s}% ${l}%)`;
+}
+
 export type TargetRow = {
   key: TargetKey;
   /** Rounded the way the game shows it: flat stats to an integer, percentages to 0.1. */
@@ -40,7 +65,7 @@ const EPSILON = 1e-9;
 export function compare(
   current: Partial<Record<TargetKey, number>>,
   targets: Targets | undefined,
-): { rows: TargetRow[]; status: TargetStatus } {
+): { rows: TargetRow[]; status: TargetStatus; average: number | null } {
   const rows: TargetRow[] = [];
   for (const key of TARGET_KEYS) {
     const raw = current[key];
@@ -62,10 +87,10 @@ export function compare(
   }
 
   const ratios = rows.flatMap((row) => (STATUS_KEYS.includes(row.key) && row.ratio !== null ? [row.ratio] : []));
-  if (ratios.length === 0) return { rows, status: "none" };
+  if (ratios.length === 0) return { rows, status: "none", average: null };
   const average = ratios.reduce((sum, r) => sum + r, 0) / ratios.length;
   const status = average >= GREEN_FROM - EPSILON ? "green" : average >= YELLOW_FROM - EPSILON ? "yellow" : "red";
-  return { rows, status };
+  return { rows, status, average };
 }
 
 /** Source slugs that don't follow from the app's character name. */

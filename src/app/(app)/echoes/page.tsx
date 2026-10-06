@@ -26,6 +26,7 @@ export default async function EchoesPage() {
           forteNodes={build.forteNodes}
           slots={normalizeSlots(build.slots)}
           collapsed={build.collapsed}
+          finished={build.finished}
           isFirst={index === 0}
           isLast={index === builds.length - 1}
         />

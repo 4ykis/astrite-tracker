@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { compare, TargetKey, Targets } from "./targets";
+import { compare, TargetKey, targetColor, Targets } from "./targets";
 
 // Hiyuki's targets from wuwa_targets.json.
 const TARGETS: Targets = {
@@ -70,4 +70,20 @@ test("HP, DEF and element DMG don't change the colour", () => {
   const { rows, status } = compare({ ...scaled(1), hp: 1000, def: 100, element_dmg: 0 }, TARGETS);
   assert.equal(status, "green");
   assert.deepEqual(brackets(rows), ["hp", "def", "element_dmg"]);
+});
+
+const hue = (color: string) => Number(color.match(/^hsl\((\d+) /)?.[1]);
+
+test("border colour: green at target, yellow ~10% below, red from 20% below", () => {
+  assert.equal(targetColor(1), "hsl(128 49% 49%)");
+  assert.equal(targetColor(1.3), "hsl(128 49% 49%)");
+  assert.equal(targetColor(0.9), "hsl(40 72% 48%)");
+  assert.equal(targetColor(0.8), "hsl(3 92% 63%)");
+  assert.equal(targetColor(0.5), "hsl(3 92% 63%)");
+});
+
+test("border colour: a few percent short stays close to green, hue falls steadily", () => {
+  assert.ok(hue(targetColor(0.97)) > 110);
+  const hues = [1, 0.98, 0.95, 0.9, 0.85, 0.8].map((a) => hue(targetColor(a)));
+  hues.slice(1).forEach((h, i) => assert.ok(h < hues[i], `${h} < ${hues[i]}`));
 });
