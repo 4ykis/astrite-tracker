@@ -178,6 +178,20 @@ export const SUB_STATS: Stat[] = [
   stat("liberation", "Resonance Liberation DMG", 6.4, 11.6, "Lib. DMG"),
 ];
 
+export type RollQuality = "waiting" | "min" | "max" | number;
+
+/**
+ * How good a rolled sub stat is: "waiting" without a value, "min" / "max" for the range's ends,
+ * otherwise its position in the range (0–1).
+ */
+export function rollQuality(stat: Stat, value: number | null): RollQuality {
+  if (value === null) return "waiting";
+  // Float noise: 10.5 typed in must still count as the max roll.
+  if (value <= stat.min + 1e-6) return "min";
+  if (value >= stat.max - 1e-6) return "max";
+  return (value - stat.min) / (stat.max - stat.min);
+}
+
 /** Every stat key with a readable label (echo stats plus forte-only ones). */
 export const STAT_LABELS: Record<string, string> = Object.fromEntries(
   [...Object.values(MAIN_STATS).flat(), ...SUB_STATS].map((s) => [s.key, s.label]),

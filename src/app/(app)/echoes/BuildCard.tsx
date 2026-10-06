@@ -34,7 +34,7 @@ import CharacterPicker from "./CharacterPicker";
 import EchoPicker from "./EchoPicker";
 import ForteDialog from "./ForteDialog";
 import StatPicker from "./StatPicker";
-import StatRow, { ValueInput } from "./StatRow";
+import StatRow, { rollFrame, ValueInput } from "./StatRow";
 import WeaponIcon from "./WeaponIcon";
 import WeaponPicker from "./WeaponPicker";
 
@@ -354,7 +354,8 @@ export default function BuildCard({
                   return (
                     <div
                       key={extra.key}
-                      className="group flex items-center gap-1.5 px-1.5 py-0.5 text-xs text-slate-400 lg:text-sm"
+                      {...rollFrame(def, extra.value)}
+                      className="stat-roll group flex items-center gap-1.5 rounded-md border px-1.5 py-0.5 text-xs text-slate-300 lg:text-sm"
                     >
                       <button
                         type="button"

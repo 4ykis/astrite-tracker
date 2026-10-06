@@ -53,6 +53,27 @@ html {
   }
 }
 
+/* Rolled echo sub stat rows: frame by roll quality (rollFrame in echoes/StatRow.tsx). */
+@layer components {
+  .stat-roll {
+    border-color: var(--roll);
+    background-color: color-mix(in srgb, var(--roll) 12%, transparent);
+  }
+  .stat-roll[data-roll="waiting"] {
+    --roll: var(--color-slate-500);
+  }
+  .stat-roll[data-roll="min"] {
+    --roll: #f85149;
+  }
+  /* Opaque inner fill on the padding box so the gradient only shows as the border. */
+  .stat-roll[data-roll="max"] {
+    border-color: transparent;
+    background:
+      linear-gradient(90deg, color-mix(in srgb, #10b981 20%, #020617), color-mix(in srgb, #fbbf24 20%, #020617)) padding-box,
+      linear-gradient(90deg, #10b981, #fbbf24) border-box;
+  }
+}
+
 body {
   /* no-repeat: on pages taller than the viewport the gradient would restart and leave a seam. */
   background: var(--background) radial-gradient(circle at top, #1a1642 0%, var(--background) 55%) no-repeat;

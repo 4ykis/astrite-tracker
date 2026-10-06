@@ -1,7 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { formatStatValue, isValidStatValue, Stat } from "@/lib/echoes";
+import { formatStatValue, isValidStatValue, rollQuality, Stat } from "@/lib/echoes";
+
+// Roll colour between the two ends: orange just above the min roll, green just below the max.
+const ORANGE = [28, 90, 55];
+const GREEN = [140, 60, 45];
+
+/**
+ * Frame of a rolled sub stat row (styles: .stat-roll in globals.css): grey while the value is
+ * missing, red for the min roll, an emerald-gold gradient for the max, orange -> green between.
+ */
+export function rollFrame(stat: Stat, value: number | null) {
+  const quality = rollQuality(stat, value);
+  if (typeof quality !== "number") return { "data-roll": quality };
+  const [h, s, l] = ORANGE.map((v, i) => Math.round(v + (GREEN[i] - v) * quality));
+  return { "data-roll": "between", style: { "--roll": `hsl(${h} ${s}% ${l}%)` } as React.CSSProperties };
+}
 
 export default function StatRow({
   stat,
@@ -38,10 +53,17 @@ export default function StatRow({
     );
   }
 
+  // Locked main stats are always at +25; rolled subs are coloured by how good the roll is.
+  const rolled = got && !locked && onValue !== undefined;
   return (
     <div
+      {...(rolled ? rollFrame(stat, value) : {})}
       className={`group flex w-full items-center gap-1.5 rounded-md border px-1.5 py-1 text-xs lg:text-sm transition ${
-        got ? "border-emerald-500/40 bg-emerald-500/10" : "border-transparent hover:border-slate-600 hover:bg-slate-800/80"
+        rolled
+          ? "stat-roll"
+          : got
+            ? "border-emerald-500/40 bg-emerald-500/10"
+            : "border-transparent hover:border-slate-600 hover:bg-slate-800/80"
       }`}
     >
       <input
@@ -58,7 +80,7 @@ export default function StatRow({
         type="button"
         onClick={onClick}
         className={`flex min-w-0 flex-1 items-center justify-between gap-1 text-left ${
-          got ? "text-emerald-200" : "text-slate-100"
+          got && !rolled ? "text-emerald-200" : "text-slate-100"
         }`}
       >
         <span className="truncate lg:hidden">{stat.short}</span>
