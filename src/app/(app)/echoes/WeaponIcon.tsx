@@ -5,15 +5,15 @@ import { useState } from "react";
 import { Weapon, weaponIcon } from "@/lib/echoes";
 
 const RANK_BG: Record<number, string> = {
-  5: "bg-amber-400/15",
-  4: "bg-violet-500/15",
-  3: "bg-sky-500/15",
+  5: "border-amber-400/50 bg-amber-400/15",
+  4: "border-violet-400/50 bg-violet-500/15",
+  3: "border-sky-400/50 bg-sky-500/15",
 };
 
-/** Weapon icon tinted by rarity; shows initials if the icon file is missing. */
+/** Weapon icon framed and tinted by rarity; shows initials if the icon file is missing. */
 export default function WeaponIcon({ weapon, className = "" }: { weapon: Weapon; className?: string }) {
   const [failed, setFailed] = useState(false);
-  const bg = RANK_BG[weapon.rank] ?? "bg-slate-500/15";
+  const bg = `border ${RANK_BG[weapon.rank] ?? "border-slate-500/50 bg-slate-500/15"}`;
 
   if (failed) {
     const initials = weapon.name
