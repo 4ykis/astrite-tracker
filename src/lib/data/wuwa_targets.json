@@ -1,0 +1,1978 @@
+{
+  "heroes": {
+    "aalto": {
+      "name": "Aalto",
+      "targets": {
+        "hp": {
+          "min": 14000,
+          "max": 14000
+        },
+        "def": {
+          "min": 1000,
+          "max": 1000
+        },
+        "atk": {
+          "min": 1600,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 75
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 145,
+          "max": 160,
+          "note": "The lower estimate is based on Iuno+Shorekeeper, and the higher estimate is based on a team with Jiyan+Shorekeeper. No Energy Regen is required if playing Aalto as a DPS."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "aemeath": {
+      "name": "Aemeath",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "Before set bonuses"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 125,
+          "note": "The lower estimate is based on Lynae+Mornye, and the higher estimate is based on a team with Jianxin+Mornye."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "augusta": {
+      "name": "Augusta",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2800
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 116,
+          "max": 125,
+          "note": "Lower end estimated in a team with Mortefi+Shorekeeper, higher end estimated in a team with Iuno+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "baizhi": {
+      "name": "Baizhi",
+      "targets": {
+        "hp": {
+          "min": 20000,
+          "max": 35000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 60
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 210
+        },
+        "energy_regen": {
+          "min": 220,
+          "max": 230
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 30
+        }
+      }
+    },
+    "brant": {
+      "name": "Brant",
+      "targets": {
+        "hp": {
+          "min": 16000,
+          "max": 16000
+        },
+        "def": {
+          "min": 1300,
+          "max": 1300
+        },
+        "atk": {
+          "min": 1600,
+          "max": 2000,
+          "note": "Before Forte buffs"
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 250,
+          "max": 280
+        },
+        "element_dmg": {
+          "min": 10,
+          "max": 40
+        }
+      }
+    },
+    "buling": {
+      "name": "Buling",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1500,
+          "max": 2000
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 125,
+          "max": 180,
+          "note": "Can vary between 125-135% (S2) on teams with Carlotta (lower end) and Phrolova (higher end), as well as 160-180% in those same teams before S2."
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 60
+        }
+      }
+    },
+    "calcharo": {
+      "name": "Calcharo",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 160,
+          "note": "Lower end estimated in a Lynae+Shorekeeper team, Higher end estimated in a Xiangli Yao+Shorekeeper quickswap team. S1 decreases ER requirements by ~20%."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "camellya": {
+      "name": "Camellya",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 55,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 220,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 128,
+          "note": "Lower end estimated in a Lynae+Shorekeeper team, Higher end estimated in a Roccia+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 70,
+          "max": 100
+        }
+      }
+    },
+    "cantarella": {
+      "name": "Cantarella",
+      "targets": {
+        "hp": {
+          "min": 16000,
+          "max": 16000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1950,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 140,
+          "note": "Lower end was estimated with Midnight Veil in a team with Phrolova+Roccia, higher end was estimated with Moonlit Clouds in a team with Carlotta+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 70
+        }
+      }
+    },
+    "carlotta": {
+      "name": "Carlotta",
+      "targets": {
+        "hp": {
+          "min": 17000,
+          "max": 17000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 108,
+          "max": 125,
+          "note": "Lower end was estimated in a team with Zhezhi+Shorekeeper, higher end was estimated in a team with Cantarella+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "cartethyia": {
+      "name": "Cartethyia",
+      "targets": {
+        "hp": {
+          "min": 35000,
+          "max": 50000
+        },
+        "def": {
+          "min": 600,
+          "max": 600
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 240,
+          "max": 270
+        },
+        "energy_regen": {
+          "min": 110,
+          "max": 110
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 30
+        }
+      }
+    },
+    "changli": {
+      "name": "Changli",
+      "targets": {
+        "hp": {
+          "min": 16500,
+          "max": 16500
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 108,
+          "max": 120,
+          "note": "Lower end estimated in Mono Fusion team, Higher end estimated in a team with Brant+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "chisa": {
+      "name": "Chisa",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2500
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 255
+        },
+        "energy_regen": {
+          "min": 125,
+          "max": 125
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "chixia": {
+      "name": "Chixia",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 950,
+          "max": 950
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 55,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 115
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "ciaccona": {
+      "name": "Ciaccona",
+      "targets": {
+        "hp": {
+          "min": 16500,
+          "max": 16500
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 55,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 225,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 115
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 80
+        }
+      }
+    },
+    "danjin": {
+      "name": "Danjin",
+      "targets": {
+        "hp": {
+          "min": 16500,
+          "max": 16500
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 110,
+          "note": "Lower end estimated in a Phrolova+Cantarella team, Higher end estimated in a Havoc Rover+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "denia": {
+      "name": "Denia",
+      "targets": {
+        "hp": {
+          "min": 15500,
+          "max": 15500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 70,
+          "max": 70
+        },
+        "crit_dmg": {
+          "min": 270,
+          "max": 270
+        },
+        "energy_regen": {
+          "min": 108,
+          "max": 122,
+          "note": "Lower end was estimated using Aemeath + Lupa team; higher end was estimated using Aemeath + Shorekeeper"
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "encore": {
+      "name": "Encore",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1200,
+          "max": 1200
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 75
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 285
+        },
+        "energy_regen": {
+          "min": 105,
+          "max": 130,
+          "note": "Lower end was estimated using the optimized rotation, Higher end was estimated using the simple rotation"
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "galbrena": {
+      "name": "Galbrena",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80,
+          "note": "before Echo set bonuses"
+        },
+        "crit_dmg": {
+          "min": 230,
+          "max": 270
+        },
+        "energy_regen": {
+          "min": 110,
+          "max": 125,
+          "note": "Lower end was estimated in a Mono Fusion team, higher end is for more general use."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "hiyuki": {
+      "name": "Hiyuki",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "Before Set"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 120
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "hsin": {
+      "name": "Hsin",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2500
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "before Echo set bonuses"
+        },
+        "crit_dmg": {
+          "min": 230,
+          "max": 270
+        },
+        "energy_regen": {
+          "min": 110,
+          "max": 115,
+          "note": "Lower end was estimated in a Electro Rover/Suisui Flare team, higher end was estimated in a Jinhsi/Shorekeeper Unison team."
+        },
+        "element_dmg": {
+          "min": 50,
+          "max": 80
+        }
+      }
+    },
+    "iuno": {
+      "name": "Iuno",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 130,
+          "note": "(Hybrid) OR 100% (DPS)Hybrid was estimated in a team with Augusta, DPS was estimated in a team with Lynae+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "jianxin": {
+      "name": "Jianxin",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1250,
+          "max": 1250
+        },
+        "atk": {
+          "min": 1700,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 155,
+          "max": 175,
+          "note": "Lower end was estimated in a team with Iuno+Shorekeeper, higher end was estimated in a team with Xiangli Yao+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60,
+          "note": "Jianxin gains an innate 20% Aero DMG Bonus"
+        }
+      }
+    },
+    "jinhsi": {
+      "name": "Jinhsi",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1250,
+          "max": 1250
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 125,
+          "note": "Lower end was estimated in a team with Zhezhi+Shorekeeper, higher end was estimated in a team with Yinlin+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 60,
+          "max": 90,
+          "note": "Jinhsi gains an innate 20% Spectro DMG Bonus"
+        }
+      }
+    },
+    "jiyan": {
+      "name": "Jiyan",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2700
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 125,
+          "note": "A Iuno+Ciaccona team requires around 117% Energy Regen, but in Shorekeeper/Verina teams more Energy Regen will be required."
+        },
+        "element_dmg": {
+          "min": 20,
+          "max": 80,
+          "note": "Aero ATK is technically optimal, but Aero Aero still works as a 3 cost option which may cause this stat to vary significantly."
+        }
+      }
+    },
+    "lingyang": {
+      "name": "Lingyang",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2500
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 125,
+          "note": "Estimated in a Zhezhi+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "lucilla": {
+      "name": "Lucilla",
+      "targets": {
+        "hp": {
+          "min": 16000,
+          "max": 16000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 100
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 70
+        }
+      }
+    },
+    "lucy": {
+      "name": "Lucy",
+      "targets": {
+        "hp": {
+          "min": 15500,
+          "max": 15500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "Before Adam Smasher"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 210
+        },
+        "energy_regen": {
+          "min": 125,
+          "max": 125,
+          "note": "Suitable for Mornye, Shorekeeper and Verina team variants. With Mornye, Lucy can get away with 121%, but Lucy will be short on Energy if some attacks miss."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "lumi": {
+      "name": "Lumi",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2800
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 210
+        },
+        "energy_regen": {
+          "min": 142,
+          "max": 150,
+          "note": "Lower end estimated in a team with Carlotta+Shorekeeper, higher end estimated in a team with Phrolova+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "lupa": {
+      "name": "Lupa",
+      "targets": {
+        "hp": {
+          "min": 16000,
+          "max": 16000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2500
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 130,
+          "note": "Lower end was estimated in a team with Changli+Brant, higher end was estimated in a team with Encore+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 50,
+          "max": 80
+        }
+      }
+    },
+    "luuk-herssen": {
+      "name": "Luuk Herssen",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 3000
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 118,
+          "max": 125,
+          "note": "Lower end estimated in a team with Sanhua+Mornye, higher end estimated with Lynae+Mornye."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "lynae": {
+      "name": "Lynae",
+      "targets": {
+        "hp": {
+          "min": 12000,
+          "max": 12000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 50,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 250,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 130,
+          "note": "Lower end was estimated in a team with Iuno+Ciaccona, higher end was estimated in a team with Xiangli Yao+Shorekeeper. Lynae is, however, very flexible teams-wise, so Energy requirements are highly variable - please keep this in mind."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "mornye": {
+      "name": "Mornye",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "atk": {
+          "min": 1000,
+          "max": 1000
+        },
+        "def": {
+          "min": 3000,
+          "max": 3000
+        },
+        "crit_rate": {
+          "min": 20,
+          "max": 20
+        },
+        "crit_dmg": {
+          "min": 220,
+          "max": 220
+        },
+        "energy_regen": {
+          "min": 240,
+          "max": 240,
+          "note": "Before Echo and Passive"
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 30,
+          "note": "Only possible with Signature equipped."
+        }
+      }
+    },
+    "mortefi": {
+      "name": "Mortefi",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 130,
+          "note": "At S2, Mortefi's requirement will be 120% in most teams with 113% using Augusta due to her rotation extension, without S2 this will increase by ~11%."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "phoebe": {
+      "name": "Phoebe",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80,
+          "note": "Before Echo Set Bonuses"
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 125,
+          "note": "Within the Lynae+Spectro Rover team, the requirement is approximately 111%, with this number going up when using her as a support for Zani."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "phrolova": {
+      "name": "Phrolova",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2500
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 60,
+          "note": "before Echo set bonuses"
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260,
+          "note": "before any Aftersound stacks"
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 100,
+          "note": "Avoid any Energy Regen substats on Phrolova as her Ultimate does not cost any Energy."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 70
+        }
+      }
+    },
+    "qingxiao": {
+      "name": "Qingxiao",
+      "targets": {
+        "hp": {
+          "min": 14500,
+          "max": 14500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 55,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 255,
+          "max": 275,
+          "note": "before Echo set bonuses"
+        },
+        "energy_regen": {
+          "min": 110,
+          "max": 115,
+          "note": "Lower end was estimated in a team with Denia+Mornye/Lynae+Ciaccona, higher end was estimated in a team with Lynae+Mornye."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "qiuyuan": {
+      "name": "Qiuyuan",
+      "targets": {
+        "hp": {
+          "min": 16500,
+          "max": 16500
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1600,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 130,
+          "note": "The lower end was estimated by a team with Galbrena+Shorekeeper; the higher end was estimated by a team with Phrolova+Cantarella."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "rebecca": {
+      "name": "Rebecca",
+      "targets": {
+        "hp": {
+          "min": 16000,
+          "max": 16000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 280,
+          "note": "Before Huntress Buff"
+        },
+        "energy_regen": {
+          "min": 117,
+          "max": 118,
+          "note": "Generally suitable for all Rebecca teams."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "roccia": {
+      "name": "Roccia",
+      "targets": {
+        "hp": {
+          "min": 16500,
+          "max": 16500
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2600
+        },
+        "crit_rate": {
+          "min": 70,
+          "max": 70
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 130,
+          "note": "Lower end was estimated in a team with Phrolova+Cantarella, higher end was estimated in a team with Camellya+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "rover-aero": {
+      "name": "Rover (Aero)",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2100
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 210
+        },
+        "energy_regen": {
+          "min": 128,
+          "max": 138,
+          "note": "Lower end estimated with Iuno+Ciaccona, higher end estimate with Cartethyia+Ciaccona. In any case, since Aero Rover always runs Bloodpact's Pledge which gives enough Energy Regen, no substats are needed."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "rover-electro": {
+      "name": "Rover (Electro)",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 117,
+          "max": 120,
+          "note": "Lower end was estimated in a Hsin/Suisui team, higher end was estimated in a Hsin/Buling team."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "rover-havoc": {
+      "name": "Rover (Havoc)",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1250,
+          "max": 1250
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 75,
+          "note": "Before S6 buff"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 140,
+          "max": 140,
+          "note": "This requirement applies across Phrolova+Cantarella, Danjin+Shorekeeper and Roccia+Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "rover-spectro": {
+      "name": "Rover (Spectro)",
+      "targets": {
+        "hp": {
+          "min": 15500,
+          "max": 15500
+        },
+        "def": {
+          "min": 1350,
+          "max": 1350
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 75,
+          "note": "Before S1"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 123,
+          "note": "Lower end estimated using Phoebe+Lynae, Higher end estimated using Zani+Phoebe."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 80,
+          "note": "Spectro Rover gains 20% Spectro Damage Bonus on S2"
+        }
+      }
+    },
+    "sanhua": {
+      "name": "Sanhua",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 100,
+          "note": "On Moonlit Clouds, her only meta set which also gives a lot of extra Energy, Sanhua requires no additional Energy Regen."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "sigrika": {
+      "name": "Sigrika",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2400,
+          "max": 3000
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "Before Set Bonus"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 290
+        },
+        "energy_regen": {
+          "min": 109,
+          "max": 119,
+          "note": "The lower estimate was calculated using Qiuyuan Ciaccona (or Phrolova), the higher estimate was calculated using Qiuyuan Shorekeeper."
+        },
+        "element_dmg": {
+          "min": 10,
+          "max": 40
+        }
+      }
+    },
+    "suisui": {
+      "name": "Suisui",
+      "targets": {
+        "hp": {
+          "min": 35000,
+          "max": 40000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1100,
+          "max": 1200
+        },
+        "crit_rate": {
+          "min": 20,
+          "max": 20
+        },
+        "crit_dmg": {
+          "min": 250,
+          "max": 250
+        },
+        "energy_regen": {
+          "min": 260,
+          "max": 260,
+          "note": "This is the amount of Energy Regen that is required to get the maximum potential out of Suisui's buffs."
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 0
+        }
+      }
+    },
+    "taoqi": {
+      "name": "Taoqi",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 126,
+          "note": "On Moonlit Clouds Taoqi requires no Energy Regen at S5, Before S5 the estimate is 126% in a Carlotta+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "the-shorekeeper": {
+      "name": "The Shorekeeper",
+      "targets": {
+        "hp": {
+          "min": 20000,
+          "max": 35000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "crit_rate": {
+          "min": 20,
+          "max": 40
+        },
+        "crit_dmg": {
+          "min": 220,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 230,
+          "max": 230,
+          "note": "(Before Echo/Passive)Remember Shorekeeper's passive and her Fallacy of No Return Echo both increase her Energy by 10%, up to 250% total. If running a different Echo, 240% Energy Regen will be required."
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 30
+        }
+      }
+    },
+    "verina": {
+      "name": "Verina",
+      "targets": {
+        "hp": {
+          "min": 18000,
+          "max": 18000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1500,
+          "max": 1500
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 60
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 210
+        },
+        "energy_regen": {
+          "min": 220,
+          "max": 230,
+          "note": "Less Energy Regen (around 200%) can be required if Verina's skill hits the enemy, however it's better to interrupt it via her Ultimate to save time and hence this Energy requirement should be fulfilled as a priority."
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 30
+        }
+      }
+    },
+    "xiangli-yao": {
+      "name": "Xiangli Yao",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 120,
+          "max": 120,
+          "note": "Estimated in a Lynae+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 40,
+          "max": 70
+        }
+      }
+    },
+    "yangyang": {
+      "name": "Yangyang",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1150,
+          "max": 1150
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 107,
+          "max": 107,
+          "note": "Estimated in a Xiangli Yao+Shorekeeper team using Moonlit Clouds."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "yangyang-xuanling": {
+      "name": "Yangyang Xuanling",
+      "targets": {
+        "hp": {
+          "min": 15500,
+          "max": 15500
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 2100,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "Before set bonuses"
+        },
+        "crit_dmg": {
+          "min": 255,
+          "max": 300
+        },
+        "energy_regen": {
+          "min": 107,
+          "max": 119,
+          "note": "Lower end estimated with Rebecca+Chisa, higher end estimated with Chisa+Verina. In any case, should be very easy to meet due to her 2P Echo set giving 10% ER already."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "yinlin": {
+      "name": "Yinlin",
+      "targets": {
+        "hp": {
+          "min": 15500,
+          "max": 15500
+        },
+        "def": {
+          "min": 1250,
+          "max": 1250
+        },
+        "atk": {
+          "min": 2000,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 45,
+          "max": 65,
+          "note": "Before Passive"
+        },
+        "crit_dmg": {
+          "min": 255,
+          "max": 280
+        },
+        "energy_regen": {
+          "min": 128,
+          "max": 128,
+          "note": "Estimated in a Xiangli Yao+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 70
+        }
+      }
+    },
+    "youhu": {
+      "name": "Youhu",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1050,
+          "max": 1050
+        },
+        "atk": {
+          "min": 1300,
+          "max": 1300
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 80
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 100
+        },
+        "element_dmg": {
+          "min": 0,
+          "max": 60
+        }
+      }
+    },
+    "yuanwu": {
+      "name": "Yuanwu",
+      "targets": {
+        "hp": {
+          "min": 13000,
+          "max": 13000
+        },
+        "def": {
+          "min": 1800,
+          "max": 1800
+        },
+        "atk": {
+          "min": 1200,
+          "max": 1200
+        },
+        "crit_rate": {
+          "min": 60,
+          "max": 60
+        },
+        "crit_dmg": {
+          "min": 250,
+          "max": 250
+        },
+        "energy_regen": {
+          "min": 100,
+          "max": 100,
+          "note": "Yuanwu's optimal playstyle in a Jinhsi team does not involve his Resonance Liberation."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 60
+        }
+      }
+    },
+    "zani": {
+      "name": "Zani",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1800,
+          "max": 2300
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 65,
+          "note": "before Echo set bonuses"
+        },
+        "crit_dmg": {
+          "min": 210,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 115,
+          "max": 115,
+          "note": "Energy requirements may be lowered in a Quickswap-heavy playstyle."
+        },
+        "element_dmg": {
+          "min": 50,
+          "max": 80
+        }
+      }
+    },
+    "zhezhi": {
+      "name": "Zhezhi",
+      "targets": {
+        "hp": {
+          "min": 15000,
+          "max": 15000
+        },
+        "def": {
+          "min": 1100,
+          "max": 1100
+        },
+        "atk": {
+          "min": 1900,
+          "max": 2400
+        },
+        "crit_rate": {
+          "min": 65,
+          "max": 80,
+          "note": "before Echo set bonuses"
+        },
+        "crit_dmg": {
+          "min": 215,
+          "max": 260
+        },
+        "energy_regen": {
+          "min": 116,
+          "max": 128,
+          "note": "Lower Estimate is using Moonlit Clouds, highest estimate is using Empyrean Anthem, both in the context of a Carlotta+Shorekeeper team."
+        },
+        "element_dmg": {
+          "min": 30,
+          "max": 70
+        }
+      }
+    }
+  }
+}
