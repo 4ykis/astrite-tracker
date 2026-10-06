@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { isValidStatValue, Stat } from "@/lib/echoes";
+import { formatStatValue, isValidStatValue, Stat } from "@/lib/echoes";
 
 export default function StatRow({
   stat,
   got,
-  value,
+  value = null,
+  locked = false,
   onClick,
   onToggle,
   onValue,
@@ -15,10 +16,12 @@ export default function StatRow({
   /** Whether this stat is already rolled on the real echo. */
   got: boolean;
   /** The rolled value, only meaningful while `got`. */
-  value: number | null;
+  value?: number | null;
+  /** Main stats: always the +25 value (`stat.max`), shown instead of a value field. */
+  locked?: boolean;
   onClick: () => void;
   onToggle: () => void;
-  onValue: (value: number | null) => void;
+  onValue?: (value: number | null) => void;
 }) {
   // Set when the user checks the box, so the value field that appears takes focus.
   const [justChecked, setJustChecked] = useState(false);
@@ -68,7 +71,10 @@ export default function StatRow({
           </span>
         )}
       </button>
-      {got && (
+      {got && (locked || !onValue) && (
+        <span className="shrink-0 tabular-nums text-emerald-200">{formatStatValue(stat.max, stat.unit)}</span>
+      )}
+      {got && !locked && onValue && (
         <ValueInput key={stat.key} stat={stat} value={value} autoFocus={justChecked && value === null} onValue={onValue} />
       )}
     </div>

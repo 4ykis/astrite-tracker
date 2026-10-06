@@ -196,16 +196,14 @@ export const ECHO_COUNT = 5;
 
 /**
  * `mainGot` / `subsGot` mark stats that are already rolled on the real echo;
- * `mainValue` / `subValues` hold the rolled number, kept only while that stat is set and marked;
- * `fixedValue` is the free second main stat (FIXED_MAIN), kept together with `mainValue`.
+ * main stats (and the free FIXED_MAIN one) always count at their +25 value, so only `subValues`
+ * hold a rolled number, kept only while that stat is set and marked;
  * `extras` are rolled sub stats outside the plan (e.g. flat HP), only for the computed stats.
  */
 export type EchoSlot = {
   echoId: number | null;
   main: string | null;
   mainGot: boolean;
-  mainValue: number | null;
-  fixedValue: number | null;
   subs: (string | null)[];
   subsGot: boolean[];
   subValues: (number | null)[];
@@ -224,8 +222,6 @@ export const emptySlot = (): EchoSlot => ({
   echoId: null,
   main: null,
   mainGot: false,
-  mainValue: null,
-  fixedValue: null,
   subs: Array(SUB_COUNT).fill(null),
   subsGot: Array(SUB_COUNT).fill(false),
   subValues: Array(SUB_COUNT).fill(null),
@@ -271,10 +267,7 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
     const mainGot = main !== null && slot?.mainGot === true;
     const subsGot = subs.map((key, j) => key !== null && Array.isArray(slot?.subsGot) && slot.subsGot[j] === true);
     // Values are newer still; an out-of-range or non-numeric value is dropped.
-    const mainValue = mainGot ? validValue(mainDef, slot?.mainValue) : null;
-    // Rows saved before the fixed stat was editable count it as fully levelled.
-    const fixedDef = echo && FIXED_MAIN[echo.cost];
-    const fixedValue = mainGot && fixedDef ? (validValue(fixedDef, slot?.fixedValue) ?? fixedDef.max) : null;
+    // (Older rows also carry mainValue / fixedValue: main stats are fixed at +25 now, so they're dropped.)
     const subValues = subs.map((key, j) =>
       subsGot[j] && key !== null && Array.isArray(slot?.subValues)
         ? validValue(SUB_STAT_BY_KEY.get(key), slot.subValues[j])
@@ -285,8 +278,6 @@ export function normalizeSlots(raw: unknown): EchoSlot[] {
       echoId: echo?.id ?? null,
       main,
       mainGot,
-      mainValue,
-      fixedValue,
       subs,
       subsGot,
       subValues,

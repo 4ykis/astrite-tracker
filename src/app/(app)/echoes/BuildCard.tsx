@@ -277,33 +277,17 @@ export default function BuildCard({
 
                 <div className="flex items-center justify-between gap-1 px-1.5 py-1 text-xs text-slate-300 lg:text-sm">
                   <span>{FIXED_MAIN[echo.cost].label}</span>
-                  {slot.mainGot ? (
-                    <ValueInput
-                      key={echo.cost}
-                      stat={FIXED_MAIN[echo.cost]}
-                      value={slot.fixedValue}
-                      autoFocus={false}
-                      onValue={(value) => patchSlot(index, (s) => ({ ...s, fixedValue: value }))}
-                    />
-                  ) : (
-                    <span className="text-slate-500">{FIXED_MAIN[echo.cost].hint}</span>
-                  )}
+                  <span className={slot.mainGot ? "tabular-nums text-emerald-200" : "text-slate-500"}>
+                    {FIXED_MAIN[echo.cost].hint}
+                  </span>
                 </div>
                 <StatRow
                   stat={mainStat(echo.cost, slot.main)}
                   got={slot.mainGot}
-                  value={slot.mainValue}
+                  // Main stats are always counted at +25: only the type is chosen.
+                  locked
                   onClick={() => setPicker({ kind: "main", slot: index })}
-                  onToggle={() =>
-                    patchSlot(index, (s) => ({
-                      ...s,
-                      mainGot: !s.mainGot,
-                      // A freshly checked main stat is almost always fully levelled.
-                      mainValue: s.mainGot ? null : (mainStat(echo.cost, s.main)?.max ?? null),
-                      fixedValue: s.mainGot ? null : FIXED_MAIN[echo.cost].max,
-                    }))
-                  }
-                  onValue={(value) => patchSlot(index, (s) => ({ ...s, mainValue: value }))}
+                  onToggle={() => patchSlot(index, (s) => ({ ...s, mainGot: !s.mainGot }))}
                 />
 
                 <div className="mx-1.5 my-0.5 h-px bg-amber-400/70" />
@@ -399,8 +383,6 @@ export default function BuildCard({
               ...s,
               main: key,
               mainGot: key === s.main && s.mainGot,
-              mainValue: key === s.main ? s.mainValue : null,
-              fixedValue: key === s.main ? s.fixedValue : null,
             }))
           }
         />
@@ -486,8 +468,6 @@ export default function BuildCard({
                   echoId,
                   main: defaultMain(cost),
                   mainGot: false,
-                  mainValue: null,
-                  fixedValue: null,
                   subs: s.subs.map((_, i) => DEFAULT_SUBS[i] ?? null),
                   subsGot: s.subsGot.map(() => false),
                   subValues: s.subValues.map(() => null),
@@ -501,8 +481,6 @@ export default function BuildCard({
                 echoId,
                 main: sameCost ? s.main : defaultMain(cost),
                 mainGot: false,
-                mainValue: null,
-                fixedValue: null,
                 subsGot: s.subsGot.map(() => false),
                 subValues: s.subValues.map(() => null),
                 extras: [],

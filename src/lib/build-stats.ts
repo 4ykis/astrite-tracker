@@ -1,12 +1,12 @@
 /**
  * Character stats for an echo build header, the way the game's character screen adds them up.
  * Counted: level-90 base, weapon base ATK + secondary stat + the always-on stat of its passive
- * (refinement 1), unlocked minor forte nodes, echo stats that are marked as rolled and have a
+ * (refinement 1), unlocked minor forte nodes, checked echo main stats at +25, checked sub stats that have a
  * value, and the echoes' extra (unplanned) sub stats. Not counted: sonata set bonuses, conditional passive effects, element / healing /
  * skill-type DMG.
  */
 import targetData from "./data/wuwa_targets.json";
-import { Character, ECHO_BY_ID, EchoSlot, FIXED_MAIN, isForteOn, Weapon } from "./echoes";
+import { Character, ECHO_BY_ID, EchoSlot, FIXED_MAIN, isForteOn, mainStat, Weapon } from "./echoes";
 import { compare, TargetFile, targetSlug } from "./targets";
 
 export type CharacterStats = {
@@ -43,11 +43,12 @@ export function computeStats(
   for (const slot of slots) {
     const echo = slot.echoId !== null ? ECHO_BY_ID.get(slot.echoId) : undefined;
     if (!echo) continue;
-    if (slot.main && slot.mainGot) {
-      // The free second main stat comes with any rolled main stat.
+    const main = slot.mainGot ? mainStat(echo.cost, slot.main) : undefined;
+    if (main) {
+      // Main stats count at +25, together with the free second main stat.
       const fixed = FIXED_MAIN[echo.cost];
-      add(fixed.key, slot.fixedValue ?? fixed.max);
-      if (slot.mainValue !== null) add(slot.main, slot.mainValue);
+      add(fixed.key, fixed.max);
+      add(main.key, main.max);
     }
     slot.subs.forEach((key, i) => {
       const value = slot.subValues[i];
