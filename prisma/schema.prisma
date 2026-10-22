@@ -28,6 +28,8 @@ model User {
   name      String?
   image     String?
   createdAt DateTime @default(now())
+  /// Echo builds: while on, a build marked finished is shelved right away (see `EchoBuild.shelved`).
+  collapseFinishedBuilds Boolean @default(false)
 
   balanceEntries  BalanceEntry[]
   spendEntries    SpendEntry[]
@@ -118,6 +120,8 @@ model EchoBuild {
   collapsed   Boolean  @default(false)
   /// Marked done by hand: the header border goes green regardless of the stat targets.
   finished    Boolean  @default(false)
+  /// Tucked away from the list into the strip of finished heroes above it (only ever set while `finished`).
+  shelved     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

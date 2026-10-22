@@ -532,7 +532,7 @@ export default function BuildCard({
   );
 }
 
-function CharacterIcon({ character, className }: { character: Character; className: string }) {
+export function CharacterIcon({ character, className }: { character: Character; className: string }) {
   return (
     <Image
       src={characterIcon(character.id)}
